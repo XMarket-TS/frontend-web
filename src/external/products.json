@@ -1,0 +1,61 @@
+[{
+        "id": "32WS32",
+        "title": "Coca-Cola 2L",
+        "price": 12.30,
+        "discount": 0.3,
+        "description": "Es una coca de 2L en un envase de plastico no retornable",
+        "images": [
+            "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg",
+            "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
+            "https://www.chedraui.com.mx/medias/7501055302925-00-CH1200Wx1200H?context=bWFzdGVyfHJvb3R8MTAxODk3fGltYWdlL2pwZWd8aDliL2gxOS8xMDE1MDY0NzI2NzM1OC5qcGd8NDE4ZDZkYzVmYjEwYTNjMzczOWQ2Y2JiNTU1NjM0ODA5NTViMWNkN2UwNjJmZGEwNGExNjRhYjYwM2Q1NjQ0NA"
+        ]
+    },
+    {
+        "id": "32WS32",
+        "title": "Coca-Cola 2L",
+        "price": 12.30,
+        "discount": 0.5,
+        "description": "Es una coca de 2L en un envase de plastico no retornable",
+        "images": [
+            "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
+            "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg",
+            "https://www.chedraui.com.mx/medias/7501055302925-00-CH1200Wx1200H?context=bWFzdGVyfHJvb3R8MTAxODk3fGltYWdlL2pwZWd8aDliL2gxOS8xMDE1MDY0NzI2NzM1OC5qcGd8NDE4ZDZkYzVmYjEwYTNjMzczOWQ2Y2JiNTU1NjM0ODA5NTViMWNkN2UwNjJmZGEwNGExNjRhYjYwM2Q1NjQ0NA"
+        ]
+    },
+    {
+        "id": "32WS32",
+        "title": "Coca-Cola 2L",
+        "price": 12.30,
+        "discount": 0,
+        "description": "Es una coca de 2L en un envase de plastico no retornable",
+        "images": [
+            "https://www.chedraui.com.mx/medias/7501055302925-00-CH1200Wx1200H?context=bWFzdGVyfHJvb3R8MTAxODk3fGltYWdlL2pwZWd8aDliL2gxOS8xMDE1MDY0NzI2NzM1OC5qcGd8NDE4ZDZkYzVmYjEwYTNjMzczOWQ2Y2JiNTU1NjM0ODA5NTViMWNkN2UwNjJmZGEwNGExNjRhYjYwM2Q1NjQ0NA",
+            "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg",
+            "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+        ]
+    },
+    {
+        "id": "32WS32",
+        "title": "Coca-Cola 2L",
+        "price": 12.50,
+        "discount": 0,
+        "description": "Es una coca de 2L en un envase de plastico no retornable",
+        "images": [
+            "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
+            "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg",
+            "https://www.chedraui.com.mx/medias/7501055302925-00-CH1200Wx1200H?context=bWFzdGVyfHJvb3R8MTAxODk3fGltYWdlL2pwZWd8aDliL2gxOS8xMDE1MDY0NzI2NzM1OC5qcGd8NDE4ZDZkYzVmYjEwYTNjMzczOWQ2Y2JiNTU1NjM0ODA5NTViMWNkN2UwNjJmZGEwNGExNjRhYjYwM2Q1NjQ0NA"
+        ]
+    },
+    {
+        "id": "32WS32",
+        "title": "Coca-Cola 2L",
+        "price": 12.30,
+        "discount": 0,
+        "description": "Es una coca de 2L en un envase de plastico no retornable",
+        "images": [
+            "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg",
+            "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
+            "https://www.chedraui.com.mx/medias/7501055302925-00-CH1200Wx1200H?context=bWFzdGVyfHJvb3R8MTAxODk3fGltYWdlL2pwZWd8aDliL2gxOS8xMDE1MDY0NzI2NzM1OC5qcGd8NDE4ZDZkYzVmYjEwYTNjMzczOWQ2Y2JiNTU1NjM0ODA5NTViMWNkN2UwNjJmZGEwNGExNjRhYjYwM2Q1NjQ0NA"
+        ]
+    }
+]
