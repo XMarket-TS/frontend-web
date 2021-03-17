@@ -1,23 +1,7 @@
 <template>
   <v-card class="mx-auto" outlined elevation="5" shaped>
     <!-- delimiter-icon="mdi-minus" -->
-    <v-carousel :cycle="cycle" height="250px" show-arrows-on-hover>
-      <!--  -->
-      <!-- <template v-slot:prev="{ on, attrs }">
-        <v-btn color="success" v-bind="attrs" v-on="on">Previous</v-btn>
-      </template>
-      <template v-slot:next="{ on, attrs }">
-        <v-btn color="info" v-bind="attrs" v-on="on">Next</v-btn>
-      </template> -->
-      <!--  -->
-      <v-carousel-item v-for="(image, i) in images" :key="i">
-        <v-sheet color="white" height="100%" tile>
-          <v-row class="fill-height" align="center" justify="center">
-            <v-img contain :src="image" height="100%"></v-img>
-          </v-row>
-        </v-sheet>
-      </v-carousel-item>
-    </v-carousel>
+    <Gallery :images="images" :clyde="true" :heightCarousel="250"></Gallery>
     <v-card-title>
       {{ title }}
       <v-spacer></v-spacer>
@@ -49,7 +33,9 @@
             <v-spacer></v-spacer>
             <v-btn color="primary" icon><v-icon>mdi-lead-pencil</v-icon></v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="secondary" icon><v-icon>mdi-delete</v-icon></v-btn>
+            <v-btn color="secondary" icon @click="deleteProduct(id)"
+              ><v-icon>mdi-delete</v-icon></v-btn
+            >
             <v-spacer></v-spacer>
           </v-row>
         </v-container>
@@ -60,7 +46,7 @@
 </template>
 
 <script>
-// import s
+import Gallery from "./Gallery";
 export default {
   props: {
     id: {
@@ -90,8 +76,17 @@ export default {
   },
   data: () => ({
     show: false,
-    cycle: false,
   }),
+  components: {
+    Gallery,
+  },
+  methods: {
+    deleteProduct(id) {
+      // console.log(id);
+      if (id != -1) this.$emit("deleteProduct", id);
+      // else throw new ErrorEvent
+    },
+  },
 };
 </script>
 
