@@ -1,37 +1,22 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark absolute>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <br />
+    <NavBar></NavBar>
     <v-main>
       <router-view />
     </v-main>
+    <footer-main></footer-main>
   </v-app>
 </template>
 
 <script>
+import FooterMain from "./components/FooterMain.vue";
+import NavBar from "./components/NavBar.vue";
 export default {
   name: "App",
+  components: {
+    NavBar,
+    FooterMain,
+  },
   data: () => ({
     //
   }),

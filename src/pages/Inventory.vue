@@ -1,6 +1,11 @@
 <template>
   <v-container>
     <v-row>
+      <v-col cols="12">
+        <v-alert dense text v-model="successUpload" type="success" dismissible>
+          Producto agregado correctamente
+        </v-alert>
+      </v-col>
       <v-col v-for="(product, i) in prods" :key="i" cols="12" sm="3">
         <Product
           :id="product.id"
@@ -25,6 +30,7 @@ export default {
   },
   data: () => ({
     prods: null,
+    successUpload: false,
   }),
 
   beforeMount() {
