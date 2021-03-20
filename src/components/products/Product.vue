@@ -33,10 +33,13 @@
             <v-spacer></v-spacer>
             <v-btn color="primary" icon><v-icon>mdi-lead-pencil</v-icon></v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="secondary" icon @click="confirmDelete(id)">
+            <!-- <v-btn color="secondary" icon @click="confirmDelete(id)">
               <v-icon>mdi-delete</v-icon>
-            </v-btn>
-            <DeleteDialog :dialog="dialogDelete" />
+            </v-btn> -->
+            <DeleteDialog
+              :id="id"
+              @confirmDeleteProduct="confirmDelete($event)"
+            />
             <v-spacer></v-spacer>
           </v-row>
         </v-container>
@@ -52,8 +55,8 @@ import Gallery from "./Gallery";
 export default {
   props: {
     id: {
-      type: String,
-      default: "-1",
+      type: Number,
+      default: -1,
     },
     title: {
       type: String,
@@ -78,20 +81,16 @@ export default {
   },
   data: () => ({
     show: false,
-    dialogDelete: false,
   }),
   components: {
     Gallery,
     DeleteDialog,
   },
   methods: {
-    deleteProduct(id) {
-      // console.log(id);
+    confirmDelete(id) {
+      console.log(id);
       if (id != -1) this.$emit("deleteProduct", id);
       // else throw new ErrorEvent
-    },
-    confirmDelete() {
-      this.dialogDelete = true;
     },
   },
 };

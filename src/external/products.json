@@ -1,6 +1,5 @@
-[
-    {
-        "id": "32aWS32",
+[{
+        "id": 2352341,
         "title": "Coca-Cola 2L",
         "price": 12.30,
         "discount": 0.3,
@@ -12,7 +11,7 @@
         ]
     },
     {
-        "id": "32feWS32",
+        "id": 2352341,
         "title": "Coca-Cola 2L",
         "price": 12.30,
         "discount": 0.5,
@@ -24,7 +23,7 @@
         ]
     },
     {
-        "id": "32WSas32",
+        "id": 56734513,
         "title": "Coca-Cola 2L",
         "price": 12.30,
         "discount": 0,
@@ -36,7 +35,7 @@
         ]
     },
     {
-        "id": "32WS3das2",
+        "id": 95654,
         "title": "Coca-Cola 2L",
         "price": 12.50,
         "discount": 0,
@@ -48,7 +47,7 @@
         ]
     },
     {
-        "id": "32WgadeS32",
+        "id": 3463234,
         "title": "Coca-Cola 2L",
         "price": 12.30,
         "discount": 0,

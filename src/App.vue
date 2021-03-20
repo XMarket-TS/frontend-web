@@ -2,7 +2,9 @@
   <v-app>
     <NavBar></NavBar>
     <v-main>
-      <router-view />
+      <transition>
+        <router-view />
+      </transition>
     </v-main>
     <footer-main></footer-main>
   </v-app>
