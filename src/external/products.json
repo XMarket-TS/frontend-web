@@ -5,57 +5,47 @@
         "discount": 0.3,
         "description": "Es una coca de 2L en un envase de plastico no retornable",
         "images": [
-            "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg",
-            "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
-            "https://www.chedraui.com.mx/medias/7501055302925-00-CH1200Wx1200H?context=bWFzdGVyfHJvb3R8MTAxODk3fGltYWdlL2pwZWd8aDliL2gxOS8xMDE1MDY0NzI2NzM1OC5qcGd8NDE4ZDZkYzVmYjEwYTNjMzczOWQ2Y2JiNTU1NjM0ODA5NTViMWNkN2UwNjJmZGEwNGExNjRhYjYwM2Q1NjQ0NA"
+            "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg"
         ]
     },
     {
         "id": 2352341,
-        "title": "Coca-Cola 2L",
-        "price": 12.30,
-        "discount": 0.5,
-        "description": "Es una coca de 2L en un envase de plastico no retornable",
+        "title": "Baileys",
+        "price": 149.90,
+        "discount": 0.0,
+        "description": "Baileys 750Ml",
         "images": [
-            "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
-            "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg",
-            "https://www.chedraui.com.mx/medias/7501055302925-00-CH1200Wx1200H?context=bWFzdGVyfHJvb3R8MTAxODk3fGltYWdlL2pwZWd8aDliL2gxOS8xMDE1MDY0NzI2NzM1OC5qcGd8NDE4ZDZkYzVmYjEwYTNjMzczOWQ2Y2JiNTU1NjM0ODA5NTViMWNkN2UwNjJmZGEwNGExNjRhYjYwM2Q1NjQ0NA"
+            "https://www.ketal.com.bo/image/cache/catalog/product/5055050-550x550.jpg"
         ]
     },
     {
         "id": 56734513,
-        "title": "Coca-Cola 2L",
-        "price": 12.30,
-        "discount": 0,
-        "description": "Es una coca de 2L en un envase de plastico no retornable",
+        "title": "Singani Tarixa",
+        "price": 300,
+        "discount": 0.15,
+        "description": "Singani Tarixa Anejado Esp. 3Anos 700Ml",
         "images": [
-            "https://www.chedraui.com.mx/medias/7501055302925-00-CH1200Wx1200H?context=bWFzdGVyfHJvb3R8MTAxODk3fGltYWdlL2pwZWd8aDliL2gxOS8xMDE1MDY0NzI2NzM1OC5qcGd8NDE4ZDZkYzVmYjEwYTNjMzczOWQ2Y2JiNTU1NjM0ODA5NTViMWNkN2UwNjJmZGEwNGExNjRhYjYwM2Q1NjQ0NA",
-            "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg",
-            "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+            "https://www.ketal.com.bo/image/cache/catalog/product/80187952-550x550.jpg"
         ]
     },
     {
         "id": 95654,
-        "title": "Coca-Cola 2L",
-        "price": 12.50,
+        "title": "Chizitos La Estrella",
+        "price": 12.70,
         "discount": 0,
-        "description": "Es una coca de 2L en un envase de plastico no retornable",
+        "description": "Chizitos La Estrella Familiar 240Gr",
         "images": [
-            "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
-            "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg",
-            "https://www.chedraui.com.mx/medias/7501055302925-00-CH1200Wx1200H?context=bWFzdGVyfHJvb3R8MTAxODk3fGltYWdlL2pwZWd8aDliL2gxOS8xMDE1MDY0NzI2NzM1OC5qcGd8NDE4ZDZkYzVmYjEwYTNjMzczOWQ2Y2JiNTU1NjM0ODA5NTViMWNkN2UwNjJmZGEwNGExNjRhYjYwM2Q1NjQ0NA"
+            "https://www.ketal.com.bo/image/cache/catalog/product/80141414-550x550.jpg"
         ]
     },
     {
         "id": 3463234,
-        "title": "Coca-Cola 2L",
-        "price": 12.30,
-        "discount": 0,
-        "description": "Es una coca de 2L en un envase de plastico no retornable",
+        "title": "Doritos Queso",
+        "price": 19.90,
+        "discount": 0.2,
+        "description": "Doritos Queso 200Gr",
         "images": [
-            "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg",
-            "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
-            "https://www.chedraui.com.mx/medias/7501055302925-00-CH1200Wx1200H?context=bWFzdGVyfHJvb3R8MTAxODk3fGltYWdlL2pwZWd8aDliL2gxOS8xMDE1MDY0NzI2NzM1OC5qcGd8NDE4ZDZkYzVmYjEwYTNjMzczOWQ2Y2JiNTU1NjM0ODA5NTViMWNkN2UwNjJmZGEwNGExNjRhYjYwM2Q1NjQ0NA"
+            "https://www.ketal.com.bo/image/cache/catalog/product/80134792-1000x1000.jpg"
         ]
     }
 ]

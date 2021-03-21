@@ -1,25 +1,28 @@
 <template>
   <v-card class="mx-auto" outlined elevation="5">
     <!-- delimiter-icon="mdi-minus" -->
-    <Gallery :images="images" :clyde="true" :heightCarousel="250"></Gallery>
-    <v-card-title>
+    <Gallery :images="images" :clyde="true" :heightCarousel="350"></Gallery>
+    <v-divider></v-divider>
+    <v-card-title class="headline font-weight-bold pb-0">
       {{ title }}
       <v-spacer></v-spacer>
       <v-chip v-if="discount > 0.0" color="accent">
-        {{ -discount * 100 }}
+        - {{ discount * 100 }}
         <v-icon>mdi-sale</v-icon>
       </v-chip>
     </v-card-title>
-    <v-card-subtitle>
+    <v-card-title class="pb-0">
       Bs. {{ discount > 0 ? price * (1 - discount) : price | roundPrice }}
       <v-spacer></v-spacer>
-    </v-card-subtitle>
+      <div v-if="discount > 0" class="text-decoration-line-through">
+        Bs. {{ price | roundPrice }}
+      </div>
+    </v-card-title>
 
     <v-card-actions>
       <!-- <v-btn icon @click="show = !show">
         <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
       </v-btn> -->
-
       <v-spacer></v-spacer>
       <v-btn @click="show = !show" color="info" text> More </v-btn>
     </v-card-actions>

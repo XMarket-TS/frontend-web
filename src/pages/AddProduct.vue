@@ -6,7 +6,7 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" sm="5">
-            <Gallery :images="images" :heightCarousel="300"></Gallery>
+            <Gallery :images="images" :heightCarousel="350"></Gallery>
             <br />
             <v-row align="center" justify="center">
               <v-col cols="12" sm="8">

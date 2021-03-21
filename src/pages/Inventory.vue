@@ -1,27 +1,29 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12">
-        <v-alert text v-model="successUpload" type="success" dismissible>
-          Producto agregado correctamente
-        </v-alert>
-        <v-alert text v-model="dialogDelete" type="success" dismissible>
-          Producto eliminado correctamente
-        </v-alert>
-      </v-col>
-      <v-col v-for="(product, i) in prods" :key="i" cols="12" sm="3">
-        <Product
-          :id="product.id"
-          :images="product.images"
-          :title="product.title"
-          :price="product.price"
-          :discount="product.discount"
-          :description="product.description"
-          @deleteProduct="filterProduct($event)"
-        ></Product>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-card max-width="90%" class="mx-auto" flat>
+    <v-card-text>
+      <v-row dense>
+        <v-col cols="12">
+          <v-alert text v-model="successUpload" type="success" dismissible>
+            Producto agregado correctamente
+          </v-alert>
+          <v-alert text v-model="dialogDelete" type="success" dismissible>
+            Producto eliminado correctamente
+          </v-alert>
+        </v-col>
+        <v-col v-for="(product, i) in prods" :key="i" cols="12" sm="3">
+          <Product
+            :id="product.id"
+            :images="product.images"
+            :title="product.title"
+            :price="product.price"
+            :discount="product.discount"
+            :description="product.description"
+            @deleteProduct="filterProduct($event)"
+          ></Product>
+        </v-col>
+      </v-row>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
