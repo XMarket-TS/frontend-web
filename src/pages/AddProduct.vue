@@ -148,6 +148,7 @@
 <script>
 import AddDialog from "../components/products/AddDialog.vue";
 import UploadImages from "../components/products/UploadImages.vue";
+import axios from "axios";
 export default {
   components: {
     AddDialog,
@@ -176,6 +177,7 @@ export default {
     withDiscount: false,
     dates: ["2021-03-21", "2021-03-20"],
     errors: [],
+    categoriesComplete: [],
   }),
   computed: {
     errorsText() {
@@ -191,6 +193,21 @@ export default {
   },
   mounted() {
     this.categories = ["foo", "bar", "fizz", "buzz"];
+    axios
+      .get("category/list")
+      .then((res) => {
+        const datas = res.data;
+        const data = [];
+        this.categoriesComplete = res;
+        for (let key in datas) {
+          const user = datas[key].category;
+          data.push(user);
+        }
+        console.log(data);
+        this.categories = data;
+        // this.email = users[0].email;
+      })
+      .catch((error) => console.warn(error));
   },
   methods: {
     verifyData() {
