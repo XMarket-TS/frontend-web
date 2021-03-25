@@ -12,14 +12,14 @@
         </v-col>
         <v-col v-for="(product, i) in prods" :key="i" cols="12" sm="3">
           <Product
-            :id="product.productId"
-            :images="product.imagesUrl"
-            :title="product.name"
-            :price="product.price"
-            :discount="product.discount"
-            :description="product.description"
             :category="product.category"
+            :description="product.description"
+            :images="[product.firstImage]"
+            :title="product.name"
+            :discount="product.percentage"
+            :price="product.price"
             :buttons="true"
+            :id="product.productId"
             @deleteProduct="filterProduct($event)"
           ></Product>
         </v-col>
@@ -30,7 +30,6 @@
 
 <script>
 import axios from "axios";
-import products from "../external/products.json";
 import Product from "../components/products/Product";
 export default {
   name: "Inventory",
@@ -57,22 +56,25 @@ export default {
     },
   },
   mounted() {
-    this.prods = products;
     axios
-      .get("user/1/branchOffice/1/product")
+      .get("user/" + 1 + "/branchOffice/" + 1 + "/product")
       .then((res) => {
-        console.log(res);
-        // const data = res.data;
-        // const users = [];
-        // for (let key in data) {
-        //   const user = data[key];
-        //   user.id = key;
-        //   users.push(user);
-        // }
-        // console.log(users);
+        // console.log(res);
+        if (!res.status) {
+          // Notify, there isnt data
+          return;
+        }
+        const data = res.data;
+        const prods = [];
+        for (let key in data) {
+          const user = data[key];
+          prods.push(user);
+        }
+        console.log(prods);
+        this.prods = prods;
         // this.email = users[0].email;
       })
-      .catch((error) => console.warn(error));
+      .catch((error) => console.error(error));
   },
 };
 </script>

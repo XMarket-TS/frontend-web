@@ -192,7 +192,6 @@ export default {
     },
   },
   mounted() {
-    this.categories = ["foo", "bar", "fizz", "buzz"];
     axios
       .get("category/list")
       .then((res) => {
@@ -207,7 +206,10 @@ export default {
         this.categories = data;
         // this.email = users[0].email;
       })
-      .catch((error) => console.warn(error));
+      .catch((error) => console.warn(error))
+      .finally(() => {
+        this.categories = ["No hay categorias"];
+      });
   },
   methods: {
     verifyData() {
