@@ -6,14 +6,26 @@
         <br />
       </v-col>
       <v-col cols="12">
-        <v-progress-linear
+        <!-- <v-progress-linear
           v-show="showProgress"
           color="primary"
           buffer-value="0"
           v-model="progress"
           stream
           height="5"
-        ></v-progress-linear>
+        ></v-progress-linear> -->
+        <v-progress-circular
+          v-show="showProgress"
+          :rotate="360"
+          :size="75"
+          :width="15"
+          v-model="progress"
+          color="primary"
+          buffer-value="0"
+        >
+          {{ progress }}
+        </v-progress-circular>
+        <br />
       </v-col>
       <v-col cols="12">
         <v-file-input
@@ -96,7 +108,7 @@ export default {
         this.errors = [];
       }
 
-      console.log(this.file.name);
+      // console.log(this.file.name);
 
       let reader = new FileReader();
       // attach listener to be called when data from file
@@ -123,9 +135,10 @@ export default {
           axios(requestObj)
             .then((response) => {
               this.results = response.data;
-              console.log(this.results);
-              console.log("public_id", this.results.public_id);
-            //   this.images.push(this.results.secure_url);
+              // console.log(this.results);
+              // console.log("public_id", this.results.public_id);
+              //   this.images.push(this.results.secure_url);
+
               this.$emit("successUploaded", this.results.secure_url);
             })
             .catch((error) => {
@@ -135,7 +148,9 @@ export default {
             .finally(() => {
               setTimeout(
                 function () {
+                  this.progress = 0;
                   this.showProgress = false;
+                  this.file = null;
                 }.bind(this),
                 1000
               );

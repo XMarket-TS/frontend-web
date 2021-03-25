@@ -12,12 +12,14 @@
         </v-col>
         <v-col v-for="(product, i) in prods" :key="i" cols="12" sm="3">
           <Product
-            :id="product.id"
-            :images="product.images"
-            :title="product.title"
+            :id="product.productId"
+            :images="product.imagesUrl"
+            :title="product.name"
             :price="product.price"
             :discount="product.discount"
             :description="product.description"
+            :category="product.category"
+            :buttons="true"
             @deleteProduct="filterProduct($event)"
           ></Product>
         </v-col>
@@ -28,7 +30,7 @@
 
 <script>
 import axios from "axios";
-// import products from "../external/products.json";
+import products from "../external/products.json";
 import Product from "../components/products/Product";
 export default {
   name: "Inventory",
@@ -55,7 +57,7 @@ export default {
     },
   },
   mounted() {
-    // this.prods = products;
+    this.prods = products;
     axios
       .get("user/1/branchOffice/1/product")
       .then((res) => {

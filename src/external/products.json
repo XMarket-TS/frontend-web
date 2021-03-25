@@ -1,52 +1,60 @@
-[
-    {
-        "id": 2352341,
-        "title": "Coca-Cola 2L",
+[{
+        "productId": 2352341,
+        "name": "Coca-Cola 2L",
         "price": 12.30,
         "discount": 0.3,
         "description": "Es una coca de 2L en un envase de plastico no retornable",
-        "category": [],
-        "images": [
+        "category": "Bebidas",
+        "unit": 1,
+        "imagesUrl": [
             "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg"
         ]
     },
     {
-        "id": 2352341,
-        "title": "Baileys",
+        "productId": 2352341,
+        "name": "Baileys",
         "price": 149.90,
         "discount": 0.0,
         "description": "Baileys 750Ml",
-        "images": [
+        "category": "Bebidas",
+        "unit": 1,
+        "imagesUrl": [
             "https://www.ketal.com.bo/image/cache/catalog/product/5055050-550x550.jpg"
         ]
     },
     {
-        "id": 56734513,
-        "title": "Singani Tarixa",
+        "productId": 56734513,
+        "name": "Singani Tarixa",
         "price": 300,
         "discount": 0.15,
         "description": "Singani Tarixa Anejado Esp. 3Anos 700Ml",
-        "images": [
+        "category": "Bebidas",
+        "unit": 1,
+        "imagesUrl": [
             "https://www.ketal.com.bo/image/cache/catalog/product/80187952-550x550.jpg"
         ]
     },
     {
-        "id": 95654,
-        "title": "Chizitos La Estrella",
+        "productId": 95654,
+        "name": "Chizitos La Estrella",
         "price": 12.70,
         "discount": 0,
         "description": "Chizitos La Estrella Familiar 240Gr",
-        "images": [
+        "category": "Snacks",
+        "unit": 1,
+        "imagesUrl": [
             "https://www.ketal.com.bo/image/cache/catalog/product/80141414-550x550.jpg"
         ]
     },
     {
-        "id": 3463234,
-        "title": "Doritos Queso",
+        "productId": 3463234,
+        "name": "Doritos Queso",
         "price": 19.90,
         "discount": 0.2,
         "description": "Doritos Queso 200Gr",
-        "images": [
+        "category": "Snacks",
+        "unit": 1,
+        "imagesUrl": [
             "https://www.ketal.com.bo/image/cache/catalog/product/80134792-1000x1000.jpg"
         ]
     }

@@ -18,37 +18,38 @@
         Bs. {{ price | roundPrice }}
       </div>
     </v-card-title>
-
-    <v-card-actions>
-      <!-- <v-btn icon @click="show = !show">
+    <v-card-title class="justify-center">
+      <v-chip close-icon="mdi-close-outline" color="blue" label link outlined>
+        {{ category }}
+      </v-chip>
+    </v-card-title>
+    <!-- <v-card-actions> -->
+    <!-- <v-btn icon @click="show = !show">
         <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
       </v-btn> -->
-      <v-spacer></v-spacer>
-      <v-btn @click="show = !show" color="info" text> More </v-btn>
-    </v-card-actions>
+    <!-- <v-spacer></v-spacer> -->
+    <!-- <v-btn @click="show = !show" color="info" text> More </v-btn> -->
+    <!-- </v-card-actions> -->
 
-    <v-expand-transition>
-      <div v-show="show">
-        <v-divider></v-divider>
-        <v-card-text v-text="description"> </v-card-text>
-        <v-container>
-          <v-row justify="center" align="center">
-            <v-spacer></v-spacer>
-            <v-btn color="primary" icon><v-icon>mdi-lead-pencil</v-icon></v-btn>
-            <v-spacer></v-spacer>
-            <!-- <v-btn color="secondary" icon @click="confirmDelete(id)">
+    <!-- <v-expand-transition>
+      <div v-show="show"> -->
+    <v-divider></v-divider>
+    <v-card-text v-text="description"> </v-card-text>
+    <v-container>
+      <v-row justify="center" align="center" v-if="buttons">
+        <v-spacer></v-spacer>
+        <v-btn color="primary" icon><v-icon>mdi-lead-pencil</v-icon></v-btn>
+        <v-spacer></v-spacer>
+        <!-- <v-btn color="secondary" icon @click="confirmDelete(id)">
               <v-icon>mdi-delete</v-icon>
             </v-btn> -->
-            <DeleteDialog
-              :id="id"
-              @confirmDeleteProduct="confirmDelete($event)"
-            />
-            <v-spacer></v-spacer>
-          </v-row>
-        </v-container>
-        <br />
-      </div>
-    </v-expand-transition>
+        <DeleteDialog :id="id" @confirmDeleteProduct="confirmDelete($event)" />
+        <v-spacer></v-spacer>
+      </v-row>
+    </v-container>
+    <br />
+    <!-- </div>
+    </v-expand-transition> -->
   </v-card>
 </template>
 
@@ -77,9 +78,17 @@ export default {
       type: String,
       default: "NO_DESCRIPTION",
     },
+    category: {
+      type: String,
+      default: "NO_CATEGORY",
+    },
     images: {
       type: Array,
       default: () => [],
+    },
+    buttons: {
+      type: Boolean,
+      default: false,
     },
   },
   data: () => ({
