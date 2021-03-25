@@ -1,9 +1,11 @@
-[{
+[
+    {
         "id": 2352341,
         "title": "Coca-Cola 2L",
         "price": 12.30,
         "discount": 0.3,
         "description": "Es una coca de 2L en un envase de plastico no retornable",
+        "category": [],
         "images": [
             "https://st1.sedovin.com/3371/coca-cola-2-litros.jpg"
         ]

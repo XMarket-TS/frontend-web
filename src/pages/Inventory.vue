@@ -27,9 +27,11 @@
 </template>
 
 <script>
-import products from "../external/products.json";
+import axios from "axios";
+// import products from "../external/products.json";
 import Product from "../components/products/Product";
 export default {
+  name: "Inventory",
   components: {
     Product,
   },
@@ -38,10 +40,6 @@ export default {
     dialogDelete: false,
     successUpload: false,
   }),
-
-  beforeMount() {
-    this.prods = products;
-  },
   methods: {
     filterProduct(val) {
       // console.log(val);
@@ -55,6 +53,24 @@ export default {
     confirmDelete() {
       this.dialogDelete = true;
     },
+  },
+  mounted() {
+    // this.prods = products;
+    axios
+      .get("user/1/branchOffice/1/product")
+      .then((res) => {
+        console.log(res);
+        // const data = res.data;
+        // const users = [];
+        // for (let key in data) {
+        //   const user = data[key];
+        //   user.id = key;
+        //   users.push(user);
+        // }
+        // console.log(users);
+        // this.email = users[0].email;
+      })
+      .catch((error) => console.warn(error));
   },
 };
 </script>

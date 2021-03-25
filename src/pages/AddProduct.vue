@@ -3,29 +3,10 @@
     <v-card class="mx-auto" elevation="15">
       <v-card-title>Agregar nuevo producto</v-card-title>
       <v-divider></v-divider>
-      <v-card-text>
+      <v-card-text class="text-center">
         <v-row>
           <v-col cols="12" sm="5">
-            <Gallery :images="images" :heightCarousel="350"></Gallery>
-            <br />
-            <v-row align="center" justify="center">
-              <v-col cols="12" sm="8">
-                <v-file-input
-                  :rules="rules"
-                  accept="image/png, image/jpeg, image/jpg, image/jfif"
-                  prepend-inner-icon="mdi-camera"
-                  label="Imagen del producto"
-                  color="accent"
-                  multiple
-                  truncate-length="15"
-                  dense
-                  outlined
-                ></v-file-input>
-              </v-col>
-              <v-col cols="12" sm="4">
-                <v-btn color="accent">Subir</v-btn>
-              </v-col>
-            </v-row>
+            <UploadImages :images="images" />
           </v-col>
           <v-col cols="12" sm="7">
             <v-card width="95%" flat>
@@ -66,9 +47,7 @@
                     v-model="categories"
                     :items="category"
                     label="Categoria"
-                    hint="Solo 2 categorias"
                     persistent-hint
-                    multiple
                     outlined
                     dense
                   ></v-select>
@@ -89,6 +68,35 @@
                     dense
                   ></v-checkbox>
                 </v-col>
+                <transition name="slide" mode="out-in">
+                  <v-col cols="12" v-if="withDiscount">
+                    <v-row>
+                      <v-col cols="12" sm="4">
+                        <v-text-field
+                          append-icon="mdi-sale"
+                          label="Descuento"
+                          type="number"
+                          v-model="discount"
+                          placeholder="1 - 100"
+                          outlined
+                          dense
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="8">
+                        <v-date-picker
+                          v-model="dates"
+                          range
+                          no-title
+                          scrollable
+                          color="success"
+                          elevation="5"
+                          first-day-of-week="1"
+                          full-width
+                        ></v-date-picker>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </transition>
               </v-row>
             </v-card>
           </v-col>
@@ -100,29 +108,24 @@
         <v-btn color="secondary" to="/products" large>Cancelar</v-btn>
         <v-spacer></v-spacer>
         <!-- <v-btn color="primary">Guardar</v-btn> -->
-        <AddDialog @confirmed="verifyData()"></AddDialog>
+        <AddDialog @confirmed="verifyData()" />
         <v-spacer></v-spacer>
       </v-card-actions>
       <br />
     </v-card>
-    <!-- <v-text-field
-      append-icon="mdi-sale"
-      label="Descuento"
-      type="number"
-      v-model="discount"
-      placeholder="1 - 100"
-      outlined
-      dense
-    ></v-text-field> -->
+    <!--  -->
     <!--  -->
   </v-container>
 </template>
 
 <script>
-import Gallery from "../components/products/Gallery.vue";
 import AddDialog from "../components/products/AddDialog.vue";
+import UploadImages from "../components/products/UploadImages.vue";
 export default {
-  components: { Gallery, AddDialog },
+  components: {
+    AddDialog,
+    UploadImages,
+  },
   data: () => ({
     category: [],
     images: [
@@ -139,14 +142,14 @@ export default {
         value.size < 2000000 ||
         "Photo size should be less than 2 MB!",
     ],
+    dates: ["2021-03-15", "2021-03-20"],
   }),
-  watch: {
-    categories(value) {
-      //   console.log(value);
-      if (value.length > 2) {
-        value.splice(-1, 1);
-      }
+  computed: {
+    dateRangeText() {
+      return this.dates.join(" ~ ");
     },
+  },
+  watch: {
     discount(value) {
       if (value > 100) {
         value = 100;
@@ -171,5 +174,34 @@ export default {
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+.slide-enter-active {
+  animation: slide-in 200ms ease-out forwards;
+}
+
+.slide-leave-active {
+  animation: slide-out 200ms ease-out forwards;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
 }
 </style>
