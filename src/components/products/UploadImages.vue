@@ -5,7 +5,16 @@
         <Gallery :images="images" :heightCarousel="350"></Gallery>
         <br />
       </v-col>
-
+      <v-col cols="12">
+        <v-progress-linear
+          v-show="showProgress"
+          color="primary"
+          buffer-value="0"
+          v-model="progress"
+          stream
+          height="5"
+        ></v-progress-linear>
+      </v-col>
       <v-col cols="12">
         <v-file-input
           :rules="rules"
@@ -20,7 +29,7 @@
         ></v-file-input>
       </v-col>
       <v-col cols="12">
-        <v-btn color="accent">
+        <v-btn color="accent" :disabled="uploadingImage" @click="upload">
           <v-icon left> mdi-cloud-upload-outline </v-icon>
           Subir
         </v-btn>
@@ -30,6 +39,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Gallery from "./Gallery.vue";
 export default {
   components: {
@@ -42,6 +52,7 @@ export default {
     },
   },
   data: () => ({
+    results: null,
     rules: [
       (value) =>
         !value ||
@@ -51,32 +62,13 @@ export default {
     cloudName: "fulano",
     preset: "ik1apwhk",
     tags: "browser-upload",
-    results: null,
     errors: [],
     file: null,
     progress: 0,
     showProgress: false,
-    options: {
-      text: {
-        shadowColor: "black",
-        fontSize: 14,
-        fontFamily: "Helvetica",
-        dynamicPosition: true,
-      },
-      progress: {
-        color: "#E8C401",
-        backgroundColor: "#000000",
-      },
-      layout: {
-        height: 35,
-        width: 140,
-        type: "line",
-        progressPadding: 0,
-        verticalTextAlign: 63,
-      },
-    },
     fileContents: null,
     formData: null,
+    uploadingImage: false,
   }),
   methods: {
     prepareFormData: function () {
@@ -87,10 +79,74 @@ export default {
       console.log(this.formData);
     },
     handleFileChange(event) {
-      console.log("handlefilechange", event);
-      //returns an array of files even though multiple not used
       this.file = event;
-      this.filesSelected = event.length;
+      console.log("handlefilechange", this.file);
+    },
+    // function to handle form submit
+    upload() {
+      if (this.preset.length < 1 || this.cloudName.length < 1) {
+        this.errors.push("cloud name and preset not set");
+        return;
+      } else if (this.file == null) {
+        this.errorImage = "Not File selected";
+        return;
+      }
+      // clear errors
+      else {
+        this.errors = [];
+      }
+
+      console.log(this.file.name);
+
+      let reader = new FileReader();
+      // attach listener to be called when data from file
+      reader.addEventListener(
+        "load",
+        function () {
+          this.fileContents = reader.result;
+          this.prepareFormData();
+          let requestObj = {
+            url: `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`,
+            method: "POST",
+            data: this.formData,
+            onUploadProgress: function (progressEvent) {
+              // console.log("progress", progressEvent);
+              this.progress = Math.round(
+                (progressEvent.loaded * 100.0) / progressEvent.total
+              );
+              // console.log(this.progress);
+              //bind "this" to access vue state during callback
+            }.bind(this),
+          };
+          //show progress bar at beginning of post
+          this.showProgress = true;
+          axios(requestObj)
+            .then((response) => {
+              this.results = response.data;
+              console.log(this.results);
+              console.log("public_id", this.results.public_id);
+            //   this.images.push(this.results.secure_url);
+              this.$emit("successUploaded", this.results.secure_url);
+            })
+            .catch((error) => {
+              this.errors.push(error);
+              console.log(this.error);
+            })
+            .finally(() => {
+              setTimeout(
+                function () {
+                  this.showProgress = false;
+                }.bind(this),
+                1000
+              );
+            });
+        }.bind(this),
+        false
+      );
+      // call for file read if there is a file
+      if (this.file && this.file.name) {
+        reader.readAsDataURL(this.file);
+      }
     },
   },
   mounted() {},

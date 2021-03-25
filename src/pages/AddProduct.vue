@@ -6,7 +6,10 @@
       <v-card-text class="text-center">
         <v-row>
           <v-col cols="12" sm="5">
-            <UploadImages :images="images" />
+            <UploadImages
+              :images="images"
+              @successUploaded="addImage($event)"
+            />
           </v-col>
           <v-col cols="12" sm="7">
             <v-card width="95%" flat>
@@ -89,7 +92,7 @@
                           no-title
                           scrollable
                           color="success"
-                          elevation="5"
+                          elevation="3"
                           first-day-of-week="1"
                           full-width
                         ></v-date-picker>
@@ -128,19 +131,13 @@ export default {
   },
   data: () => ({
     category: [],
-    images: [
-      "https://picsum.photos/1920/1080?random",
-      "https://picsum.photos/1920/1080?random",
-      "https://picsum.photos/1920/1080?random",
-    ],
+    images: ["https://picsum.photos/1920/1080?random"],
     categories: [],
     discount: null,
     withDiscount: false,
     rules: [
       (value) =>
-        !value ||
-        value.size < 2000000 ||
-        "Photo size should be less than 2 MB!",
+        !value || value.lenght < 0 || "Este campo no puede estar vacio",
     ],
     dates: ["2021-03-15", "2021-03-20"],
   }),
@@ -162,6 +159,9 @@ export default {
   methods: {
     verifyData() {
       this.$router.push("/products");
+    },
+    addImage(value) {
+      this.images.push(value);
     },
   },
 };

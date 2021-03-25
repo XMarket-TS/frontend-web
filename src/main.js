@@ -8,7 +8,7 @@ axios.defaults.baseURL = "http://localhost:8080/";
 // axios.defaults.baseURL = 'https://intense-springs-55547.herokuapp.com/';
 // axios.defaults.headers.common['Authorization'] = 'fasfdsa'
 axios.defaults.headers.get["Accepts"] = "application/json";
-axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+// axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*"; // DONT ENABLE THIS
 
 Vue.config.productionTip = false;
 Vue.filter("roundPrice", function(value) {
