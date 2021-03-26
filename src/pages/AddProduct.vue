@@ -158,7 +158,7 @@ export default {
     categories: [],
     valid: false,
     nameRules: [
-      (v) => !!v || "El nombre es requerido",
+      (v) => !!v || "El nombre del producto es requerido",
       // (v) => v.length >= 10 || "Name must be less than 10 characters",
     ],
     stockRules: [(v) => !!v || "El stock es requerido"],
@@ -171,7 +171,7 @@ export default {
       price: null,
       category: "",
       description: "",
-      imagesUrl: ["https://picsum.photos/1920/1080?random"],
+      imagesUrl: [],
     },
     discount: 0,
     withDiscount: false,
@@ -202,20 +202,51 @@ export default {
           const user = datas[key].category;
           data.push(user);
         }
-        console.log(data);
+        // console.log(data);
         this.categories = data;
-        // this.email = users[0].email;
       })
-      .catch((error) => console.warn(error))
-      .finally(() => {
+      .catch((error) => {
+        console.warn(error);
         this.categories = ["No hay categorias"];
-      });
+      })
+      .finally(() => {});
   },
   methods: {
     verifyData() {
       this.$refs.form.validate();
       console.log(this.valid);
-      if (this.valid) this.$router.push("/products");
+      if (!this.valid) return;
+
+      const imagesURLs = [];
+      for (let key in this.product.imagesUrl) {
+        const url = this.product.imagesUrl[key];
+        imagesURLs.push({ photo: url });
+      }
+      const formData = {
+        name: this.product.name,
+        price: this.product.price,
+        description: this.product.description,
+        unit: this.product.stock,
+        category: this.product.category,
+        offer: {
+          name: "Offer1",
+          percentage: this.discount ? this.discount : 0,
+          startDate: this.dates[0],
+          endDate: this.dates[1],
+          imageUrl: this.product.imagesUrl[0],
+        },
+        imagesUrl: imagesURLs,
+      };
+      console.log(formData);
+      axios
+        .post("/admin/" + 1 + "/branchOffice/" + 1 + "/product", formData)
+        .then((res) => {
+          console.log(res);
+          this.$router.push("/products");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     validateForm() {
       this.$refs.form.validate();

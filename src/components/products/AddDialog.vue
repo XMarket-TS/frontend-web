@@ -15,10 +15,6 @@
         <v-toolbar color="primary" dark>
           Esta seguro de guardar el producto?
         </v-toolbar>
-
-        <!-- <v-card-text>
-          <div class="text-h2 pa-12">Hello world!</div>
-        </v-card-text> -->
         <v-card-text>
           <Product
             :images="imagesUrl"

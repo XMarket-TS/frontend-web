@@ -43,13 +43,17 @@ export default {
   }),
   methods: {
     filterProduct(val) {
-      // console.log(val);
+      console.log(val);
       // axios
-      this.prods = this.prods.filter((value) => {
-        // console.log(value);
-        if (value.id !== val) return value;
+      axios.delete("product/" + val).then((result) => {
+        console.log(result);
+        if (result.status == 200) {
+          this.prods = this.prods.filter((value) => {
+            if (value.productId !== val) return value;
+          });
+          this.confirmDelete();
+        }
       });
-      this.confirmDelete();
     },
     confirmDelete() {
       this.dialogDelete = true;

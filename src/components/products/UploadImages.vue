@@ -6,31 +6,9 @@
         <br />
       </v-col>
       <v-col cols="12">
-        <!-- <v-progress-linear
-          v-show="showProgress"
-          color="primary"
-          buffer-value="0"
-          v-model="progress"
-          stream
-          height="5"
-        ></v-progress-linear> -->
-        <v-progress-circular
-          v-show="showProgress"
-          :rotate="360"
-          :size="75"
-          :width="15"
-          v-model="progress"
-          color="primary"
-          buffer-value="0"
-        >
-          {{ progress }}
-        </v-progress-circular>
-        <br />
-      </v-col>
-      <v-col cols="12">
         <v-file-input
           :rules="rules"
-          accept="image/jpeg, image/jpg"
+          accept="image/jpeg,image/jpg"
           prepend-icon="mdi-camera"
           label="Imagen del producto"
           color="accent"
@@ -45,6 +23,22 @@
           <v-icon left> mdi-cloud-upload-outline </v-icon>
           Subir
         </v-btn>
+      </v-col>
+
+      <v-col cols="12">
+        <br />
+        <v-progress-circular
+          v-show="showProgress"
+          :rotate="360"
+          :size="75"
+          :width="15"
+          v-model="progress"
+          color="primary"
+          buffer-value="0"
+        >
+          {{ progress + "%" }}
+        </v-progress-circular>
+        <br />
       </v-col>
     </v-row>
   </div>

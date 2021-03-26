@@ -3,7 +3,9 @@
     <NavBar></NavBar>
     <v-main>
       <transition name="slide" mode="out-in">
+        <!-- <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"> -->
         <router-view />
+        <!-- </v-parallax> -->
       </transition>
     </v-main>
     <footer-main></footer-main>

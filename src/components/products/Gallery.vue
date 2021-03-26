@@ -12,7 +12,7 @@
         <v-btn color="info" v-bind="attrs" v-on="on">Next</v-btn>
       </template> -->
     <v-carousel-item v-for="(image, i) in images" :key="i">
-      <v-sheet color="backimg" height="100%" tile>
+      <v-sheet color="backimg" height="100%" tile elevation="5" rounded="xl">
         <!-- <v-row class="fill-height" align="center" justify="center"> -->
         <v-img
           :src="image"

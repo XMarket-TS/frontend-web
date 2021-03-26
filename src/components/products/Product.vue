@@ -100,7 +100,7 @@ export default {
   },
   methods: {
     confirmDelete(id) {
-      console.log(id);
+      // console.log(id);
       if (id != -1) this.$emit("deleteProduct", id);
       // else throw new ErrorEvent
     },

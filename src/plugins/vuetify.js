@@ -17,6 +17,17 @@ export default new Vuetify({
         warning: "#FFC107",
         backimg: "#B5B2B7",
       },
+      custom: {
+        primary: "#ffc107",
+        secondary: "#ff5722",
+        accent: "#009688",
+        delete: "#607D8B",
+        error: "#ffeb3b",
+        info: "#9c27b0",
+        success: "#e91e63",
+        warning: "#2196f3",
+        backimg: "#B5B2B7",
+      },
     },
   },
 });
