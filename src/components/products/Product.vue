@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" outlined elevation="3">
+  <v-card class="mx-auto"  outlined elevation="3">
     <!-- delimiter-icon="mdi-minus" -->
     <Gallery :images="images" :clyde="true" :heightCarousel="350"></Gallery>
     <v-divider></v-divider>

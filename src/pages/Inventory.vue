@@ -9,8 +9,11 @@
           <v-alert text v-model="dialogDelete" type="success" dismissible>
             Producto eliminado correctamente
           </v-alert>
+          <v-alert text v-model="dialogError" type="error" dismissible>
+            Error al obtener los datos
+          </v-alert>
         </v-col>
-        <v-col v-for="(product, i) in prods" :key="i" cols="12" sm="3">
+        <v-col v-for="(product, i) in prods" :key="i" cols="12" md="3" sm="4">
           <Product
             :category="product.category"
             :description="product.description"
@@ -40,20 +43,29 @@ export default {
     prods: null,
     dialogDelete: false,
     successUpload: false,
+    dialogError: false,
   }),
   methods: {
     filterProduct(val) {
       console.log(val);
       // axios
-      axios.delete("product/" + val).then((result) => {
-        console.log(result);
-        if (result.status == 200) {
-          this.prods = this.prods.filter((value) => {
-            if (value.productId !== val) return value;
-          });
-          this.confirmDelete();
-        }
-      });
+      axios
+        .delete("product/" + val)
+        .then((result) => {
+          console.log(result, "then");
+          if (result.status == 200) {
+            this.prods = this.prods.filter((value) => {
+              if (value.productId !== val) return value;
+            });
+            this.confirmDelete();
+          } else if (result.status == 500) {
+            this.dialogError = true;
+          }
+        })
+        .catch((error) => {
+          console.log(error, "catch");
+          this.dialogError = true;
+        });
     },
     confirmDelete() {
       this.dialogDelete = true;

@@ -1,20 +1,30 @@
 <template>
-  <div>
-    <v-container fluid>
-      <v-row align="center" justify="center">
-        <v-col cols="12">
-          <v-card max-width="95%" class="mx-auto">
-            <v-card-title>here goes your login</v-card-title>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+  <v-container>
+    <br />
+    <CardLogin :loading="loading" @dataVerified="login($event)"></CardLogin>
+  </v-container>
 </template>
 
 <script>
-export default {};
+import CardLogin from "../components/login/CardLogin.vue";
+export default {
+  components: {
+    CardLogin,
+  },
+  data: () => ({
+    loading: false,
+  }),
+  methods: {
+    login(data) {
+      console.log(data);
+      this.loading = true;
+      setInterval(() => {
+        this.loading = false;
+      }, 3000);
+    },
+  },
+};
 </script>
 
-<style>
+<style scoped>
 </style>
