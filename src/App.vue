@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <NavBar></NavBar>
-    <v-main>
+    <v-main class="back">
       <transition name="slide" mode="out-in">
         <!-- <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"> -->
         <router-view />
@@ -27,6 +27,10 @@ export default {
 };
 </script>
 <style scoped>
+.back {
+  background-color: #f5d8cf;
+  /* background-color: #b8a691; */
+}
 .slide-enter-active {
   animation: slide-in 200ms ease-out forwards;
 }

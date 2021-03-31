@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="5" max-width="80%" class="mx-auto" :loading="loading">
+  <v-card elevation="7" max-width="80%" class="mx-auto" :loading="loading">
     <br />
     <v-img
       contain

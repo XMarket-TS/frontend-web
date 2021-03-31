@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
+import store from "../store/store.js";
 Vue.use(VueRouter);
 
 const routes = [
@@ -61,31 +61,41 @@ const router = new VueRouter({
 });
 
 /// Navigation guards
-// router.beforeEach(function (to, from, next) {
-//   console.log('Global beforeEach')
-//   console.log(to, from)
-//   next() // or next(true)
-//   // next(false) // to cancel routing
+router.beforeEach((to, _, next) => {
+  // console.log('Global beforeEach')
+  // console.log(to, from)
+  // next() // or next(true)
+  // next(false) // to cancel routing
 
-//   //  === Restrict navigation == Used for authentication
-//   // if (to.name === 'team-members') {
-//   //   next();
-//   // } else {
-//   //   next({
-//   //     name: 'team-members',
-//   //     params: {
-//   //       id: 't2'
-//   //     }
-//   //   })
-//   // }
-//   //  ==== Auth example == look needsAuth value as meta in teams path
-//   // if (to.meta.needsAuth) {
-//   //   console.log("Needs Auth!")
-//   //   next(); // can denegate access
-//   // } else {
-//   //   next();
-//   // }
-// })
+  //  === Restrict navigation == Used for authentication
+  // if (to.name === 'team-members') {
+  //   next();
+  // } else {
+  //   next({
+  //     name: 'team-members',
+  //     params: {
+  //       id: 't2'
+  //     }
+  //   })
+  // }
+  //  ==== Auth example == look needsAuth value as meta in teams path
+  // if (to.meta.needsAuth) {
+  //   console.log("Needs Auth!")
+  //   next(); // can denegate access
+  // } else {
+  //   next();
+  // }
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      next();
+      return;
+    }
+    next("/login");
+  } else {
+    next();
+  }
+});
 
 // router.afterEach((to, from) => {
 //   // sending analytics data

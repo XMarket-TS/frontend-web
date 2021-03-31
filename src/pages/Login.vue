@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <br />
     <CardLogin :loading="loading" @dataVerified="login($event)"></CardLogin>
+    <br />
   </v-container>
 </template>
 

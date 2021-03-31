@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card class="mx-auto" elevation="15">
+    <v-card class="mx-auto" elevation="7">
       <v-card-title>Agregar nuevo producto</v-card-title>
       <v-divider></v-divider>
       <v-card-text class="text-center">
