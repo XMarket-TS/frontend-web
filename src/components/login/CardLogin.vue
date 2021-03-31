@@ -9,8 +9,9 @@
     ></v-img>
     <!-- <v-card-title class="justify-center" color="red"> -->
     <!-- </v-card-title> -->
-   
+
     <v-card-text class="text-center">
+      <v-card-title class="justify-center">{{ title }}</v-card-title>
       <p>Inicie sesión con su nombre de usuario y contraseña</p>
       <v-form v-model="valid" ref="form" lazy-validation>
         <v-row>
@@ -62,6 +63,7 @@
 export default {
   props: {
     loading: { type: Boolean, default: false },
+    title: { type: String, default: "No title" },
   },
   data: () => ({
     valid: false,

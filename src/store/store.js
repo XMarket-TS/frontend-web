@@ -1,95 +1,151 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
-
+import router from "../router/index.js";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    status: "",
-    token: localStorage.getItem("token") || "",
-    user: {},
+    idToken: null,
+    userId: null,
+    user: null,
   },
   mutations: {
-    auth_request(state) {
-      state.status = "loading";
+    authUser(state, userData) {
+      state.idToken = userData.token;
+      state.userId = userData.userId;
     },
-    auth_success(state, token, user) {
-      state.status = "success";
-      state.token = token;
+    storeUser(state, user) {
       state.user = user;
     },
-    auth_error(state) {
-      state.status = "error";
-    },
-    logout(state) {
-      state.status = "";
-      state.token = "";
+    clearAuthData(state) {
+      state.idToken = null;
+      state.userId = null;
+      // state.user = null
     },
   },
   actions: {
-    login({ commit }, user) {
-      return new Promise((resolve, reject) => {
-        commit("auth_request");
-        var url = "http://localhost:8080/manager/login";
-        if (user.isAdmin) url = "http://localhost:8080/admin/login";
-        axios({
-          url: url,
-          data: user,
-          method: "POST",
-        })
-          .then((resp) => {
-            const token = resp.data.token;
-            const user = resp.data.user;
-            localStorage.setItem("token", token);
-            // Add the following line:
-            // axios.defaults.headers.common["Authorization"] = token;
-            commit("auth_success", token, user);
-            resolve(resp);
-          })
-          .catch((err) => {
-            commit("auth_error");
-            localStorage.removeItem("token");
-            reject(err);
-          });
-      });
+    setLogoutTimer({ commit }, expirationTIme) {
+      setTimeout(() => {
+        commit("clearAuthData");
+      }, expirationTIme * 1000);
     },
-    register({ commit }, user) {
-      return new Promise((resolve, reject) => {
-        commit("auth_request");
-        axios({
-          url: "http://localhost:8080/register",
-          data: user,
-          method: "POST",
+    signup({ commit, dispatch }, authData) {
+      axios
+        .post("/signupNewUser?key=AIzaSyC2AJ8l5rYP-hStvIAeDkvGJxyakYt84_I", {
+          email: authData.email,
+          password: authData.password,
+          returnSecureToken: true,
         })
-          .then((resp) => {
-            const token = resp.data.token;
-            const user = resp.data.user;
-            localStorage.setItem("token", token);
-            // Add the following line:
-            axios.defaults.headers.common["Authorization"] = token;
-            commit("auth_success", token, user);
-            resolve(resp);
-          })
-          .catch((err) => {
-            commit("auth_error", err);
-            localStorage.removeItem("token");
-            reject(err);
+        .then((res) => {
+          console.log(res);
+          commit("authUser", {
+            token: res.data.idToken,
+            userId: res.data.localId,
           });
+          const now = new Date();
+          const expirationDate = new Date(
+            now.getTime() + res.data.expiresIn * 1000
+          );
+          localStorage.setItem("token", res.data.idToken);
+          localStorage.setItem("userId", res.data.localId);
+          localStorage.setItem("expiresIn", expirationDate);
+          dispatch("storeUser", authData);
+          dispatch("setLogoutTimer", res.data.expiresIn);
+        })
+        .catch((error) => console.log(error));
+    },
+    login({ commit, dispatch }, authData) {
+      axios
+        .post("/login/", {
+          email: authData.email,
+          password: authData.password,
+          returnSecureToken: true,
+        })
+        .then((res) => {
+          console.log(res);
+          const now = new Date();
+          const expirationDate = new Date(
+            now.getTime() + res.data.expiresIn * 1000
+          );
+          localStorage.setItem("token", res.data.idToken);
+          localStorage.setItem("userId", res.data.localId);
+          localStorage.setItem("expiresIn", expirationDate);
+          commit("authUser", {
+            token: res.data.idToken,
+            userId: res.data.localId,
+          });
+          dispatch("setLogoutTimer", res.data.expiresIn);
+          router.replace("/dashboard");
+        })
+        .catch((error) => console.log(error));
+    },
+    tryAutoLogin({ commit }) {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        return;
+      }
+      const expirationDate = localStorage.getItem("expiresIn");
+      const now = new Date();
+      if (now >= expirationDate) {
+        return;
+      }
+
+      const userId = localStorage.getItem("userId");
+      commit("authUser", {
+        token: token,
+        userId: userId,
       });
     },
     logout({ commit }) {
-      return new Promise((resolve, reject) => {
-        console.log(reject);
-        commit("logout");
-        localStorage.removeItem("token");
-        delete axios.defaults.headers.common["Authorization"];
-        resolve();
-      });
+      commit("clearAuthData");
+      // localStorage.clear()
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("expiresIn");
+      router.replace("/signin");
+    },
+    storeUser({ state }, userData) {
+      if (!state.idToken) {
+        return;
+      }
+      axios
+        .post("/users.json" + "?auth=" + state.idToken, userData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    fetchUser({ commit, state }) {
+      if (!state.idToken) {
+        return;
+      }
+      axios
+        .get("/users.json" + "?auth=" + state.idToken)
+        // .get("/users.json" + '?access_token=' + state.idToken)
+        .then((res) => {
+          console.log(res);
+          const data = res.data;
+          const users = [];
+          for (let key in data) {
+            const user = data[key];
+            user.id = key;
+            users.push(user);
+          }
+          console.log(users);
+          commit("storeUser", users[0]);
+        })
+        .catch((error) => console.log(error));
     },
   },
   getters: {
-    isLoggedIn: (state) => !!state.token,
-    authStatus: (state) => state.status,
+    user(state) {
+      return state.user;
+    },
+    isAuthenticated(state) {
+      return state.idToken !== null;
+    },
   },
 });

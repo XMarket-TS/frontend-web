@@ -7,7 +7,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    redirect: "/login",
+    redirect: "/admin/login",
     // beforeEnter(to, from, next) {
     //   // Can verify if the user are authenticated
     //   console.log("before user enter");
@@ -17,14 +17,26 @@ const routes = [
     // component: () => import("../pages/Home.vue"),
   },
   {
-    path: "/login",
-    name: "Login",
-    component: () => import("../pages/Login.vue"),
+    path: "/admin/login",
+    name: "LoginAdmin",
+    component: () => import("../pages/LoginAdmin.vue"),
+  },
+  {
+    path: "/market/login",
+    name: "LoginManager",
+    component: () => import("../pages/LoginManager.vue"),
   },
   {
     path: "/products",
     name: "Inventory",
     component: () => import("../pages/Inventory.vue"),
+    beforeEnter(_, _2, next) {
+      if (store.state.idToken) {
+        next();
+      } else {
+        next("/admin/login");
+      }
+    },
   },
   {
     path: "/product/add",
@@ -48,22 +60,22 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
-  scrollBehavior(_, _2, savedPosition) {
-    // console.log(to, from, savedPosition)
-    if (savedPosition) {
-      return savedPosition;
-    }
-    return {
-      left: 0,
-      top: 0,
-    }; // Go to the start page on change view
-  },
+  // scrollBehavior(_, _2, savedPosition) {
+  //   // console.log(to, from, savedPosition)
+  //   if (savedPosition) {
+  //     return savedPosition;
+  //   }
+  //   return {
+  //     left: 0,
+  //     top: 0,
+  //   }; // Go to the start page on change view
+  // },
 });
 
 /// Navigation guards
-router.beforeEach((to, _, next) => {
+// router.beforeEach((to, from, next) => {
   // console.log('Global beforeEach')
-  // console.log(to, from)
+  // console.log(to, from);
   // next() // or next(true)
   // next(false) // to cancel routing
 
@@ -86,16 +98,12 @@ router.beforeEach((to, _, next) => {
   //   next();
   // }
 
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (store.getters.isLoggedIn) {
-      next();
-      return;
-    }
-    next("/login");
-  } else {
-    next();
-  }
-});
+  // if (store.state.idToken) {
+  //   next();
+  // } else {
+  //   next("/admin/login");
+  // }
+// });
 
 // router.afterEach((to, from) => {
 //   // sending analytics data
