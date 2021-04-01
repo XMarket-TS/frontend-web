@@ -7,12 +7,10 @@
     ></CardLogin>
     <br />
     <v-card max-width="80%" class="mx-auto" color="transparent" flat>
-      <v-card-title class="justify-center">
-        Inicia sesion como market
-      </v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" to="/market/login">Redirigir Market</v-btn>
+        Inicia sesion como market: 
+        <v-btn color="primary" to="/market/login" text>Redirigir Market</v-btn>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>

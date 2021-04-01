@@ -7,12 +7,12 @@
     ></CardLogin>
     <br />
     <v-card max-width="80%" class="mx-auto" color="transparent" flat>
-      <v-card-title class="justify-center">
-        Inicia sesion como administrador
-      </v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" to="/admin/login">Redirigir Administrador</v-btn>
+        Inicia sesion como administrador:
+        <v-btn color="primary" to="/admin/login" text>
+          Redirigir Administrador
+        </v-btn>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
