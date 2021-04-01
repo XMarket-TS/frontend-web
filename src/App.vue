@@ -1,13 +1,15 @@
 <template>
   <v-app>
     <NavBar></NavBar>
+    
+    <!-- <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"> -->
     <v-main class="back">
       <transition name="slide" mode="out-in">
-        <!-- <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"> -->
         <router-view />
-        <!-- </v-parallax> -->
       </transition>
     </v-main>
+    <!-- </v-parallax> -->
+
     <footer-main></footer-main>
   </v-app>
 </template>

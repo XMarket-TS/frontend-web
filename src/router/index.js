@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from "../store/store.js";
+// import store from "../store/store.js";
 Vue.use(VueRouter);
 
 const routes = [
@@ -30,18 +30,23 @@ const routes = [
     path: "/products",
     name: "Inventory",
     component: () => import("../pages/Inventory.vue"),
-    beforeEnter(_, _2, next) {
-      if (store.state.idToken) {
-        next();
-      } else {
-        next("/admin/login");
-      }
-    },
+    // beforeEnter(_, _2, next) {
+    //   if (store.state.idToken) {
+    //     next();
+    //   } else {
+    //     next("/admin/login");
+    //   }
+    // },
   },
   {
     path: "/product/add",
     name: "AddProduct",
     component: () => import("../pages/AddProduct.vue"),
+  },
+  {
+    path: "/add-new/manager",
+    name: "NewMarket",
+    component: () => import("../pages/AddMarket.vue"),
   },
   {
     path: "/about",
@@ -74,35 +79,35 @@ const router = new VueRouter({
 
 /// Navigation guards
 // router.beforeEach((to, from, next) => {
-  // console.log('Global beforeEach')
-  // console.log(to, from);
-  // next() // or next(true)
-  // next(false) // to cancel routing
+// console.log('Global beforeEach')
+// console.log(to, from);
+// next() // or next(true)
+// next(false) // to cancel routing
 
-  //  === Restrict navigation == Used for authentication
-  // if (to.name === 'team-members') {
-  //   next();
-  // } else {
-  //   next({
-  //     name: 'team-members',
-  //     params: {
-  //       id: 't2'
-  //     }
-  //   })
-  // }
-  //  ==== Auth example == look needsAuth value as meta in teams path
-  // if (to.meta.needsAuth) {
-  //   console.log("Needs Auth!")
-  //   next(); // can denegate access
-  // } else {
-  //   next();
-  // }
+//  === Restrict navigation == Used for authentication
+// if (to.name === 'team-members') {
+//   next();
+// } else {
+//   next({
+//     name: 'team-members',
+//     params: {
+//       id: 't2'
+//     }
+//   })
+// }
+//  ==== Auth example == look needsAuth value as meta in teams path
+// if (to.meta.needsAuth) {
+//   console.log("Needs Auth!")
+//   next(); // can denegate access
+// } else {
+//   next();
+// }
 
-  // if (store.state.idToken) {
-  //   next();
-  // } else {
-  //   next("/admin/login");
-  // }
+// if (store.state.idToken) {
+//   next();
+// } else {
+//   next("/admin/login");
+// }
 // });
 
 // router.afterEach((to, from) => {
