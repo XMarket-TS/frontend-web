@@ -2,7 +2,7 @@
   <div>
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="12">
-        <v-img :src="image"> </v-img>
+        <v-img :src="image" max-height="200px" contain> </v-img>
         <br />
       </v-col>
       <v-col cols="12">
@@ -50,8 +50,9 @@ export default {
   components: {},
   props: {
     image: {
-      type: Array,
-      default: () => [],
+      type: String,
+      default:
+        "https://res.cloudinary.com/fulano/image/upload/v1617116017/profileimage_kptkl6.jpg",
     },
   },
   data: () => ({

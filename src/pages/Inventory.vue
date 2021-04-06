@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="90%" class="mx-auto" flat>
+  <v-card max-width="90%" class="mx-auto" flat color="transparent">
     <v-card-text>
       <v-row dense>
         <v-col cols="12">
@@ -73,7 +73,7 @@ export default {
   },
   mounted() {
     axios
-      .get("user/" + 1 + "/branchOffice/" + 1 + "/product")
+      .get("user/" + 1 + "/products")
       .then((res) => {
         // console.log(res);
         if (!res.status) {

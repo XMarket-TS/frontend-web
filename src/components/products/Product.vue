@@ -6,8 +6,8 @@
     <v-card-title class="headline font-weight-bold pb-0">
       {{ title }}
       <v-spacer></v-spacer>
-      <v-chip v-if="discount > 0.0" color="accent">
-        - {{ discount * 100 }}
+      <v-chip v-if="discount > 0" color="accent">
+        - {{ discount }}
         <v-icon>mdi-sale</v-icon>
       </v-chip>
     </v-card-title>
