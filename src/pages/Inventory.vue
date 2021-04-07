@@ -73,7 +73,7 @@ export default {
   },
   mounted() {
     axios
-      .get("user/" + 1 + "/products")
+      .get("user/" + 2 + "/products")
       .then((res) => {
         // console.log(res);
         if (!res.status) {

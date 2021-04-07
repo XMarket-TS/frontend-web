@@ -33,9 +33,10 @@ export default {
     login(data) {
       console.log(data);
       this.loading = true;
-      setInterval(() => {
-        this.loading = false;
-      }, 3000);
+      this.$store
+        .dispatch("loginManager", data)
+        .then(() => this.$router.push("/products"))
+        .catch((err) => console.log(err));
     },
   },
 };

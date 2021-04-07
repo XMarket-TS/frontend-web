@@ -1,20 +1,17 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import store from "../store/store.js";
+import store from "../store/store.js";
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    redirect: "/admin/login",
-    // beforeEnter(to, from, next) {
-    //   // Can verify if the user are authenticated
-    //   console.log("before user enter");
-    //   console.log(to, from);
-    //   next();
-    // },
-    // component: () => import("../pages/Home.vue"),
+    component: () => import("../pages/Home.vue"),
+    meta: {
+      requiresAuth: true,
+      type: "Admin",
+    },
   },
   {
     path: "/admin/login",
@@ -30,18 +27,19 @@ const routes = [
     path: "/products",
     name: "Inventory",
     component: () => import("../pages/Inventory.vue"),
-    // beforeEnter(_, _2, next) {
-    //   if (store.state.idToken) {
-    //     next();
-    //   } else {
-    //     next("/admin/login");
-    //   }
-    // },
+    meta: {
+      requiresAuth: true,
+      type: "Market",
+    },
   },
   {
     path: "/product/add",
     name: "AddProduct",
     component: () => import("../pages/AddProduct.vue"),
+    meta: {
+      requiresAuth: true,
+      type: "Market",
+    },
   },
   {
     path: "/add-new/manager",
@@ -78,37 +76,24 @@ const router = new VueRouter({
 });
 
 /// Navigation guards
-// router.beforeEach((to, from, next) => {
-// console.log('Global beforeEach')
-// console.log(to, from);
-// next() // or next(true)
-// next(false) // to cancel routing
-
-//  === Restrict navigation == Used for authentication
-// if (to.name === 'team-members') {
-//   next();
-// } else {
-//   next({
-//     name: 'team-members',
-//     params: {
-//       id: 't2'
-//     }
-//   })
-// }
-//  ==== Auth example == look needsAuth value as meta in teams path
-// if (to.meta.needsAuth) {
-//   console.log("Needs Auth!")
-//   next(); // can denegate access
-// } else {
-//   next();
-// }
-
-// if (store.state.idToken) {
-//   next();
-// } else {
-//   next("/admin/login");
-// }
-// });
+router.beforeEach((to, from, next) => {
+  console.log(to, from);
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    // console.log(store.getters.isLoggedIn);
+    if (store.getters.isLoggedIn) {
+      next();
+      return;
+    }
+    console.log(from.meta.type);
+    if (from.meta.type == "Market") {
+      next({ name: "LoginManager" });
+    }
+    next({ name: "LoginAdmin" });
+    // console.log(to, from);
+  } else {
+    next();
+  }
+});
 
 // router.afterEach((to, from) => {
 //   // sending analytics data

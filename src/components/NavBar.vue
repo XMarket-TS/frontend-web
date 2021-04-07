@@ -12,16 +12,28 @@
     </div>
 
     <v-spacer></v-spacer>
-
-    <v-btn to="/product/add" text>
+    <ProfileAvatar :user="user" v-if="user.personId"></ProfileAvatar>
+    <!-- <v-btn to="/product/add" text>
       <v-icon>mdi-open-in-new</v-icon>
       Agregar producto
-    </v-btn>
+    </v-btn> -->
   </v-app-bar>
 </template>
 
 <script>
-export default {};
+import ProfileAvatar from "./user/ProfileAvatar.vue";
+import { mapState } from "vuex";
+export default {
+  components: {
+    ProfileAvatar,
+  },
+  computed: {
+    ...mapState(["user"]),
+  },
+  created() {
+    console.log(this.user);
+  },
+};
 </script>
 
 <style>

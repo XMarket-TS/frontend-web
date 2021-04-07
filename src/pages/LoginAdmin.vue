@@ -9,7 +9,7 @@
     <v-card max-width="80%" class="mx-auto" color="transparent" flat>
       <v-card-actions>
         <v-spacer></v-spacer>
-        Inicia sesion como market: 
+        Inicia sesion como market:
         <v-btn color="primary" to="/market/login" text>Redirigir Market</v-btn>
         <v-spacer></v-spacer>
       </v-card-actions>
@@ -26,14 +26,16 @@ export default {
   },
   data: () => ({
     loading: false,
+    dialogError: false,
   }),
   methods: {
     login(data) {
       console.log(data);
       this.loading = true;
-      setInterval(() => {
-        this.loading = false;
-      }, 3000);
+      this.$store
+        .dispatch("login", data)
+        .then(() => this.$router.push("/"))
+        .catch((err) => console.log(err));
     },
   },
 };

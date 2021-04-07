@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <NavBar></NavBar>
-    
+
     <!-- <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"> -->
     <v-main class="back">
       <transition name="slide" mode="out-in">
@@ -26,6 +26,9 @@ export default {
   data: () => ({
     //
   }),
+  created() {
+    this.$store.dispatch("tryAutoLogin");
+  },
 };
 </script>
 <style scoped>
