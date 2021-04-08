@@ -77,19 +77,21 @@ const router = new VueRouter({
 
 /// Navigation guards
 router.beforeEach((to, from, next) => {
-  console.log(to, from);
+  // console.log(to, from);
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    // console.log(store.getters.isLoggedIn);
+    console.log("TO: ", to.meta.type);
+    console.log("FROM: ", from.meta.type ? from.meta.type : "Type not set :C");
     if (store.getters.isLoggedIn) {
       next();
       return;
     }
-    console.log(from.meta.type);
     if (from.meta.type == "Market") {
       next({ name: "LoginManager" });
+      return;
     }
     next({ name: "LoginAdmin" });
     // console.log(to, from);
+    return;
   } else {
     next();
   }

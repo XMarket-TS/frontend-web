@@ -42,7 +42,7 @@ export default {
     ...mapState(["user"]),
   },
   created() {
-    console.log(this.user);
+    // console.log(this.user);
   },
 };
 </script>

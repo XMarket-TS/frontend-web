@@ -32,7 +32,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit("auth_request");
         axios({
-          url: "http://localhost:8080/manager/login",
+          url: "http://localhost:8080/admin/login",
           data: user,
           method: "POST",
         })
@@ -113,7 +113,7 @@ export default new Vuex.Store({
         if (!token) {
           return;
         }
-        axios.get("/manager/" + token).then((resp) => {
+        axios.get("/manager/login/" + token).then((resp) => {
           // console.log(resp);
           const user = resp.data;
           // Add the following line:

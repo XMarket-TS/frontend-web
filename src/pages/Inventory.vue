@@ -34,11 +34,13 @@
 <script>
 import axios from "axios";
 import Product from "../components/products/Product";
+import { mapState } from "vuex";
 export default {
   name: "Inventory",
   components: {
     Product,
   },
+  computed: { ...mapState(["user"]) },
   data: () => ({
     prods: null,
     dialogDelete: false,
@@ -73,7 +75,7 @@ export default {
   },
   mounted() {
     axios
-      .get("admin/" + 2 + "/products")
+      .get("manager/" + this.user.personId + "/products")
       .then((res) => {
         // console.log(res);
         if (!res.status) {
