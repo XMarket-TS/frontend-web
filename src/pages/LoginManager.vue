@@ -2,6 +2,7 @@
   <v-container>
     <CardLogin
       :loading="loading"
+      :fail="fail"
       @dataVerified="login($event)"
       :title="'Iniciar sesion como Market'"
     ></CardLogin>
@@ -28,6 +29,7 @@ export default {
   },
   data: () => ({
     loading: false,
+    fail: false,
   }),
   methods: {
     login(data) {
@@ -36,7 +38,13 @@ export default {
       this.$store
         .dispatch("loginManager", data)
         .then(() => this.$router.push("/products"))
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          this.fail = true;
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
 };

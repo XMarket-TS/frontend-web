@@ -21,6 +21,13 @@
     <v-card-text class="text-center">
       <v-card-title class="justify-center">{{ title }}</v-card-title>
       <p>Inicie sesión con su nombre de usuario y contraseña</p>
+      <v-row align="center" justify="center">
+        <v-col cols="12" lg="6" md="8">
+          <v-alert text v-model="fail" type="error" dismissible>
+            El usuario o la contraseña es incorrecta
+          </v-alert>
+        </v-col>
+      </v-row>
       <v-form v-model="valid" ref="form" lazy-validation>
         <v-row>
           <v-col cols="12" lg="3" md="2"></v-col>
@@ -72,6 +79,7 @@ export default {
   props: {
     loading: { type: Boolean, default: false },
     title: { type: String, default: "No title" },
+    fail: { type: Boolean, default: false },
   },
   data: () => ({
     valid: false,

@@ -2,6 +2,7 @@
   <v-container>
     <CardLogin
       :loading="loading"
+      :fail="fail"
       @dataVerified="login($event)"
       :title="'Iniciar sesion como Administrador'"
     ></CardLogin>
@@ -26,7 +27,7 @@ export default {
   },
   data: () => ({
     loading: false,
-    dialogError: false,
+    fail: false,
   }),
   methods: {
     login(data) {
@@ -35,7 +36,13 @@ export default {
       this.$store
         .dispatch("login", data)
         .then(() => this.$router.push("/"))
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          this.fail = true;
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
 };
