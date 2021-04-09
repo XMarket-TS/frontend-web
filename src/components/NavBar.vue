@@ -23,7 +23,11 @@
       ></v-img>
     </template>
     <v-spacer></v-spacer>
-    <ProfileAvatar :user="user" v-if="user.personId"></ProfileAvatar>
+    <ProfileAvatar
+      :user="user"
+      v-if="user.personId"
+      @logout="closeSesion"
+    ></ProfileAvatar>
     <!-- <v-btn to="/product/add" text>
       <v-icon>mdi-open-in-new</v-icon>
       Agregar producto
@@ -35,14 +39,24 @@
 import ProfileAvatar from "./user/ProfileAvatar.vue";
 import { mapState } from "vuex";
 export default {
+  data: () => ({}),
   components: {
     ProfileAvatar,
+  },
+  watch: {
+    user() {},
   },
   computed: {
     ...mapState(["user"]),
   },
   created() {
-    // console.log(this.user);
+    // console.log(this.getUser);
+    // this.user = this.getUser;
+  },
+  methods: {
+    closeSesion() {
+      this.user.personId = null;
+    },
   },
 };
 </script>

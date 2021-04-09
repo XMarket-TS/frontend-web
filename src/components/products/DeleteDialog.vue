@@ -43,9 +43,9 @@ export default {
     confirmed(dialog) {
       this.confDel = true;
       // setInterval(() => {
-        this.confDel = false;
-        dialog.value = false;
-        this.$emit("confirmDeleteProduct", this.id);
+      this.confDel = false;
+      dialog.value = false;
+      this.$emit("confirmDeleteProduct", this.id);
       // }, 3000);
     },
   },

@@ -130,5 +130,6 @@ export default new Vuex.Store({
       else return false;
     },
     authStatus: (state) => state.status,
+    getUser: (state) => state.user,
   },
 });

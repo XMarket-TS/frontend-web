@@ -24,9 +24,9 @@
           <p class="caption mt-1">
             {{ user.email }}
           </p>
-          <v-divider class="my-3"></v-divider>
-          <v-btn depressed rounded text> Cuenta </v-btn>
-          <v-divider class="my-3"></v-divider>
+
+          <v-btn depressed text> Cuenta </v-btn>
+          <br />
           <v-btn depressed text @click="logout"> Cerrar Sesion </v-btn>
         </div>
       </v-list-item-content>
@@ -49,6 +49,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logout").then(() => {
+        this.$emit("logout", false);
         this.$router.push("/market/login");
       });
     },

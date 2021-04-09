@@ -42,7 +42,6 @@
 </template>
 
 <script>
-
 import Product from "./Product.vue";
 
 export default {

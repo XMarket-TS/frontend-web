@@ -1,12 +1,19 @@
 <template>
   <v-card elevation="7" max-width="80%" class="mx-auto" :loading="loading">
     <br />
-    <v-img
-      contain
+    <v-card
+      class="mx-auto rounded-card"
       max-height="200px"
-      position="center"
-      src="../../assets/logo_market.png"
-    ></v-img>
+      flat
+      max-width="400px"
+    >
+      <v-img
+        contain
+        max-height="200px"
+        position="center"
+        src="../../assets/logo_market.png"
+      ></v-img>
+    </v-card>
 
     <!-- <v-card-title class="justify-center" color="red"> -->
     <!-- </v-card-title> -->
@@ -50,7 +57,7 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn color="secondary" text>Olvidaste tu contraseña? </v-btn>
+      <!-- <v-btn color="secondary" text>Olvidaste tu contraseña? </v-btn> -->
       <v-spacer></v-spacer>
       <v-btn color="primary" @click="verifyData">
         <v-icon left>mdi-login-variant</v-icon>
@@ -74,7 +81,6 @@ export default {
     rules: {
       passwordRequired: (value) =>
         !!value || "La contraseña no puede estar vacia",
-        
       userRequired: (value) =>
         !!value || "El nombre de usuario no puede estar vacio",
       // min: (v) => v.length >= 8 || "Min 8 characters",
@@ -96,4 +102,7 @@ export default {
 </script>
 
 <style scoped>
+.rounded-card {
+  border-radius: 60px;
+}
 </style>
