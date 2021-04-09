@@ -13,20 +13,9 @@
     <template v-slot:default="dialog">
       <v-card>
         <v-toolbar color="primary" dark>
-          <v-toolbar-title>
-            Esta seguro de guardar el producto?
-          </v-toolbar-title>
+          <v-toolbar-title> Esta seguro de guardar los datos? </v-toolbar-title>
         </v-toolbar>
-        <v-card-text>
-          <Product
-            :images="imagesUrl"
-            :title="name"
-            :price="price"
-            :discount="discount"
-            :description="description"
-            :category="category"
-          ></Product>
-        </v-card-text>
+        <v-card-text> </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
 
@@ -44,12 +33,7 @@
 </template>
 
 <script>
-import Product from "./Product.vue";
-
 export default {
-  components: {
-    Product,
-  },
   props: {
     name: {
       type: String,

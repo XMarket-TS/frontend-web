@@ -66,6 +66,17 @@
                       dense
                     ></v-select>
                   </v-col>
+                  <v-col cols="12">
+                    <v-textarea
+                      v-model="person.description"
+                      label="Descripcion"
+                      :rules="descriptionRules"
+                      auto-grow
+                      outlined
+                      rows="3"
+                      dense
+                    ></v-textarea>
+                  </v-col>
                 </v-row>
               </v-form>
               <v-row>
@@ -75,6 +86,8 @@
                     label="Usename"
                     disabled
                     outlined
+                    hint="El usuario se genera automaticamente"
+                    persistent-hint
                     dense
                   ></v-text-field>
                 </v-col>
@@ -84,14 +97,10 @@
                     label="Contraseña"
                     disabled
                     outlined
+                    hint="La contraseña se genera automaticamente"
+                    persistent-hint
                     dense
                   ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-card-text>
-                    La contraseña y el nombre de usuario se generan
-                    automaticamente
-                  </v-card-text>
                 </v-col>
               </v-row>
               <v-card-subtitle class="red--text">
@@ -101,7 +110,7 @@
           </v-col>
           <v-col cols="12" sm="4">
             <UploadImage
-              :images="person.imagesUrl"
+              :image="person.imageUrl"
               @successUploaded="addImage($event)"
             />
           </v-col>
@@ -133,7 +142,7 @@
 </template>
 
 <script>
-import AddDialog from "../components/products/AddDialog.vue";
+import AddDialog from "../components/market/AddDialog.vue";
 import UploadImage from "../components/market/UploadImage.vue";
 import axios from "axios";
 export default {
@@ -165,7 +174,10 @@ export default {
       surname: "",
       gender: "",
       number: "",
-      imageUrl: null,
+      email: "",
+      description: "",
+      imageUrl:
+        "https://res.cloudinary.com/fulano/image/upload/v1617116017/profileimage_kptkl6.jpg",
       username: "",
       password: "",
     },
@@ -183,11 +195,15 @@ export default {
   watch: {
     person: {
       handler(value) {
-        let email = value.email.split("@");
-        console.log(email);
-        this.person.username =
-          email[0].toLowerCase() + "-" + value.surname.toLowerCase();
-        this.person.password = value.username;
+        try {
+          let email = value.email.split("@");
+          console.log(email);
+          this.person.username =
+            email[0].toLowerCase() + "-" + value.surname.toLowerCase();
+          this.person.password = value.username;
+        } catch (ex) {
+          console.warn(ex);
+        }
       },
       deep: true,
     },
@@ -198,24 +214,23 @@ export default {
     },
   },
   mounted() {
-    // axios
-    //   .get("category/list")
-    //   .then((res) => {
-    //     const datas = res.data;
-    //     const data = [];
-    //     this.categoriesComplete = res;
-    //     for (let key in datas) {
-    //       const user = datas[key].category;
-    //       data.push(user);
-    //     }
-    //     // console.log(data);
-    //     this.categories = data;
-    //   })
-    //   .catch((error) => {
-    //     console.warn(error);
-    //     this.categories = ["No hay categorias"];
-    //   })
-    //   .finally(() => {});
+    axios
+      .get("branchOffice/list")
+      .then((res) => {
+        const datas = res.data;
+        const data = [];
+        this.categoriesComplete = res;
+        for (let key in datas) {
+          const user = datas[key].name;
+          data.push(user);
+        }
+        // console.log(data);
+        this.markets = data;
+      })
+      .catch((error) => {
+        console.warn(error);
+      })
+      .finally(() => {});
   },
   methods: {
     verifyData() {
@@ -230,25 +245,21 @@ export default {
       }
       const formData = {
         name: this.person.name,
-        price: this.person.price,
+        surname: this.person.surname,
+        userPhoto: this.person.imageUrl,
+        gender: this.person.gender,
+        email: this.person.email,
         description: this.person.description,
-        unit: this.person.stock,
-        category: this.person.category,
-        offer: {
-          name: "Offer1",
-          percentage: this.discount ? this.discount : 0,
-          startDate: this.dates[0],
-          endDate: this.dates[1],
-          imageUrl: this.person.imagesUrl[0],
-        },
-        imagesUrl: imagesURLs,
+        cellphone: this.person.number,
+        username: this.person.username,
+        password: this.person.password,
       };
       console.log(formData);
       axios
-        .post("/admin/" + 1 + "/branchOffice/" + 1 + "/product", formData)
+        .post("/manager/register/new", formData)
         .then((res) => {
           console.log(res);
-          this.$router.push("/products");
+          this.$router.push("/");
         })
         .catch((error) => {
           console.log(error);
@@ -258,8 +269,9 @@ export default {
       this.$refs.form.validate();
     },
     addImage(value) {
-      // console.log(value);
-      this.person.imagesUrl.push(value);
+      console.log(value);
+      this.person.imageUrl = value;
+      console.log(this.person);
     },
     retrieveData() {
       console.log(this.person);
