@@ -8,7 +8,7 @@
       <v-col cols="12">
         <v-file-input
           :rules="rules"
-          accept="image/jpeg,image/jpg"
+          accept="image/jpeg,image/jpg"  
           prepend-icon="mdi-camera"
           label="Imagen del market"
           color="accent"
@@ -45,7 +45,9 @@
 </template>
 
 <script>
+
 import axios from "axios";
+
 export default {
   components: {},
   props: {
@@ -130,7 +132,6 @@ export default {
               // console.log(this.results);
               // console.log("public_id", this.results.public_id);
               //   this.images.push(this.results.secure_url);
-
               this.$emit("successUploaded", this.results.secure_url);
             })
             .catch((error) => {
