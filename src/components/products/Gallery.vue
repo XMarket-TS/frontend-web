@@ -11,6 +11,7 @@
       <template v-slot:next="{ on, attrs }">
         <v-btn color="info" v-bind="attrs" v-on="on">Next</v-btn>
       </template> -->
+      <!--formato carousel -->
     <v-carousel-item v-for="(image, i) in images" :key="i">
       <v-sheet color="white" height="100%" tile elevation="5" rounded="xl">
         <!-- <v-row class="fill-height" align="center" justify="center"> -->

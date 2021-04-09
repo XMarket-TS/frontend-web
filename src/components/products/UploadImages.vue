@@ -101,9 +101,7 @@ export default {
       else {
         this.errors = [];
       }
-
       // console.log(this.file.name);
-
       let reader = new FileReader();
       // attach listener to be called when data from file
       reader.addEventListener(

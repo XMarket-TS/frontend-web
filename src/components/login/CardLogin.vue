@@ -7,6 +7,7 @@
       position="center"
       src="../../assets/logo_market.png"
     ></v-img>
+
     <!-- <v-card-title class="justify-center" color="red"> -->
     <!-- </v-card-title> -->
 
@@ -73,6 +74,7 @@ export default {
     rules: {
       passwordRequired: (value) =>
         !!value || "La contraseña no puede estar vacia",
+        
       userRequired: (value) =>
         !!value || "El nombre de usuario no puede estar vacio",
       // min: (v) => v.length >= 8 || "Min 8 characters",

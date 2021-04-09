@@ -42,6 +42,7 @@
 </template>
 
 <script>
+
 import Product from "./Product.vue";
 
 export default {
@@ -77,6 +78,7 @@ export default {
   data: () => ({
     uploadingData: false,
   }),
+
   methods: {
     confirmed(dialog) {
       dialog.value = false;
