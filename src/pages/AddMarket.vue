@@ -103,15 +103,16 @@
                   ></v-text-field>
                 </v-col>
               </v-row>
-              <v-card-subtitle class="red--text">
+              <!-- <v-card-subtitle class="red--text">
                 {{ errorsText }}
-              </v-card-subtitle>
+              </v-card-subtitle> -->
             </v-card>
           </v-col>
           <v-col cols="12" sm="4">
             <UploadImage
               :image="person.imageUrl"
               @successUploaded="addImage($event)"
+              :errors="errors"
             />
           </v-col>
         </v-row>
@@ -176,8 +177,7 @@ export default {
       number: "",
       email: "",
       description: "",
-      imageUrl:
-        "https://res.cloudinary.com/fulano/image/upload/v1617116017/profileimage_kptkl6.jpg",
+      imageUrl: null,
       username: "",
       password: "",
     },
@@ -236,13 +236,15 @@ export default {
     verifyData() {
       this.validateForm();
       console.log(this.valid);
+      if (this.person.imageUrl == null) {
+        console.log(this.person.imageUrl);
+        this.errors.push("No se ha adjuntado una foto");
+        return;
+      } else {
+        this.errors = [];
+      }
       if (!this.valid) return;
 
-      const imagesURLs = [];
-      for (let key in this.person.imagesUrl) {
-        const url = this.person.imagesUrl[key];
-        imagesURLs.push({ photo: url });
-      }
       const formData = {
         name: this.person.name,
         surname: this.person.surname,
@@ -272,6 +274,7 @@ export default {
       console.log(value);
       this.person.imageUrl = value;
       console.log(this.person);
+      this.errors = [];
     },
     retrieveData() {
       console.log(this.person);

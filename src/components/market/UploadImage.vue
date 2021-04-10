@@ -2,13 +2,19 @@
   <div>
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="12">
-        <v-img :src="image" max-height="200px" contain> </v-img>
+        <v-img
+          :src="image"
+          max-height="200px"
+          lazy-src="https://res.cloudinary.com/fulano/image/upload/v1617116017/profileimage_kptkl6.jpg"
+          contain
+        >
+        </v-img>
         <br />
       </v-col>
       <v-col cols="12">
         <v-file-input
           :rules="rules"
-          accept="image/jpeg,image/jpg"  
+          accept="image/jpeg,image/jpg"
           prepend-icon="mdi-camera"
           label="Imagen del market"
           color="accent"
@@ -24,7 +30,11 @@
           Subir
         </v-btn>
       </v-col>
-
+      <v-col cols="12">
+        <v-card-subtitle class="red--text">
+          {{ errorsText }}
+        </v-card-subtitle>
+      </v-col>
       <v-col cols="12">
         <br />
         <v-progress-circular
@@ -45,7 +55,6 @@
 </template>
 
 <script>
-
 import axios from "axios";
 
 export default {
@@ -55,6 +64,10 @@ export default {
       type: String,
       default:
         "https://res.cloudinary.com/fulano/image/upload/v1617116017/profileimage_kptkl6.jpg",
+    },
+    errors: {
+      type: Array,
+      default: () => [],
     },
   },
   data: () => ({
@@ -68,7 +81,6 @@ export default {
     cloudName: "fulano",
     preset: "ik1apwhk",
     tags: "browser-upload",
-    errors: [],
     file: null,
     progress: 0,
     showProgress: false,
@@ -76,6 +88,11 @@ export default {
     formData: null,
     uploadingImage: false,
   }),
+  computed: {
+    errorsText() {
+      return this.errors.join(", ");
+    },
+  },
   methods: {
     prepareFormData: function () {
       this.formData = new FormData();
