@@ -120,7 +120,7 @@
       <v-card-subtitle> </v-card-subtitle>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="secondary" to="/products" large>Cancelar</v-btn>
+        <v-btn color="secondary" to="/" large>Cancelar</v-btn>
         <!-- <v-btn color="primary" @click="retrieveData">Print</v-btn> -->
         <v-spacer></v-spacer>
         <AddDialog
@@ -238,6 +238,7 @@ export default {
       console.log(this.valid);
       if (this.person.imageUrl == null) {
         console.log(this.person.imageUrl);
+        this.errors = [];
         this.errors.push("No se ha adjuntado una foto");
         return;
       } else {

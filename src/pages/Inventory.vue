@@ -1,6 +1,7 @@
 <template>
   <v-card max-width="90%" class="mx-auto" flat color="transparent">
     <v-card-text>
+      <LoaderProducts v-if="loading"></LoaderProducts>
       <v-row dense>
         <v-col cols="12">
           <v-alert text v-model="successUpload" type="success" dismissible>
@@ -35,10 +36,12 @@
 import axios from "axios";
 import Product from "../components/products/Product";
 import { mapState } from "vuex";
+import LoaderProducts from "../components/products/LoaderProducts";
 export default {
   name: "Inventory",
   components: {
     Product,
+    LoaderProducts,
   },
   computed: { ...mapState(["user"]) },
   data: () => ({
@@ -46,6 +49,7 @@ export default {
     dialogDelete: false,
     successUpload: false,
     dialogError: false,
+    loading: true,
   }),
   methods: {
     filterProduct(val) {
@@ -92,7 +96,10 @@ export default {
         this.prods = prods;
         // this.email = users[0].email;
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error))
+      .finally(() => {
+        this.loading = false;
+      });
   },
 };
 </script>
