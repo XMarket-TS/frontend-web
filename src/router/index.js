@@ -33,6 +33,16 @@ const routes = [
     },
   },
   {
+    path: "/product/:productId",
+    name: "Product",
+    component: () => import("../pages/ProductInfo.vue"),
+    meta: {
+      requiresAuth: true,
+      type: "Market",
+    },
+    props: true,
+  },
+  {
     path: "/product/add",
     name: "AddProduct",
     component: () => import("../pages/AddProduct.vue"),

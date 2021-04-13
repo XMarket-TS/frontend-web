@@ -24,6 +24,7 @@
             :price="product.price"
             :buttons="true"
             :id="product.productId"
+            @editProduct="redirectToProduct($event)"
             @deleteProduct="filterProduct($event)"
           ></Product>
         </v-col>
@@ -53,8 +54,7 @@ export default {
   }),
   methods: {
     filterProduct(val) {
-      console.log(val);
-      // axios
+      // console.log(val);
       axios
         .delete("product/" + val)
         .then((result) => {
@@ -76,6 +76,14 @@ export default {
     confirmDelete() {
       this.dialogDelete = true;
     },
+    redirectToProduct(value) {
+      // console.log(value);
+      if (value > 0) {
+        this.$router.push("product/" + value);
+      } else {
+        this.$router.push({ name: "NotFound" });
+      }
+    },
   },
   mounted() {
     axios
@@ -92,7 +100,7 @@ export default {
           const user = data[key];
           prods.push(user);
         }
-        console.log(prods);
+        // console.log(prods);
         this.prods = prods;
         // this.email = users[0].email;
       })
