@@ -33,9 +33,19 @@ const routes = [
     },
   },
   {
-    path: "/product/:productId",
+    path: "/product/edit/:productId",
     name: "Product",
     component: () => import("../pages/ProductInfo.vue"),
+    meta: {
+      requiresAuth: true,
+      type: "Market",
+    },
+    props: true,
+  },
+  {
+    path: "/product/offer/:productId/view",
+    name: "Offer",
+    component: () => import("../pages/Offers.vue"),
     meta: {
       requiresAuth: true,
       type: "Market",
@@ -67,6 +77,7 @@ const routes = [
     name: "PageNotFound",
     component: () => import("../pages/NotFound.vue"),
   },
+  
 ];
 
 const router = new VueRouter({

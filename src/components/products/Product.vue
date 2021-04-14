@@ -12,7 +12,7 @@
       </v-chip>
     </v-card-title>
     <v-card-title class="pb-0">
-      Bs. {{ discount > 0 ? price * (1 - discount/100) : price | roundPrice }}
+      Bs. {{ discount > 0 ? price * (1 - discount / 100) : price | roundPrice }}
       <v-spacer></v-spacer>
       <div v-if="discount > 0" class="text-decoration-line-through">
         Bs. {{ price | roundPrice }}
@@ -38,13 +38,14 @@
     <v-container>
       <v-row justify="center" align="center" v-if="buttons">
         <v-spacer></v-spacer>
-        <v-btn color="primary" icon @click="editProduct()"
-          ><v-icon>mdi-lead-pencil</v-icon></v-btn
-        >
+        <v-btn color="primary" icon @click="editProduct()">
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
         <v-spacer></v-spacer>
-        <!-- <v-btn color="secondary" icon @click="confirmDelete(id)">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn> -->
+        <v-btn color="primary" icon @click="addOffer()">
+          <v-icon>mdi-offer</v-icon>
+        </v-btn>
+        <v-spacer></v-spacer>
         <DeleteDialog :id="id" @confirmDeleteProduct="confirmDelete($event)" />
         <v-spacer></v-spacer>
       </v-row>
@@ -108,6 +109,9 @@ export default {
     },
     editProduct() {
       this.$emit("editProduct", this.id);
+    },
+    addOffer() {
+      this.$emit("addOffer", this.id);
     },
   },
 };

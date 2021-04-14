@@ -7,7 +7,7 @@
           <v-alert text v-model="successUpload" type="success" dismissible>
             Producto agregado correctamente
           </v-alert>
-          <v-alert text v-model="dialogDelete" type="success" dismissible>
+          <v-alert v-model="dialogDelete" type="success" dismissible>
             Producto eliminado correctamente
           </v-alert>
           <v-alert text v-model="dialogError" type="error" dismissible>
@@ -26,6 +26,7 @@
             :id="product.productId"
             @editProduct="redirectToProduct($event)"
             @deleteProduct="filterProduct($event)"
+            @addOffer="createOffer($event)"
           ></Product>
         </v-col>
       </v-row>
@@ -79,9 +80,18 @@ export default {
     redirectToProduct(value) {
       // console.log(value);
       if (value > 0) {
-        this.$router.push("product/" + value);
+        this.$router.push("product/edit/" + value);
       } else {
         this.$router.push({ name: "NotFound" });
+      }
+    },
+    createOffer(value) {
+      console.log(value);
+      if (value > 0) {
+        // this.$$router.pop();
+        this.$router.push("product/offer/" + value + "/view");
+      } else {
+        this.$router.push({ name: "PageNotFound" });
       }
     },
   },
@@ -104,7 +114,10 @@ export default {
         this.prods = prods;
         // this.email = users[0].email;
       })
-      .catch((error) => console.error(error))
+      .catch((error) => {
+        console.error(error.response);
+        this.$router.push({ name: "PageNotFound" });
+      })
       .finally(() => {
         this.loading = false;
       });

@@ -12,6 +12,8 @@ axios.defaults.headers.get["Accepts"] = "application/json";
 
 Vue.config.productionTip = false;
 
+Vue.use(require("vue-moment"));
+
 Vue.filter("roundPrice", function(value) {
   if (!value) return "0.00";
   value = value.toFixed(2).toString();
