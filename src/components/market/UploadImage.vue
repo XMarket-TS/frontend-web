@@ -16,7 +16,7 @@
           :rules="rules"
           accept="image/jpeg,image/jpg"
           prepend-icon="mdi-camera"
-          label="Imagen del market"
+          label="Sube una imagen"
           color="accent"
           truncate-length="15"
           dense
@@ -77,6 +77,7 @@ export default {
         !value ||
         value.size < 2000000 ||
         "Photo size should be less than 2 MB!",
+      (v) => !!v || "Es necesario que escoja un archivo",
     ],
     cloudName: "fulano",
     preset: "ik1apwhk",

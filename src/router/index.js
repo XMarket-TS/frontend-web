@@ -22,6 +22,10 @@ const routes = [
     path: "/market/login",
     name: "LoginManager",
     component: () => import("../pages/LoginManager.vue"),
+    meta: {
+      requiresAuth: true,
+      type: "Market",
+    },
   },
   {
     path: "/products",
@@ -61,8 +65,9 @@ const routes = [
       type: "Market",
     },
   },
+
   {
-    path: "/add-new/manager",
+    path: "/add-new/market",
     name: "NewMarket",
     component: () => import("../pages/AddMarket.vue"),
   },
@@ -77,7 +82,6 @@ const routes = [
     name: "PageNotFound",
     component: () => import("../pages/NotFound.vue"),
   },
-  
 ];
 
 const router = new VueRouter({
