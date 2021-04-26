@@ -3,7 +3,7 @@
   <v-menu bottom min-width="200px" rounded offset-y>
     <template v-slot:activator="{ on }">
       <v-btn icon x-large v-on="on">
-        <v-avatar color="brown" size="48">
+        <v-avatar color="primary" size="48">
           <v-img v-if="user.userPhoto" :src="user.userPhoto" alt="John" />
           <span class="white--text headline" v-else>
             {{ user.initials }}
@@ -14,7 +14,7 @@
     <v-card>
       <v-list-item-content class="justify-center">
         <div class="mx-auto text-center">
-          <v-avatar color="brown">
+          <v-avatar color="white">
             <v-img v-if="user.userPhoto" :src="user.userPhoto" alt="John" />
             <span class="white--text headline" v-else>
               {{ user.initials }}

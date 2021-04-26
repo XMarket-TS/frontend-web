@@ -5,7 +5,7 @@
         <v-img
           :src="image"
           max-height="200px"
-          lazy-src="https://res.cloudinary.com/fulano/image/upload/v1617116017/profileimage_kptkl6.jpg"
+          lazy-src="https://res.cloudinary.com/fulano/image/upload/v1619385679/market_kdklwe.jpg"
           contain
         >
         </v-img>
@@ -30,11 +30,7 @@
           Subir
         </v-btn>
       </v-col>
-      <v-col cols="12">
-        <v-card-subtitle class="red--text">
-          {{ errorsText }}
-        </v-card-subtitle>
-      </v-col>
+
       <v-col cols="12">
         <br />
         <v-progress-circular
@@ -63,11 +59,7 @@ export default {
     image: {
       type: String,
       default:
-        "https://res.cloudinary.com/fulano/image/upload/v1617116017/profileimage_kptkl6.jpg",
-    },
-    errors: {
-      type: Array,
-      default: () => [],
+        "https://res.cloudinary.com/fulano/image/upload/v1619385679/market_kdklwe.jpg",
     },
   },
   data: () => ({
@@ -89,11 +81,6 @@ export default {
     formData: null,
     uploadingImage: false,
   }),
-  computed: {
-    errorsText() {
-      return this.errors.join(", ");
-    },
-  },
   methods: {
     prepareFormData: function () {
       this.formData = new FormData();
@@ -175,7 +162,6 @@ export default {
       }
     },
   },
-  mounted() {},
 };
 </script>
 
