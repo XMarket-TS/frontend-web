@@ -4,6 +4,9 @@
       <v-col cols="12">
         <div class="home">
           <v-btn @click="newMarket">Agregar nueva Sucursal</v-btn>
+
+          <br />
+          <v-btn @click="newManager">Agregar nuevo Manager</v-btn>
         </div>
       </v-col>
     </v-row>
@@ -23,6 +26,9 @@ export default {
   methods: {
     newMarket() {
       this.$router.push({ name: "NewMarket" });
+    },
+    newManager() {
+      this.$router.push({ name: "NewManager" });
     },
   },
 };

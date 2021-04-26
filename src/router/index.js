@@ -64,11 +64,15 @@ const routes = [
       type: "Market",
     },
   },
-
   {
     path: "/add-new/market",
     name: "NewMarket",
     component: () => import("../pages/AddMarket.vue"),
+  },
+  {
+    path: "/add-new/manager",
+    name: "NewManager",
+    component: () => import("../pages/AddManager.vue"),
   },
   {
     path: "/about",

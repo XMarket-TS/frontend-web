@@ -1,18 +1,18 @@
 <template>
   <v-container>
-    <v-card class="mx-auto" elevation="7">
-      <v-card-title>Agregar una nueva sucursal</v-card-title>
-      <v-divider></v-divider>
-      <v-col cols="12">
-        <v-card-title class="justify-center">
-          Datos del adminitrador
-        </v-card-title>
-      </v-col>
+    <v-card class="mx-auto">
+      <v-toolbar color="primary" dark>
+        <v-toolbar-title>Agregar nuevo administrador</v-toolbar-title>
+      </v-toolbar>
+      <br />
       <v-card-text class="text-center">
         <v-form v-model="valid" ref="form" lazy-validation>
           <v-row>
             <v-col cols="12" sm="8">
-              <GenerateData></GenerateData>
+              <GenerateData
+                :password="person.password"
+                :username="person.username"
+              ></GenerateData>
               <v-row>
                 <v-col cols="12" sm="5">
                   <v-text-field
@@ -76,69 +76,9 @@
               </v-row>
             </v-col>
             <v-col cols="12" sm="4">
-              <UploadImage
+              <ProfileImage
                 :image="person.imageUrl"
                 @successUploaded="addImage($event)"
-                :errors="errors"
-              />
-            </v-col>
-
-            <v-col cols="12">
-              <v-divider></v-divider>
-              <v-card-title class="justify-center">
-                Datos de la sucursal
-              </v-card-title>
-            </v-col>
-
-            <v-col cols="12" sm="8">
-              <v-row>
-                <v-col cols="12" md="8">
-                  <v-text-field
-                    v-model="market.name"
-                    label="Nombre"
-                    :rules="[rules.required]"
-                    outlined
-                    dense
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="4">
-                  <v-text-field
-                    v-model.number="market.number"
-                    label="Celular"
-                    :rules="[rules.cellphone]"
-                    type="number"
-                    outlined
-                    dense
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    v-model="market.zone"
-                    label="Zona"
-                    :rules="[rules.required]"
-                    outlined
-                    dense
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    v-model="market.address"
-                    label="Direccion"
-                    :rules="[rules.required]"
-                    outlined
-                    dense
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            </v-col>
-
-            <v-col cols="12" sm="4" md="4">
-              <UploadImage
-                :image="market.imageUrl"
-                @successUploaded="addImage($event)"
-                :errors="errors"
               />
             </v-col>
           </v-row>
@@ -151,12 +91,6 @@
         <v-spacer></v-spacer>
         <AddDialog
           @confirmed="verifyData($event)"
-          :name="person.name"
-          :price="person.price"
-          :discount="discount / 100"
-          :description="person.description"
-          :category="person.category"
-          :imagesUrl="person.imagesUrl"
           @emitValidate="validateForm"
         />
         <v-spacer></v-spacer>
@@ -167,33 +101,22 @@
 </template>
 
 <script>
-import AddDialog from "../components/market/AddDialog.vue";
-import UploadImage from "../components/market/UploadImage.vue";
-import axios from "axios";
+import AddDialog from "../components/user/AddDialog.vue";
+import ProfileImage from "../components/user/ProfileImage.vue";
 import GenerateData from "../components/user/GenerateData.vue";
+import axios from "axios";
+import { rules } from "../mixins/rules";
 export default {
   components: {
     AddDialog,
-    UploadImage,
+    ProfileImage,
     GenerateData,
   },
+  mixins: [rules],
   data: () => ({
     genders: ["Masculino", "Femenino", "No Binario"],
     valid: false,
-    rules: {
-      required: (value) => !!value || "Este campo no puede estar vacia",
-      cellphone: (value) => !!value || "Es necesario un numero",
-      email: [
-        (v) => !!v || "E-mail es requerido",
-        (v) => /.+@.+\..+/.test(v) || "Debe ser un e-mail valido",
-      ],
-      market: (v) => !!v || "Selecciones una sucursal",
-      gender: (v) => !!v || "Selecciones el genero",
-      nameRules: (v) => !!v || "El nombre del producto es requerido",
-      stockRules: (v) => !!v || "El stock es requerido",
-      priceRules: (v) => !!v || "El precio no debe estar vacio",
-      descriptionRules: (v) => !!v || "La descripcion no debe estar vacio",
-    },
+
     person: {
       name: "",
       surname: "",
@@ -205,17 +128,23 @@ export default {
       username: "",
       password: "",
     },
-    market: {
-      imageUrl:
-        "https://res.cloudinary.com/fulano/image/upload/v1619385679/market_kdklwe.jpg",
-    },
-    oldMarket: false,
-    discount: 0,
-    withDiscount: false,
-    dates: ["2021-03-21", "2021-03-20"],
-    errors: [],
   }),
-
+  watch: {
+    person: {
+      handler(value) {
+        try {
+          let email = value.email.split("@");
+          console.log(email);
+          this.person.username =
+            email[0].toLowerCase() + "-" + value.surname.toLowerCase();
+          this.person.password = value.username;
+        } catch (ex) {
+          console.warn(ex);
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
     verifyData() {
       this.validateForm();
@@ -224,12 +153,12 @@ export default {
       const formData = {
         name: this.person.name,
         surname: this.person.surname,
+        username: this.person.username,
         userPhoto: this.person.imageUrl,
         gender: this.person.gender,
         email: this.person.email,
         description: this.person.description,
         cellphone: this.person.number,
-        username: this.person.username,
         password: this.person.password,
       };
       console.log(formData);
@@ -252,23 +181,9 @@ export default {
       console.log(this.person);
       this.errors = [];
     },
-    retrieveData() {
-      console.log(this.person);
-      if (this.withDiscount) {
-        console.log(this.discount, this.dates);
-      }
-      console.log(this.valid);
-    },
   },
 };
 </script>
 
 <style>
-.vertical-center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
 </style>
