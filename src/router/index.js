@@ -23,7 +23,6 @@ const routes = [
     name: "LoginManager",
     component: () => import("../pages/LoginManager.vue"),
     meta: {
-      requiresAuth: true,
       type: "Market",
     },
   },
