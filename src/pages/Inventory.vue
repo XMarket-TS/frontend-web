@@ -97,14 +97,14 @@ export default {
   },
   mounted() {
     axios
-      .get("manager/" + this.user.personId + "/products")
+      .get("manager/" + this.user.personId + "/products?page=1&size=10")
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if (!res.status) {
           // Notify, there isnt data
           return;
         }
-        const data = res.data;
+        const data = res.data.list;
         const prods = [];
         for (let key in data) {
           const user = data[key];

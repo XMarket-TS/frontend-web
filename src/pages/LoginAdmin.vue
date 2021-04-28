@@ -29,6 +29,9 @@ export default {
     loading: false,
     fail: false,
   }),
+  mounted() {
+    this.$vuetify.theme.dark=true
+  },
   methods: {
     login(data) {
       console.log(data);

@@ -31,6 +31,9 @@ export default {
     loading: false,
     fail: false,
   }),
+  mounted() {
+    this.$vuetify.theme.light=true
+  },
   methods: {
     login(data) {
       console.log(data);
