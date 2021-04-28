@@ -109,6 +109,7 @@
 import AddDialog from "../components/products/AddDialog.vue";
 import UploadImages from "../components/products/UploadImages.vue";
 import axios from "axios";
+import { mapState } from "vuex";
 export default {
   components: {
     AddDialog,
@@ -118,6 +119,12 @@ export default {
     productId: {
       type: String,
       default: "-1",
+    },
+  },
+  computed: {
+    ...mapState(["user"]),
+    errorsText() {
+      return this.errors.join(", ");
     },
   },
   data: () => ({
@@ -165,41 +172,34 @@ export default {
       console.log(this.valid);
       if (!this.valid) return;
 
-      const imagesURLs = [];
-      for (let key in this.product.imagesUrl) {
-        const url = this.product.imagesUrl[key];
-        imagesURLs.push({ photo: url });
-      }
       const formData = {
         name: this.product.name,
         price: this.product.price,
         description: this.product.description,
         unit: this.product.unit,
         category: this.product.category.category,
-        offer: null,
-        imagesUrl: imagesURLs,
+        imagesUrl: this.product.imagesUrl,
       };
       console.log(formData);
-      //   axios
-      //     .post("/admin/" + 1 + "/branchOffice/" + 1 + "/product", formData)
-      //     .then((res) => {
-      //       console.log(res);
-      //       this.$router.push("/products");
-      //     })
-      //     .catch((error) => {
-      //       console.log(error);
-      //     });
+      axios
+        .put(
+          "/manager/" + this.user.personId + "/product/" + this.productId,
+          formData
+        )
+        .then((res) => {
+          console.log(res);
+          this.$router.push("/products");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     addImage(value) {
       // console.log(value);
       this.product.imagesUrl.push(value);
     },
   },
-  computed: {
-    errorsText() {
-      return this.errors.join(", ");
-    },
-  },
+
   created() {
     // console.log(this.productId);
     axios.get("product/" + this.productId).then((res) => {

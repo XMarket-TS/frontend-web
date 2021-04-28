@@ -1,5 +1,5 @@
 <template>
-  <v-dialog transition="dialog-top-transition" max-width="50%">
+  <v-dialog transition="dialog-top-transition" max-width="40%">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         color="primary"
@@ -11,21 +11,28 @@
       >
     </template>
     <template v-slot:default="dialog">
-      <v-card>
+      <v-card color="tertiary">
         <v-toolbar color="primary" dark>
           <v-toolbar-title>
             Esta seguro de guardar el producto?
           </v-toolbar-title>
         </v-toolbar>
         <v-card-text>
-          <Product
-            :images="imagesUrl"
-            :title="name"
-            :price="price"
-            :discount="discount"
-            :description="description"
-            :category="category"
-          ></Product>
+          <br />
+          <v-row>
+            <v-col cols="12" md="2"></v-col>
+            <v-col cols="12" md="8">
+              <Product
+                :images="imagesUrl"
+                :title="name"
+                :price="price"
+                :discount="discount"
+                :description="description"
+                :category="category"
+              ></Product>
+            </v-col>
+            <v-col cols="12" md="2"></v-col>
+          </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
