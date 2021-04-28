@@ -32,7 +32,7 @@ export default {
     fail: false,
   }),
   mounted() {
-    this.$vuetify.theme.light=true
+    this.$vuetify.theme.light = true;
   },
   methods: {
     login(data) {

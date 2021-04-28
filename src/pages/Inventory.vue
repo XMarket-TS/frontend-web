@@ -1,8 +1,18 @@
 <template>
-  <v-card max-width="90%" class="mx-auto" flat color="transparent" >
-    <v-card-text >
+  <v-card max-width="90%" class="mx-auto" flat color="transparent">
+    <v-card-text class="text-center">
+      <v-pagination
+        v-model="currentpage"
+        :length="pages"
+        :total-visible="7"
+        next-icon="mdi-menu-right"
+        prev-icon="mdi-menu-left"
+        @input="handlePageChange"
+      ></v-pagination>
+    </v-card-text>
+    <v-card-text>
       <LoaderProducts v-if="loading"></LoaderProducts>
-      <v-row dense v-if="loading==false">
+      <v-row dense v-else>
         <v-col cols="12">
           <v-alert text v-model="successUpload" type="success" dismissible>
             Producto agregado correctamente
@@ -31,26 +41,16 @@
         </v-col>
       </v-row>
     </v-card-text>
-    <div class="text-center">
-      <v-pagination
-          v-model="currentpage"
-          :length="pages"
-          :total-visible="7"
-          next-icon="mdi-menu-right"
-          prev-icon="mdi-menu-left"
-          @input="handlePageChange"
-      ></v-pagination>
-    </div>
   </v-card>
-
 </template>
 
 
 <script>
 import axios from "axios";
 import Product from "../components/products/Product";
-import { mapState } from "vuex";
 import LoaderProducts from "../components/products/LoaderProducts";
+import { mapState } from "vuex";
+
 export default {
   name: "Inventory",
   components: {
@@ -66,7 +66,6 @@ export default {
     loading: true,
     pages: null,
     currentpage: 1,
-
   }),
   methods: {
     filterProduct(val) {
@@ -111,42 +110,42 @@ export default {
     },
     handlePageChange(value) {
       this.currentpage = value;
-      this.loading=true;
-
+      this.loading = true;
       this.getAll();
-
     },
-    getAll(){
+    getAll() {
       axios
-          .get("manager/" + this.user.personId + "/products",{params: {page: this.currentpage, size: 12}})
-          .then((res) => {
-            console.log(res);
-            if (!res.status) {
-              // Notify, there isnt data
-              return;
-            }
-            const data = res.data.list;
-            this.pages= res.data.pages;
-            this.currentpage=res.data.pageNum;
-            const prods = [];
-            for (let key in data) {
-              const user = data[key];
-              prods.push(user);
-            }
-            // console.log(prods);
-            this.prods = prods;
-            // this.email = users[0].email;
-          })
-          .catch((error) => {
-            console.error(error.response);
-            this.$router.push({ name: "PageNotFound" });
-          })
-          .finally(() => {
-            this.loading = false;
-          });
-    }
+        .get("manager/" + this.user.personId + "/products", {
+          params: { page: this.currentpage, size: 12 },
+        })
+        .then((res) => {
+          console.log(res);
+          if (!res.status) {
+            // Notify, there isnt data
+            return;
+          }
+          const data = res.data.list;
+          this.pages = res.data.pages;
+          this.currentpage = res.data.pageNum;
+          const prods = [];
+          for (let key in data) {
+            const user = data[key];
+            prods.push(user);
+          }
+          // console.log(prods);
+          this.prods = prods;
+          // this.email = users[0].email;
+        })
+        .catch((error) => {
+          console.error(error.response);
+          this.$router.push({ name: "PageNotFound" });
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
   },
-  mounted(){
+  mounted() {
     this.getAll();
   },
 };
