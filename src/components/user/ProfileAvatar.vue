@@ -48,9 +48,11 @@ export default {
 
   methods: {
     logout() {
+      const type = localStorage.getItem("type");
       this.$store.dispatch("logout").then(() => {
         this.$emit("logout", false);
-        this.$router.push("/market/login");
+        if (type == "Market") this.$router.push("/market/login");
+        else this.$router.push("/admin/login");
       });
     },
   },

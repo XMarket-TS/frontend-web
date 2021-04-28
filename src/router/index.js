@@ -22,9 +22,6 @@ const routes = [
     path: "/market/login",
     name: "LoginManager",
     component: () => import("../pages/LoginManager.vue"),
-    meta: {
-      type: "Market",
-    },
   },
   {
     path: "/products",
@@ -68,11 +65,19 @@ const routes = [
     path: "/add-new/market",
     name: "NewMarket",
     component: () => import("../pages/AddMarket.vue"),
+    meta: {
+      requiresAuth: true,
+      type: "Admin",
+    },
   },
   {
     path: "/add-new/manager",
     name: "NewManager",
     component: () => import("../pages/AddManager.vue"),
+    meta: {
+      requiresAuth: true,
+      type: "Admin",
+    },
   },
   {
     path: "/about",
@@ -105,21 +110,23 @@ const router = new VueRouter({
 
 /// Navigation guards
 router.beforeEach((to, from, next) => {
-  // console.log(to, from);
+  console.log(to, from);
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     console.log("TO: ", to.meta.type);
     console.log("FROM: ", from.meta.type ? from.meta.type : "Type not set :C");
-    if (store.getters.isLoggedIn) {
+    const type = localStorage.getItem("type");
+    if (!type || !store.getters.isLoggedIn) {
+      next({ name: "PageNotFound" });
+      return;
+    } else if (to.meta.type == type) {
       next();
       return;
-    }
-    if (from.meta.type == "Market") {
-      next({ name: "LoginManager" });
+    } else if (from.name == "LoginAdmin" || from.name == "LoginManager") {
+      next();
       return;
+    } else {
+      next({ name: "PageNotFound" });
     }
-    next({ name: "LoginAdmin" });
-    // console.log(to, from);
-    return;
   } else {
     next();
   }

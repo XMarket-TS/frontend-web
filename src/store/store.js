@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+
 // import router from "../router/index.js";
 Vue.use(Vuex);
 
@@ -32,7 +33,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit("auth_request");
         axios({
-          url: "http://localhost:8080/admin/login",
+          url: "/admin/login",
           data: user,
           method: "POST",
         })
@@ -40,8 +41,10 @@ export default new Vuex.Store({
             // console.log(resp);
             const token = resp.data.personId;
             localStorage.setItem("token", token);
+            localStorage.setItem("type", "Admin");
             // Add the following line:
             // axios.defaults.headers.common["Authorization"] = token;
+            resp.data.type = "admin";
             commit("auth_success", resp.data);
             resolve(resp);
           })
@@ -64,8 +67,10 @@ export default new Vuex.Store({
             // console.log(resp);
             const token = resp.data.personId;
             localStorage.setItem("token", token);
+            localStorage.setItem("type", "Market");
             // Add the following line:
             // axios.defaults.headers.common["Authorization"] = token;
+            resp.data.type = "manager";
             commit("auth_success", resp.data);
             resolve(resp);
           })
@@ -80,7 +85,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit("auth_request");
         axios({
-          url: "http://localhost:8080/register",
+          url: "/register",
           data: user,
           method: "POST",
         })
@@ -104,23 +109,38 @@ export default new Vuex.Store({
       return new Promise((resolve) => {
         commit("logout");
         localStorage.removeItem("token");
+        localStorage.removeItem("type");
         resolve();
       });
     },
     tryAutoLogin({ commit }) {
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
         const token = localStorage.getItem("token");
-        if (!token) {
+        const type = localStorage.getItem("type");
+        if (!token || !type) {
+          reject(1);
           return;
         }
-        axios.get("/manager/login/" + token).then((resp) => {
-          // console.log(resp);
-          const user = resp.data;
-          // Add the following line:
-          // axios.defaults.headers.common["Authorization"] = token;
-          commit("auth_success", user);
-          resolve(resp);
-        });
+        if (type == "manager") {
+          axios
+            .get("/manager/login/" + token)
+            .then((resp) => {
+              const user = resp.data;
+              // axios.defaults.headers.common["Authorization"] = token;
+              commit("auth_success", user);
+              resolve(resp);
+            })
+            .catch((err) => reject(err));
+        } else {
+          axios
+            .get("/admin/login/" + token)
+            .then((resp) => {
+              const user = resp.data;
+              commit("auth_success", user);
+              resolve(resp);
+            })
+            .catch((err) => reject(err));
+        }
       });
     },
   },

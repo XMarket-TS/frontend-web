@@ -96,7 +96,7 @@ export default {
       if (value > 0) {
         this.$router.push("product/edit/" + value);
       } else {
-        this.$router.push({ name: "NotFound" });
+        this.$router.push({ name: "PageNotFound" });
       }
     },
     createOffer(value) {
