@@ -1,8 +1,8 @@
 <template>
-  <v-card max-width="90%" class="mx-auto" flat color="transparent">
-    <v-card-text>
+  <v-card max-width="90%" class="mx-auto" flat color="transparent" >
+    <v-card-text >
       <LoaderProducts v-if="loading"></LoaderProducts>
-      <v-row dense>
+      <v-row dense v-if="loading==false">
         <v-col cols="12">
           <v-alert text v-model="successUpload" type="success" dismissible>
             Producto agregado correctamente
@@ -31,8 +31,20 @@
         </v-col>
       </v-row>
     </v-card-text>
+    <div class="text-center">
+      <v-pagination
+          v-model="currentpage"
+          :length="pages"
+          :total-visible="7"
+          next-icon="mdi-menu-right"
+          prev-icon="mdi-menu-left"
+          @input="handlePageChange"
+      ></v-pagination>
+    </div>
   </v-card>
+
 </template>
+
 
 <script>
 import axios from "axios";
@@ -52,6 +64,9 @@ export default {
     successUpload: false,
     dialogError: false,
     loading: true,
+    pages: null,
+    currentpage: 1,
+
   }),
   methods: {
     filterProduct(val) {
@@ -94,33 +109,45 @@ export default {
         this.$router.push({ name: "PageNotFound" });
       }
     },
+    handlePageChange(value) {
+      this.currentpage = value;
+      this.loading=true;
+
+      this.getAll();
+
+    },
+    getAll(){
+      axios
+          .get("manager/" + this.user.personId + "/products",{params: {page: this.currentpage, size: 12}})
+          .then((res) => {
+            console.log(res);
+            if (!res.status) {
+              // Notify, there isnt data
+              return;
+            }
+            const data = res.data.list;
+            this.pages= res.data.pages;
+            this.currentpage=res.data.pageNum;
+            const prods = [];
+            for (let key in data) {
+              const user = data[key];
+              prods.push(user);
+            }
+            // console.log(prods);
+            this.prods = prods;
+            // this.email = users[0].email;
+          })
+          .catch((error) => {
+            console.error(error.response);
+            this.$router.push({ name: "PageNotFound" });
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+    }
   },
-  mounted() {
-    axios
-      .get("manager/" + this.user.personId + "/products?page=1&size=10")
-      .then((res) => {
-        console.log(res);
-        if (!res.status) {
-          // Notify, there isnt data
-          return;
-        }
-        const data = res.data.list;
-        const prods = [];
-        for (let key in data) {
-          const user = data[key];
-          prods.push(user);
-        }
-        // console.log(prods);
-        this.prods = prods;
-        // this.email = users[0].email;
-      })
-      .catch((error) => {
-        console.error(error.response);
-        this.$router.push({ name: "PageNotFound" });
-      })
-      .finally(() => {
-        this.loading = false;
-      });
+  mounted(){
+    this.getAll();
   },
 };
 </script>
