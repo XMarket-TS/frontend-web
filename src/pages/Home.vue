@@ -1,24 +1,27 @@
 <template>
   <v-container>
-    <v-row align="center" justify="center">
-      <v-col cols="12">
-        <div class="home">
-          <v-btn @click="newMarket">Agregar nueva Sucursal</v-btn>
-
-          <br />
-          <v-btn @click="newManager">Agregar nuevo Manager</v-btn>
-        </div>
-      </v-col>
-    </v-row>
+    <br />
+    <v-card>
+      <v-row>
+        <v-col cols="12">
+          <v-card-title>Sucursales</v-card-title>
+          <branches-table></branches-table>
+        </v-col>
+      </v-row>
+    </v-card>
+    <v-col cols="12"></v-col>
   </v-container>
 </template>
 
 <script>
 // import axios from 'axios';
 import { mapState } from "vuex";
+import BranchesTable from "../components/admin/BranchesTable.vue";
 export default {
   name: "Home",
-  components: {},
+  components: {
+    BranchesTable,
+  },
   computed: { ...mapState(["user"]) },
   mounted() {
     console.log(this.user);

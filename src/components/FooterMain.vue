@@ -7,14 +7,18 @@
       >
         <div v-if="user.personId">
           <v-btn
-            v-for="link in links"
-            :key="link"
+            v-for="(link, i) in links"
+            :key="i"
             color="white"
             text
             rounded
             class="my-2"
+            :to="link.to"
           >
-            {{ link }}
+            <v-icon>
+              {{ link.icon }}
+            </v-icon>
+            <span> {{ link.text }}</span>
           </v-btn>
         </div>
         <v-col v-else></v-col>
@@ -30,8 +34,43 @@
 import { mapState } from "vuex";
 export default {
   data: () => ({
-    links: ["Home", "Services", "Contact Us"],
+    links: [],
   }),
+  mounted() {
+    const type = localStorage.getItem("type");
+    console.log(type);
+    if (type == "Admin")
+      this.links = [
+        {
+          text: "Inicio",
+          to: "/",
+          icon: "mdi-home-assistant",
+        },
+        {
+          text: "Agregar Sucursal",
+          to: "/add-new/market",
+          icon: "mdi-office-building-outline",
+        },
+        {
+          text: "Agregar administrador",
+          to: "/add-new/manager",
+          icon: "mdi-human-edit",
+        },
+      ];
+    else if (type == "Market")
+      this.links = [
+        {
+          text: "Inicio",
+          to: "/products",
+          icon: "mdi-home-assistant",
+        },
+        {
+          text: "Agregar Producto",
+          to: "/add/product",
+          icon: "mdi-office-building-outline",
+        },
+      ];
+  },
   computed: {
     ...mapState(["user"]),
   },
