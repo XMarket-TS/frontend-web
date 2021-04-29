@@ -1,5 +1,17 @@
 <template>
   <v-card max-width="90%" class="mx-auto" flat color="transparent">
+    <v-text-field
+        v-model="message"
+        :append-outer-icon="message ? 'mdi-magnify' : '' "
+        filled
+        clear-icon="mdi-close-circle"
+        clearable
+        label="Buscar"
+        type="text"
+        @click:append="toggleMarker"
+        @click:append-outer="sendMessage(message)"
+        @click:clear="clearMessage"
+    ></v-text-field>
     <v-card-text class="text-center">
       <v-pagination
         v-model="currentpage"
@@ -59,6 +71,9 @@ export default {
   },
   computed: { ...mapState(["user"]) },
   data: () => ({
+    message: null,
+    marker: true,
+    iconIndex: 0,
     prods: null,
     dialogDelete: false,
     successUpload: false,
@@ -68,18 +83,35 @@ export default {
     currentpage: 1,
   }),
   methods: {
+    toggleMarker () {
+      this.marker = !this.marker
+    },
+    sendMessage () {
+      this.loading=true
+      this.currentpage=1
+      this.getAll()
+      this.resetIcon()
+    },
+    clearMessage () {
+      this.loading=true
+      this.message=null
+      this.getAll()
+    },
+    resetIcon () {
+      this.iconIndex = 0
+    },
     filterProduct(val) {
       // console.log(val);
       axios
         .delete("product/" + val)
         .then((result) => {
           console.log(result, "then");
-          if (result.status == 200) {
+          if (result.status === 200) {
             this.prods = this.prods.filter((value) => {
               if (value.productId !== val) return value;
             });
             this.confirmDelete();
-          } else if (result.status == 500) {
+          } else if (result.status === 500) {
             this.dialogError = true;
           }
         })
@@ -114,10 +146,13 @@ export default {
       this.getAll();
     },
     getAll() {
+      const params={
+        search: this.message,
+        page: this.currentpage,
+        size: 12
+      };
       axios
-        .get("manager/" + this.user.personId + "/products", {
-          params: { page: this.currentpage, size: 12 },
-        })
+        .get("manager/" + this.user.personId + "/products", {params })
         .then((res) => {
           console.log(res);
           if (!res.status) {
