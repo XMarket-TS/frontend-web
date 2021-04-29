@@ -8,11 +8,12 @@
         gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
       >
         <v-card-title>Teléfono: {{ phone }}</v-card-title>
+        <v-card-actions>
+
+          <confirm-dialog></confirm-dialog>
+        </v-card-actions>
       </v-img>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <confirm-dialog></confirm-dialog>
-      </v-card-actions>
+
       <v-row>
         <v-col cols="12" md="3">
           <v-avatar class="profile" color="grey" size="164" tile>
@@ -40,7 +41,7 @@
 
 <script>
 import axios from "axios";
-import ConfirmDialog from "../ConfirmDialog.vue";
+import ConfirmDialog from "./ConfirmDialog.vue";
 export default {
   components: {
     ConfirmDialog,

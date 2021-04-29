@@ -5,10 +5,31 @@
         <h1>Oops!</h1>
         <h2>404 - No se pudo encontrar la página</h2>
       </div>
-      <v-btn to="/" color="primary">Ir a la página principal</v-btn>
+      <v-btn @click="back" color="primary">Ir a la página principal</v-btn>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    back() {
+      const type = localStorage.getItem("type");
+      if (!type) {
+        this.$router.push({ name: "LoginAdmin" });
+        return;
+      }
+      if (type == "Admin") {
+        this.$router.push("/");
+        return;
+      } else {
+        this.$router.push("/products");
+        return;
+      }
+    },
+  },
+};
+</script>
 
 <style scoped>
 .paragraph-text {

@@ -27,10 +27,11 @@ export default {
     //
   }),
   created() {
-    this.$store.dispatch("tryAutoLogin").catch((err) => {
-      console.log(err);
-      // if (err != 1) this.$router.push({ name: "PageNotFound" });
-    });
+    this.$store.dispatch("tryAutoLogin");
+    // .catch((err) => {
+    //   console.log(err);
+    //   // if (err != 1) this.$router.push({ name: "PageNotFound" });
+    // });
   },
 };
 </script>

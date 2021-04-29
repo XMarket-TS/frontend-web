@@ -38,7 +38,7 @@ export default {
   }),
   mounted() {
     const type = localStorage.getItem("type");
-    console.log(type);
+    // console.log(type);
     if (type == "Admin")
       this.links = [
         {

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <br />
-    <v-card>
+    <v-card class="mx-auto">
       <v-row>
         <v-col cols="12">
           <v-card-title>Sucursales</v-card-title>
