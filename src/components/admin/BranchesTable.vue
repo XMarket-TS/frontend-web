@@ -36,6 +36,8 @@
             :managerId="branch.managerId"
             :image="branch.image"
             :phone="branch.phone"
+            :status="branch.status"
+            @changed="changed"
           ></Branch>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -57,7 +59,11 @@ export default {
       this.branchs = response.data;
     });
   },
-  methods: {},
+  methods: {
+    changed() {
+      this.$emit("changed", null);
+    },
+  },
 };
 </script>
 

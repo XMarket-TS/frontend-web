@@ -116,7 +116,7 @@ router.beforeEach((to, from, next) => {
     console.log("FROM: ", from.meta.type ? from.meta.type : "Type not set :C");
     const type = localStorage.getItem("type");
     if (!type || !store.getters.isLoggedIn) {
-      next({ name: "PageNotFound" });
+      next({ name: "LoginAdmin" });
       return;
     } else if (to.meta.type == type) {
       next();

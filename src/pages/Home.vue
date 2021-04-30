@@ -4,8 +4,11 @@
     <v-card class="mx-auto">
       <v-row>
         <v-col cols="12">
-          <v-card-title>Sucursales</v-card-title>
-          <branches-table></branches-table>
+          <v-alert text v-model="successChanged" type="success" dismissible>
+            El cambio fue correcto
+          </v-alert>
+          <v-card-title> Sucursales </v-card-title>
+          <branches-table @changed="successChange"></branches-table>
         </v-col>
       </v-row>
     </v-card>
@@ -19,6 +22,9 @@ import { mapState } from "vuex";
 import BranchesTable from "../components/admin/BranchesTable.vue";
 export default {
   name: "Home",
+  data: () => ({
+    successChanged: false,
+  }),
   components: {
     BranchesTable,
   },
@@ -32,6 +38,9 @@ export default {
     },
     newManager() {
       this.$router.push({ name: "NewManager" });
+    },
+    successChange() {
+      this.successChanged = true;
     },
   },
 };

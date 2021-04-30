@@ -36,14 +36,14 @@
                 </v-btn>
               </template>
               <v-card>
-                <v-card-title>
+                <v-card-title class="justify-center">
                   <span class="headline">{{ formTitle }}</span>
                 </v-card-title>
 
                 <v-card-text>
                   <v-container>
-                    <v-row>
-                      <v-col cols="12" sm="6" md="4">
+                    <v-row align="center" justify="center">
+                      <v-col cols="12" sm="6" md="6">
                         <v-text-field
                           v-model="editedItem.percentage"
                           label="Porcentaje"

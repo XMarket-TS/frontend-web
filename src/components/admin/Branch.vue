@@ -9,8 +9,11 @@
       >
         <v-card-title>Teléfono: {{ phone }}</v-card-title>
         <v-card-actions>
-
-          <confirm-dialog></confirm-dialog>
+          <confirm-dialog
+            :disabled="disabled"
+            :branchId="branchId"
+            @changed="changed"
+          ></confirm-dialog>
         </v-card-actions>
       </v-img>
 
@@ -63,9 +66,14 @@ export default {
       type: Number,
       default: -1,
     },
+    status: {
+      type: Number,
+      default: 0,
+    },
   },
   data: () => ({
     manager: {},
+    disabled: null,
   }),
   mounted() {
     if (this.managerId > 0) {
@@ -73,6 +81,18 @@ export default {
         this.manager = response.data;
       });
     }
+    this.disabled = this.status == 1 ? true : false;
+  },
+
+  methods: {
+    changed() {
+      this.$emit("changed", null);
+      if (this.disabled == 1) {
+        this.disabled = 0;
+      } else {
+        this.disabled = 1;
+      }
+    },
   },
 };
 </script>

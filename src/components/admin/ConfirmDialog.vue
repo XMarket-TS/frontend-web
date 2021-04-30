@@ -9,12 +9,12 @@
         style="position: relative"
       >
       </v-switch> -->
-      <v-btn-toggle v-model="toggle_exclusive" color="primary" dense>
-        <v-btn :value="1" text>
-          <v-icon>mdi-format-align-left</v-icon>
-        </v-btn>
-      </v-btn-toggle>
+
       <v-bottom-sheet v-model="sheet" inset persistent>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn v-if="disabled" v-bind="attrs" v-on="on"> Deshabilitar </v-btn>
+          <v-btn v-else v-bind="attrs" v-on="on"> Habilitar </v-btn>
+        </template>
         <v-sheet class="text-center" height="200px">
           <v-btn class="mt-6" color="primary" @click="confirmDialog()">
             Confirmar
@@ -31,16 +31,22 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: {
     text: {
       type: String,
-      default: "Are you sure?",
+      default: "",
     },
     disabled: {
       type: Boolean,
       default: true,
     },
+    branchId: {
+      type: Number,
+      default: -1,
+    },
+    status,
   },
   data: () => ({
     sheet: false,
@@ -49,6 +55,14 @@ export default {
   methods: {
     confirmDialog() {
       this.sheet = !this.sheet;
+      console.log(this.branchId);
+      axios
+        .put(
+          "branchOffice/branch/" + this.branchId + "/" + (this.disabled ? 1 : 0)
+        )
+        .then(() => {
+          this.$emit("changed", null);
+        });
     },
     switching(event) {
       console.log(event);
