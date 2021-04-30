@@ -1,27 +1,26 @@
 <template>
   <v-card max-width="90%" class="mx-auto" flat color="transparent">
-    <v-text-field
-        v-model="message"
-        :append-outer-icon="message ? 'mdi-magnify' : '' "
-        filled
-        clear-icon="mdi-close-circle"
-        clearable
-        label="Buscar"
-        type="text"
-        @click:append="toggleMarker"
-        @click:append-outer="sendMessage(message)"
-        @click:clear="clearMessage"
-    ></v-text-field>
-    <v-card-text class="text-center">
-      <v-pagination
-        v-model="currentpage"
-        :length="pages"
-        :total-visible="7"
-        next-icon="mdi-menu-right"
-        prev-icon="mdi-menu-left"
-        @input="handlePageChange"
-      ></v-pagination>
-    </v-card-text>
+    <br />
+    <v-card class="mx-auto">
+      <v-card-text class="text-center">
+        <v-text-field
+          v-model="message"
+          :append-outer-icon="message ? 'mdi-magnify' : ''"
+          filled
+          color="primary"
+          clear-icon="mdi-close-circle"
+          clearable
+          label="Buscar"
+          type="text"
+          dense
+          outlined
+          hide-details
+          @click:append="toggleMarker"
+          @click:append-outer="sendMessage(message)"
+          @click:clear="clearMessage"
+        ></v-text-field>
+      </v-card-text>
+    </v-card>
     <v-card-text>
       <LoaderProducts v-if="loading"></LoaderProducts>
       <v-row dense v-else>
@@ -50,6 +49,16 @@
             @deleteProduct="filterProduct($event)"
             @addOffer="createOffer($event)"
           ></Product>
+        </v-col>
+        <v-col cols="12">
+          <v-pagination
+            v-model="currentpage"
+            :length="pages"
+            :total-visible="7"
+            next-icon="mdi-menu-right"
+            prev-icon="mdi-menu-left"
+            @input="handlePageChange"
+          ></v-pagination>
         </v-col>
       </v-row>
     </v-card-text>
@@ -83,22 +92,22 @@ export default {
     currentpage: 1,
   }),
   methods: {
-    toggleMarker () {
-      this.marker = !this.marker
+    toggleMarker() {
+      this.marker = !this.marker;
     },
-    sendMessage () {
-      this.loading=true
-      this.currentpage=1
-      this.getAll()
-      this.resetIcon()
+    sendMessage() {
+      this.loading = true;
+      this.currentpage = 1;
+      this.getAll();
+      this.resetIcon();
     },
-    clearMessage () {
-      this.loading=true
-      this.message=null
-      this.getAll()
+    clearMessage() {
+      this.loading = true;
+      this.message = null;
+      this.getAll();
     },
-    resetIcon () {
-      this.iconIndex = 0
+    resetIcon() {
+      this.iconIndex = 0;
     },
     filterProduct(val) {
       // console.log(val);
@@ -146,13 +155,13 @@ export default {
       this.getAll();
     },
     getAll() {
-      const params={
+      const params = {
         search: this.message,
         page: this.currentpage,
-        size: 12
+        size: 12,
       };
       axios
-        .get("manager/" + this.user.personId + "/products", {params })
+        .get("manager/" + this.user.personId + "/products", { params })
         .then((res) => {
           console.log(res);
           if (!res.status) {

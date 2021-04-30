@@ -36,6 +36,7 @@ export default {
   data: () => ({
     links: [],
   }),
+  
   mounted() {
     const type = localStorage.getItem("type");
     // console.log(type);
@@ -70,6 +71,7 @@ export default {
           icon: "mdi-office-building-outline",
         },
       ];
+    else this.links = [];
   },
   computed: {
     ...mapState(["user"]),
