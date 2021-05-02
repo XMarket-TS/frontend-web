@@ -108,25 +108,38 @@ const router = new VueRouter({
   // },
 });
 
+// async login() {
+//   await this.$store.dispatch("tryAutoLogin");
+// }
 /// Navigation guards
 router.beforeEach((to, from, next) => {
   console.log(to, from);
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    console.log("TO: ", to.meta.type);
-    console.log("FROM: ", from.meta.type ? from.meta.type : "Type not set :C");
-    const type = localStorage.getItem("type");
-    if (!type || !store.getters.isLoggedIn) {
-      next({ name: "LoginAdmin" });
-      return;
-    } else if (to.meta.type == type) {
-      next();
-      return;
-    } else if (from.name == "LoginAdmin" || from.name == "LoginManager") {
-      next();
-      return;
-    } else {
-      next({ name: "PageNotFound" });
-    }
+    store
+      .dispatch("tryAutoLogin")
+      .then(() => {
+        console.log("TO: ", to.meta.type);
+        console.log(
+          "FROM: ",
+          from.meta.type ? from.meta.type : "Type not set :C"
+        );
+        const type = localStorage.getItem("type");
+        if (!type || !store.getters.isLoggedIn) {
+          next({ name: "LoginAdmin" });
+          return;
+        } else if (to.meta.type == type) {
+          next();
+          return;
+        } else if (from.name == "LoginAdmin" || from.name == "LoginManager") {
+          next();
+          return;
+        } else {
+          next({ name: "PageNotFound" });
+        }
+      })
+      .catch(() => {
+        next({ name: "PageNotFound" });
+      });
   } else {
     next();
   }

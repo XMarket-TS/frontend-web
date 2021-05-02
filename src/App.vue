@@ -26,13 +26,6 @@ export default {
   data: () => ({
     //
   }),
-  created() {
-    this.$store.dispatch("tryAutoLogin");
-    // .catch((err) => {
-    //   console.log(err);
-    //   // if (err != 1) this.$router.push({ name: "PageNotFound" });
-    // });
-  },
 };
 </script>
 <style scoped>
