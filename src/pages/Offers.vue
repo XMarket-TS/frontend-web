@@ -43,12 +43,20 @@
                 <v-card-text>
                   <v-container>
                     <v-row align="center" justify="center">
-                      <v-col cols="12" sm="6" md="6">
+                      <v-col cols="12" sm="8" md="8">
                         <v-text-field
-                          v-model="editedItem.percentage"
+                          v-model.number="editedItem.percentage"
                           label="Porcentaje"
                           append-icon="mdi-sale"
+                          type="number"
                         ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="4" md="4">
+                        <v-switch
+                          v-model="active"
+                          color="primary"
+                          label="Activo"
+                        ></v-switch>
                       </v-col>
                       <v-col cols="12">
                         <v-date-picker
@@ -69,9 +77,11 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="close">
-                    Cancel
+                    Cancelar
                   </v-btn>
-                  <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+                  <v-btn color="blue darken-1" text @click="save">
+                    Guardar
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -109,6 +119,7 @@
 <script>
 import axios from "axios";
 import moment from "moment";
+import { actions } from "../mixins/offers";
 export default {
   props: {
     productId: {
@@ -116,12 +127,14 @@ export default {
       default: "-1",
     },
   },
+  mixins: [actions],
   data: () => ({
+    active: false,
     dialog: false,
     dialogDelete: false,
     headers: [
       {
-        text: "Offerta",
+        text: "Oferta",
         align: "start",
         sortable: false,
         value: "name",
@@ -138,15 +151,15 @@ export default {
       startDate: "",
       endDate: "",
       percentage: 0,
-      status: "Inactive",
+      status: 0,
     },
     defaultItem: {
       startDate: "",
       endDate: "",
       percentage: 0,
-      status: "Inactive",
+      status: 0,
     },
-    dates: ["20-03-2021", "21-03-2021"],
+    dates: [],
   }),
   computed: {
     formTitle() {
@@ -163,66 +176,50 @@ export default {
     },
   },
 
-  created() {
-    this.initialize();
-  },
   methods: {
-    initialize() {
-      this.offers = [
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-        },
-      ];
-    },
-
-    editItem(item) {
-      this.editedIndex = this.offers.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-
-    deleteItem(item) {
-      this.editedIndex = this.offers.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialogDelete = true;
-    },
-
     deleteItemConfirm() {
-      this.offers.splice(this.editedIndex, 1);
+      // console.log(this.offers[this.editedIndex]);
+      axios
+        .delete("offer/delete/" + this.offers[this.editedIndex].offerId)
+        .then(() => {
+          this.offers.splice(this.editedIndex, 1);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
       this.closeDelete();
-    },
-
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
     },
 
     save() {
       if (this.editedIndex > -1) {
+        console.log("edit");
         Object.assign(this.offers[this.editedIndex], this.editedItem);
       } else {
-        this.offers.push(this.editedItem);
+        console.log("create");
+        this.editedItem.startDate = this.dates[0];
+        this.editedItem.endDate = this.dates[1];
+        this.editedItem.status = this.active ? 1 : 0;
+        this.editedItem.productId = this.productId;
+        console.log(this.editedItem);
+        axios.post("offer/new", this.editedItem).then((res) => {
+          console.log(res);
+          this.editedItem.startDate = moment(
+            this.dates[0],
+            "YYYY-MM-DD"
+          ).format("DD - MM - YYYY");
+          this.editedItem.endDate = moment(this.dates[1], "YYYY-MM-DD").format(
+            "DD - MM - YYYY"
+          );
+          this.editedItem.status = this.active ? "Activo" : "Inactivo";
+          console.log(this.editedItem);
+          this.offers.push(this.editedItem);
+        });
       }
       this.close();
     },
   },
   mounted() {
-    axios.get("product/offers/" + this.productId).then((result) => {
+    axios.get("offer/product/" + this.productId).then((result) => {
       // console.log(result);
       const data = result.data;
       const offers = [];
@@ -231,9 +228,11 @@ export default {
         var start = new Date(offer.startDate);
         var end = new Date(offer.endDate);
         offers.push({
-          name: parseInt(res) + 1,
-          startDate: moment(start).format("DD - MMM - YYYY"),
-          endDate: moment(end).format("DD - MMM - YYYY"),
+          offerId: offer.offerId,
+          productId: offer.productId,
+          // name: parseInt(res) + 1,
+          startDate: moment(start).format("DD - MM - YYYY"),
+          endDate: moment(end).format("DD - MM - YYYY"),
           percentage: offer.percentage,
           status: offer.status == 1 ? "Activo" : "Inactivo",
         });
