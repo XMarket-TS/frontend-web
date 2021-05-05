@@ -8,8 +8,8 @@
         class="elevation-1"
       >
         <template v-slot:[`item.status`]="{ item }">
-          <v-chip :color="item.status === 'Activo' ? 'green' : 'red'" dark>
-            {{ item.status }}
+          <v-chip :color="item.status === 1 ? 'green' : 'red'" dark>
+            {{ item.status == 1 ? "Activo" : "Inactivo" }}
           </v-chip>
         </template>
 
@@ -193,7 +193,11 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         console.log("edit");
-        Object.assign(this.offers[this.editedIndex], this.editedItem);
+        console.log(this.editedItem);
+        axios.put("offer/update", this.editedItem).then((res) => {
+          console.log(res);
+          this.offers[this.editedIndex] = this.editedItem;
+        });
       } else {
         console.log("create");
         this.editedItem.startDate = this.dates[0];
@@ -234,7 +238,7 @@ export default {
           startDate: moment(start).format("DD - MM - YYYY"),
           endDate: moment(end).format("DD - MM - YYYY"),
           percentage: offer.percentage,
-          status: offer.status == 1 ? "Activo" : "Inactivo",
+          status: offer.status,
         });
       }
       // console.log(offers);
