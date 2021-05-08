@@ -16,7 +16,7 @@ const routes = [
   {
     // path: ":notFound(.*)",
     path: "*",
-    name: "PageNotFound",
+    name: "NotFound",
     component: () => import("../pages/NotFound.vue"),
   },
 ];
@@ -40,6 +40,10 @@ const router = new VueRouter({
 /// Navigation guards
 router.beforeEach((to, from, next) => {
   console.log(to, from);
+  const type = localStorage.getItem("type");
+  if (to.path == "/" && type == "Market") {
+    next({ name: "Inventory" });
+  }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     store
       .dispatch("tryAutoLogin")
@@ -49,7 +53,7 @@ router.beforeEach((to, from, next) => {
           "FROM: ",
           from.meta.type ? from.meta.type : "Type not set :C"
         );
-        const type = localStorage.getItem("type");
+
         if (!type || !store.getters.isLoggedIn) {
           next({ name: "LoginAdmin" });
           return;
@@ -60,11 +64,11 @@ router.beforeEach((to, from, next) => {
           next();
           return;
         } else {
-          next({ name: "PageNotFound" });
+          next({ name: "NotFound" });
         }
       })
       .catch(() => {
-        next({ name: "PageNotFound" });
+        next({ name: "NotFound" });
       });
   } else {
     next();

@@ -15,8 +15,8 @@
     <v-carousel-item v-for="(image, i) in images" :key="i">
       <v-sheet color="white" height="100%" tile elevation="5" rounded="xl">
         <!-- <v-row class="fill-height" align="center" justify="center"> -->
-        <v-img :src="image" height="100%" contain></v-img>
-        <!-- lazy-src="https://picsum.photos/1920/1080?random" -->
+        <v-img :src="image" height="100%" contain lazy-src="https://picsum.photos/1920/1080?random"></v-img>
+        <!--  -->
         <!-- </v-row> -->
       </v-sheet>
     </v-carousel-item>

@@ -10,24 +10,22 @@
     </v-main>
     <!-- </v-parallax> -->
 
-    <footer-main></footer-main>
+    <FooterMain></FooterMain>
   </v-app>
 </template>
 
 <script>
-import FooterMain from "./components/FooterMain.vue";
-import NavBar from "./components/NavBar.vue";
+import FooterMain from "@/components/FooterMain.vue";
+import NavBar from "@/components/NavBar.vue";
 export default {
   name: "App",
   components: {
     NavBar,
     FooterMain,
   },
-  data: () => ({
-    //
-  }),
 };
 </script>
+
 <style scoped>
 .back {
   background-color: #f5d8cf;
