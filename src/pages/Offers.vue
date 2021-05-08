@@ -119,7 +119,7 @@
 <script>
 import axios from "axios";
 import moment from "moment";
-import { actions } from "../mixins/offers";
+import { actions } from "@/mixins/offers";
 export default {
   props: {
     productId: {

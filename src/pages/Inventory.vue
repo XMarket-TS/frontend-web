@@ -1,28 +1,39 @@
 <template>
-  <v-card max-width="90%" class="mx-auto" flat color="transparent">
-    <br />
-    <v-card class="mx-auto">
-      <v-card-text class="text-center">
-        <v-text-field
-          v-model="message"
-          :append-outer-icon="message ? 'mdi-magnify' : ''"
-          filled
-          color="primary"
-          clear-icon="mdi-close-circle"
-          clearable
-          label="Buscar"
-          type="text"
-          dense
-          outlined
-          hide-details
-          @click:append="toggleMarker"
-          @click:append-outer="sendMessage(message)"
-          @click:clear="clearMessage"
-        ></v-text-field>
+  <v-container>
+    <v-card class="mx-auto" elevation="8">
+      <v-card-text class="text-end">
+        <v-row>
+          <v-col cols="12" md="9" sm="9">
+            <v-text-field
+              v-model="message"
+              :append-outer-icon="message ? 'mdi-magnify' : ''"
+              filled
+              color="primary"
+              clear-icon="mdi-close-circle"
+              clearable
+              label="Buscar"
+              type="text"
+              dense
+              outlined
+              hide-details
+              @click:append="toggleMarker"
+              @click:append-outer="sendMessage(message)"
+              @click:clear="clearMessage"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="3" sm="3">
+            <v-btn color="primary" to="/product/add"> Nuevo producto </v-btn>
+          </v-col>
+        </v-row>
       </v-card-text>
     </v-card>
-    <v-card-text>
-      <LoaderProducts v-if="loading"></LoaderProducts>
+    <br />
+    <v-card class="mx-auto" flat color="transparent">
+      <v-row v-if="loading">
+        <v-col cols="12">
+          <LoaderProducts></LoaderProducts>
+        </v-col>
+      </v-row>
       <v-row dense v-else>
         <v-col cols="12">
           <v-alert text v-model="successUpload" type="success" dismissible>
@@ -61,15 +72,15 @@
           ></v-pagination>
         </v-col>
       </v-row>
-    </v-card-text>
-  </v-card>
+    </v-card>
+  </v-container>
 </template>
 
 
 <script>
 import axios from "axios";
-import Product from "../components/products/Product";
-import LoaderProducts from "../components/products/LoaderProducts";
+import Product from "@/components/products/Product";
+import LoaderProducts from "@/components/products/LoaderProducts";
 import { mapState } from "vuex";
 
 export default {

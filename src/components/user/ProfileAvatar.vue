@@ -25,7 +25,7 @@
             {{ user.email }}
           </p>
 
-          <v-btn depressed text> Cuenta </v-btn>
+          <v-btn depressed text to="/account"> Cuenta </v-btn>
           <br />
           <v-btn depressed text @click="logout"> Cerrar Sesion </v-btn>
         </div>

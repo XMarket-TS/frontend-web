@@ -106,8 +106,8 @@
 </template>
 
 <script>
-import AddDialog from "../components/products/AddDialog.vue";
-import UploadImages from "../components/products/UploadImages.vue";
+import AddDialog from "@/components/products/AddDialog.vue";
+import UploadImages from "@/components/products/UploadImages.vue";
 import axios from "axios";
 import { mapState } from "vuex";
 export default {
