@@ -67,7 +67,7 @@ export default {
         },
         {
           text: "Agregar Producto",
-          to: "/add/product",
+          to: "/product/add",
           icon: "mdi-office-building-outline",
         },
       ];

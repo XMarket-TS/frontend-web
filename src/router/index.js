@@ -67,8 +67,9 @@ router.beforeEach((to, from, next) => {
           next({ name: "NotFound" });
         }
       })
-      .catch(() => {
-        next({ name: "NotFound" });
+      .catch((e) => {
+        console.log(e);
+        next("/notfound");
       });
   } else {
     next();

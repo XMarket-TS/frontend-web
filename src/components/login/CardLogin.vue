@@ -15,9 +15,6 @@
       ></v-img>
     </v-card>
 
-    <!-- <v-card-title class="justify-center" color="red"> -->
-    <!-- </v-card-title> -->
-
     <v-card-text class="text-center">
       <v-card-title class="justify-center">{{ title }}</v-card-title>
       <p>Inicie sesión con su nombre de usuario y contraseña</p>
@@ -25,6 +22,13 @@
         <v-col cols="12" lg="6" md="8">
           <v-alert text v-model="fail" type="error" dismissible>
             El usuario o la contraseña es incorrecta
+          </v-alert>
+        </v-col>
+      </v-row>
+      <v-row align="center" justify="center">
+        <v-col cols="12" lg="6" md="8">
+          <v-alert text v-model="notAccess" type="error" dismissible>
+            Su cuenta fue suspendida
           </v-alert>
         </v-col>
       </v-row>
@@ -80,6 +84,7 @@ export default {
     loading: { type: Boolean, default: false },
     title: { type: String, default: "No title" },
     fail: { type: Boolean, default: false },
+    notAccess: { type: Boolean, default: false },
   },
   data: () => ({
     valid: false,
