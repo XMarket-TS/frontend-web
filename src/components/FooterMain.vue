@@ -36,7 +36,7 @@ export default {
   data: () => ({
     links: [],
   }),
-  
+
   mounted() {
     const type = localStorage.getItem("type");
     // console.log(type);
@@ -55,6 +55,11 @@ export default {
         {
           text: "Agregar administrador",
           to: "/add-new/manager",
+          icon: "mdi-human-edit",
+        },
+        {
+          text: "Usuarios",
+          to: "/users/list",
           icon: "mdi-human-edit",
         },
       ];
