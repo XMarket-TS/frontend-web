@@ -13,12 +13,7 @@
       {{ user.email }}
     </v-card-text>
     <v-card-actions>
-      <v-btn
-        text
-        color="primary"
-        @click="reveal = true"
-        v-if="user.status == 1"
-      >
+      <v-btn text color="primary" @click="reveal = true" v-if="status == 1">
         Deshabilitar
       </v-btn>
       <v-btn text color="primary" @click="reveal = true" v-else>
@@ -51,6 +46,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: {
     user: {
@@ -60,16 +56,25 @@ export default {
   },
   data: () => ({
     reveal: false,
+    status: 0,
   }),
+  mounted() {
+    this.status = this.user.status;
+  },
   methods: {
     changeStatus() {
-      this.reveal = false;
-      //   Put here axios request.
-      if (this.user.status == 0) {
-        this.user.status = 1;
-      } else {
-        this.user.status = 0;
-      }
+      axios
+        .put("user/status/" + this.user.userId)
+        .then((res) => {
+          console.log(res);
+          this.status = res.data.status;
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally(() => {
+          this.reveal = false;
+        });
     },
   },
 };
