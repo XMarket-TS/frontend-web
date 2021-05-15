@@ -62,6 +62,11 @@ export default {
           to: "/users/list",
           icon: "mdi-human-edit",
         },
+        {
+          text: "Ventas",
+          to: "/sales/dashboard",
+          icon: "mdi-human-edit",
+        },
       ];
     else if (type == "Market")
       this.links = [

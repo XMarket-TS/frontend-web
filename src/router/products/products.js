@@ -37,4 +37,13 @@ export const products = [
       type: "Market",
     },
   },
+  {
+    path: "/sales/dashboard",
+    name: "Dashboard",
+    component: () => import("@/pages/Dashboard.vue"),
+    meta: {
+      requiresAuth: true,
+      type: "Admin",
+    },
+  },
 ];
