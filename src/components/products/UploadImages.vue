@@ -19,7 +19,7 @@
         ></v-file-input>
       </v-col>
       <v-col cols="12">
-        <v-btn color="accent" :disabled="uploadingImage" @click="upload">
+        <v-btn color="tertiary" :disabled="uploadingImage" @click="upload">
           <v-icon left> mdi-cloud-upload-outline </v-icon>
           Subir
         </v-btn>
@@ -101,9 +101,7 @@ export default {
       else {
         this.errors = [];
       }
-
       // console.log(this.file.name);
-
       let reader = new FileReader();
       // attach listener to be called when data from file
       reader.addEventListener(

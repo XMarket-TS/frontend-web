@@ -8,12 +8,13 @@
     <template v-slot:default="dialog">
       <v-card>
         <v-toolbar color="delete" dark>
-          Esta seguro de eliminar el producto?
+          ¿Esta seguro que desea eliminar el producto?
         </v-toolbar>
 
         <!-- <v-card-text>
           <div class="text-h2 pa-12">Hello world!</div>
         </v-card-text> -->
+
         <v-card-actions>
           <v-spacer></v-spacer>
 
@@ -42,9 +43,9 @@ export default {
     confirmed(dialog) {
       this.confDel = true;
       // setInterval(() => {
-        this.confDel = false;
-        dialog.value = false;
-        this.$emit("confirmDeleteProduct", this.id);
+      this.confDel = false;
+      dialog.value = false;
+      this.$emit("confirmDeleteProduct", this.id);
       // }, 3000);
     },
   },

@@ -1,18 +1,24 @@
 <template>
   <v-card class="mx-auto" outlined elevation="3">
     <!-- delimiter-icon="mdi-minus" -->
-    <Gallery :images="images" :clyde="true" :heightCarousel="350"></Gallery>
+    <v-img v-if="images.length == 1" contain :src="images[0]"> </v-img>
+    <Gallery
+      v-else
+      :images="images"
+      :clyde="true"
+      :heightCarousel="290"
+    ></Gallery>
     <v-divider></v-divider>
     <v-card-title class="headline font-weight-bold pb-0">
       {{ title }}
       <v-spacer></v-spacer>
-      <v-chip v-if="discount > 0.0" color="accent">
-        - {{ discount * 100 }}
+      <v-chip v-if="discount > 0" color="accent">
+        - {{ discount }}
         <v-icon>mdi-sale</v-icon>
       </v-chip>
     </v-card-title>
     <v-card-title class="pb-0">
-      Bs. {{ discount > 0 ? price * (1 - discount) : price | roundPrice }}
+      Bs. {{ discount > 0 ? price * (1 - discount / 100) : price | roundPrice }}
       <v-spacer></v-spacer>
       <div v-if="discount > 0" class="text-decoration-line-through">
         Bs. {{ price | roundPrice }}
@@ -38,11 +44,14 @@
     <v-container>
       <v-row justify="center" align="center" v-if="buttons">
         <v-spacer></v-spacer>
-        <v-btn color="primary" icon><v-icon>mdi-lead-pencil</v-icon></v-btn>
+        <v-btn color="primary" icon @click="editProduct()">
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
         <v-spacer></v-spacer>
-        <!-- <v-btn color="secondary" icon @click="confirmDelete(id)">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn> -->
+        <v-btn color="primary" icon @click="addOffer()">
+          <v-icon>mdi-offer</v-icon>
+        </v-btn>
+        <v-spacer></v-spacer>
         <DeleteDialog :id="id" @confirmDeleteProduct="confirmDelete($event)" />
         <v-spacer></v-spacer>
       </v-row>
@@ -103,6 +112,12 @@ export default {
       // console.log(id);
       if (id != -1) this.$emit("deleteProduct", id);
       // else throw new ErrorEvent
+    },
+    editProduct() {
+      this.$emit("editProduct", this.id);
+    },
+    addOffer() {
+      this.$emit("addOffer", this.id);
     },
   },
 };

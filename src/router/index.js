@@ -1,46 +1,23 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
+import store from "../store/store.js";
+import { products } from "./products/products";
+import { user } from "./users/user";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/",
-    name: "Home",
-    redirect: "/login",
-    // beforeEnter(to, from, next) {
-    //   // Can verify if the user are authenticated
-    //   console.log("before user enter");
-    //   console.log(to, from);
-    //   next();
-    // },
-    // component: () => import("../pages/Home.vue"),
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import("../pages/Login.vue"),
-  },
-  {
-    path: "/products",
-    name: "Inventory",
-    component: () => import("../pages/Inventory.vue"),
-  },
-  {
-    path: "/product/add",
-    name: "AddProduct",
-    component: () => import("../pages/AddProduct.vue"),
-  },
+  ...products,
+  ...user,
   {
     path: "/about",
     name: "About",
-    component: () => import("../pages/About.vue"),
+    component: () =>import("../pages/About.vue"),
   },
   {
     // path: ":notFound(.*)",
     path: "*",
-    name: "PageNotFound",
-    component: () => import("../pages/NotFound.vue"),
+    name: "NotFound",
+    component: () =>import("../pages/NotFound.vue")
   },
 ];
 
@@ -61,31 +38,43 @@ const router = new VueRouter({
 });
 
 /// Navigation guards
-// router.beforeEach(function (to, from, next) {
-//   console.log('Global beforeEach')
-//   console.log(to, from)
-//   next() // or next(true)
-//   // next(false) // to cancel routing
+router.beforeEach((to, from, next) => {
+  console.log(to, from);
+  const type = localStorage.getItem("type");
+  if (to.path=="/" && type=="Market") {
+    next({ name: "Inventory" });
+  }
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    store
+      .dispatch("tryAutoLogin")
+      .then(() => {
+        console.log("TO: ", to.meta.type);
+        console.log(
+          "FROM: ",
+          from.meta.type ? from.meta.type : "Type not set :C"
+        );
 
-//   //  === Restrict navigation == Used for authentication
-//   // if (to.name === 'team-members') {
-//   //   next();
-//   // } else {
-//   //   next({
-//   //     name: 'team-members',
-//   //     params: {
-//   //       id: 't2'
-//   //     }
-//   //   })
-//   // }
-//   //  ==== Auth example == look needsAuth value as meta in teams path
-//   // if (to.meta.needsAuth) {
-//   //   console.log("Needs Auth!")
-//   //   next(); // can denegate access
-//   // } else {
-//   //   next();
-//   // }
-// })
+        if (!type || !store.getters.isLoggedIn) {
+          next({ name: "LoginAdmin" });
+          return;
+        } else if (to.meta.type == type) {
+          next();
+          return;
+        } else if (from.name == "LoginAdmin" || from.name == "LoginManager") {
+          next();
+          return;
+        } else {
+          next({ name: "NotFound" });
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        next("/notfound");
+      });
+  } else {
+    next();
+  }
+});
 
 // router.afterEach((to, from) => {
 //   // sending analytics data

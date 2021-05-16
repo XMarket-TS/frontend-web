@@ -1,32 +1,36 @@
 <template>
   <v-app>
     <NavBar></NavBar>
-    <v-main>
+
+    <!-- <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"> -->
+    <v-main class="back">
       <transition name="slide" mode="out-in">
-        <!-- <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"> -->
         <router-view />
-        <!-- </v-parallax> -->
       </transition>
     </v-main>
-    <footer-main></footer-main>
+    <!-- </v-parallax> -->
+
+    <FooterMain></FooterMain>
   </v-app>
 </template>
 
 <script>
-import FooterMain from "./components/FooterMain.vue";
-import NavBar from "./components/NavBar.vue";
+import FooterMain from "@/components/FooterMain.vue";
+import NavBar from "@/components/NavBar.vue";
 export default {
   name: "App",
   components: {
     NavBar,
     FooterMain,
   },
-  data: () => ({
-    //
-  }),
 };
 </script>
+
 <style scoped>
+.back {
+  background-color: #f5d8cf;
+  /* background-color: #b8a691; */
+}
 .slide-enter-active {
   animation: slide-in 200ms ease-out forwards;
 }
