@@ -11,13 +11,13 @@ const routes = [
   {
     path: "/about",
     name: "About",
-    component: () => import("../pages/About.vue"),
+    component: () =>import("../pages/About.vue"),
   },
   {
     // path: ":notFound(.*)",
     path: "*",
     name: "NotFound",
-    component: () => import("../pages/NotFound.vue"),
+    component: () =>import("../pages/NotFound.vue")
   },
 ];
 
@@ -41,7 +41,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   console.log(to, from);
   const type = localStorage.getItem("type");
-  if (to.path == "/" && type == "Market") {
+  if (to.path=="/" && type=="Market") {
     next({ name: "Inventory" });
   }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
