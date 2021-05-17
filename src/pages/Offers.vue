@@ -39,7 +39,9 @@
                 <v-card-title class="justify-center">
                   <span class="headline">{{ formTitle }}</span>
                 </v-card-title>
-
+                <v-alert text v-model="error" type="error" dismissible>
+                  Ya existe una oferta activa
+                </v-alert>
                 <v-card-text>
                   <v-container>
                     <v-row align="center" justify="center">
@@ -118,7 +120,7 @@
 
 <script>
 import axios from "axios";
-import moment from "moment";
+// import moment from "moment";
 import { actions } from "@/mixins/offers";
 export default {
   props: {
@@ -146,6 +148,7 @@ export default {
       { text: "Acciones", value: "actions", sortable: false },
     ],
     offers: [],
+    activeOffer: false,
     editedIndex: -1,
     editedItem: {
       startDate: "",
@@ -160,6 +163,7 @@ export default {
       status: 0,
     },
     dates: [],
+    error: false,
   }),
   computed: {
     formTitle() {
@@ -191,12 +195,22 @@ export default {
     },
 
     save() {
+      if (this.activeOffer && this.active) {
+        this.error = true;
+        return;
+      }
       if (this.editedIndex > -1) {
+        console.log(this.editedIndex);
+        this.editedItem.startDate = this.dates[0];
+        this.editedItem.endDate = this.dates[1];
+        this.editedItem.status = this.active ? 1 : 0;
         console.log("edit");
         console.log(this.editedItem);
         axios.put("offer/update", this.editedItem).then((res) => {
-          console.log(res);
-          this.offers[this.editedIndex] = this.editedItem;
+          console.log(this.offers[this.editedIndex]);
+          this.offers[this.editedIndex] = res.data;
+          console.log(this.offers[this.editedIndex]);
+          this.close();
         });
       } else {
         console.log("create");
@@ -207,19 +221,12 @@ export default {
         console.log(this.editedItem);
         axios.post("offer/new", this.editedItem).then((res) => {
           console.log(res);
-          this.editedItem.startDate = moment(
-            this.dates[0],
-            "YYYY-MM-DD"
-          ).format("DD - MM - YYYY");
-          this.editedItem.endDate = moment(this.dates[1], "YYYY-MM-DD").format(
-            "DD - MM - YYYY"
-          );
-          this.editedItem.status = this.active ? "Activo" : "Inactivo";
           console.log(this.editedItem);
           this.offers.push(this.editedItem);
+          this.close();
+          console.log(this.offers);
         });
       }
-      this.close();
     },
   },
   mounted() {
@@ -229,14 +236,17 @@ export default {
       const offers = [];
       for (let res in data) {
         let offer = data[res];
-        var start = new Date(offer.startDate);
-        var end = new Date(offer.endDate);
+        // var start = new Date(offer.startDate);
+        // var end = new Date(offer.endDate);
+        if (offer.status == 1) {
+          this.activeOffer = true;
+        }
         offers.push({
           offerId: offer.offerId,
           productId: offer.productId,
           // name: parseInt(res) + 1,
-          startDate: moment(start).format("DD - MM - YYYY"),
-          endDate: moment(end).format("DD - MM - YYYY"),
+          startDate: offer.startDate,
+          endDate: offer.endDate,
           percentage: offer.percentage,
           status: offer.status,
         });

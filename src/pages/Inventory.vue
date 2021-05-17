@@ -148,7 +148,7 @@ export default {
       if (value > 0) {
         this.$router.push("product/edit/" + value);
       } else {
-        this.$router.push({ name: "PageNotFound" });
+        this.$router.push({ name: "NotFound" });
       }
     },
     createOffer(value) {
@@ -157,7 +157,7 @@ export default {
         // this.$$router.pop();
         this.$router.push("product/offer/" + value + "/view");
       } else {
-        this.$router.push({ name: "PageNotFound" });
+        this.$router.push({ name: "NotFound" });
       }
     },
     handlePageChange(value) {
@@ -193,7 +193,7 @@ export default {
         })
         .catch((error) => {
           console.error(error.response);
-          this.$router.push({ name: "PageNotFound" });
+          this.$router.push({ name: "NotFound" });
         })
         .finally(() => {
           this.loading = false;

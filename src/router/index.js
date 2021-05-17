@@ -80,6 +80,9 @@ router.beforeEach((to, from, next) => {
         } else if (from.name == "LoginAdmin" || from.name == "LoginManager") {
           next();
           return;
+        } else if (type && store.getters.isLoggedIn) {
+          next();
+          return;
         } else {
           next({ name: "NotFound" });
         }
