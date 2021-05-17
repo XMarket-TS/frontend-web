@@ -1,6 +1,6 @@
 export const user = [
   {
-    path: "/",
+    path: "/home",
     name: "Home",
     component: () => import("@/pages/Home.vue"),
     meta: {

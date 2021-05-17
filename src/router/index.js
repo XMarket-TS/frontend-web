@@ -19,6 +19,23 @@ const routes = [
     name: "NotFound",
     component: () => import("../pages/NotFound.vue"),
   },
+  {
+    path: "/",
+    name: "InfoPage",
+    component: () => import("@/pages/InfoPage.vue"),
+    beforeEnter(to, from, next) {
+      console.log(to, from);
+      if (store.getters.isLoggedIn) {
+        const type = localStorage.getItem("type");
+        if (type == "Market") {
+          next({ name: "Inventory" });
+        } else {
+          next({ name: "Home" });
+        }
+      }
+      next();
+    },
+  },
 ];
 
 const router = new VueRouter({
