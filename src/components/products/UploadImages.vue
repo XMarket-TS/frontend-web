@@ -77,15 +77,15 @@ export default {
     uploadingImage: false,
   }),
   methods: {
-    prepareFormData: function () {
-      this.formData=new FormData();
+    prepareFormData() {
+      this.formData = new FormData();
       this.formData.append("upload_preset", this.preset);
       this.formData.append("tags", this.tags); // Optional - add tag for image admin in Cloudinary
       this.formData.append("file", this.fileContents);
       console.log(this.formData);
     },
     handleFileChange(event) {
-      this.file=event;
+      this.file = event;
       console.log("handlefilechange", this.file);
     },
     // function to handle form submit
@@ -93,7 +93,7 @@ export default {
       if (this.preset.length < 1 || this.cloudName.length < 1) {
         this.errors.push("cloud name and preset not set");
         return;
-      } else if (this.file==null) {
+      } else if (this.file == null) {
         this.errorImage = "Not File selected";
         return;
       }

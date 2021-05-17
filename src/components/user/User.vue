@@ -1,12 +1,9 @@
 <template>
-  <v-card class="mx-auto">
-    <v-card-title class="justify-center">
+  <v-card class="mx-auto" :loading="loading">
+    <v-card-text class="text-center">
       <v-avatar color="grey" size="120">
         <v-img :src="user.photo"></v-img>
       </v-avatar>
-    </v-card-title>
-
-    <v-card-text class="text-center">
       <p class="display-1 text--primary">
         {{ user.name + " " + user.surname }}
       </p>
@@ -30,9 +27,11 @@
         <v-card-text class="pb-0">
           <p class="display-1 text--primary">Esta seguro?</p>
           <p>
-            late 16th century (as a noun denoting a place where alms were
-            distributed): from medieval Latin eleemosynarius, from late Latin
-            eleemosyna ‘alms’, from Greek eleēmosunē ‘compassion’
+            El proceso podria demorar unos minutos. Al finalizar afectara a las
+            funciones del usuario. <br />
+            Se recomienda notificar este cambio antes de realizarlo para
+            prevenir futuros errores o falta de comprension por parte del
+            usuario.
           </p>
         </v-card-text>
         <v-card-actions class="pt-0">
@@ -57,12 +56,14 @@ export default {
   data: () => ({
     reveal: false,
     status: 0,
+    loading: false,
   }),
   mounted() {
     this.status = this.user.status;
   },
   methods: {
     changeStatus() {
+      this.loading = true;
       axios
         .put("user/status/" + this.user.userId)
         .then((res) => {
@@ -74,6 +75,7 @@ export default {
         })
         .finally(() => {
           this.reveal = false;
+          this.loading = false;
         });
     },
   },
