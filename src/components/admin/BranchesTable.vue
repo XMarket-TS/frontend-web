@@ -4,6 +4,13 @@
       <confirm-dialog></confirm-dialog>
     </v-col> -->
     <v-expansion-panels inset>
+      <v-expansion-panel>
+        <v-toolbar color="primary">
+          <v-toolbar-title class="white--text flex text-xs-center">
+            Sucursales
+          </v-toolbar-title>
+        </v-toolbar>
+      </v-expansion-panel>
       <v-expansion-panel v-for="(branch, i) in branchs" :key="i">
         <!-- :color="i % 2 == 0 ? 'primary' : 'secondary'" -->
         <v-expansion-panel-header>

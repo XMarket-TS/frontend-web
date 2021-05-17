@@ -40,6 +40,9 @@ export const user = [
     path: "/account",
     name: "Account",
     component: () => import("@/pages/Account.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/users/list",

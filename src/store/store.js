@@ -118,7 +118,7 @@ export default new Vuex.Store({
         const token = localStorage.getItem("token");
         const type = localStorage.getItem("type");
         if (!token || !type) {
-          // reject(1);
+          reject();
           return;
         }
         if (type == "manager") {

@@ -56,12 +56,12 @@ const router = new VueRouter({
 
 /// Navigation guards
 router.beforeEach((to, from, next) => {
-  console.log(to, from);
   const type = localStorage.getItem("type");
-  if (to.path == "/" && type == "Market") {
-    next({ name: "Inventory" });
-  }
+  // if (to.path == "/home" && type == "Market") {
+  //   next({ name: "Inventory" });
+  // }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
+    console.log(to, from);
     store
       .dispatch("tryAutoLogin")
       .then(() => {
@@ -86,7 +86,7 @@ router.beforeEach((to, from, next) => {
       })
       .catch((e) => {
         console.log(e);
-        next("/notfound");
+        next({ name: "NotFound" });
       });
   } else {
     next();

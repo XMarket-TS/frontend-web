@@ -1,13 +1,13 @@
 <template>
   <v-container>
     <br />
-    <v-card class="mx-auto">
+    <v-card class="mx-auto" flat color="transparent">
       <v-row>
         <v-col cols="12">
           <v-alert text v-model="successChanged" type="success" dismissible>
             El cambio fue correcto
           </v-alert>
-          <v-card-title> Sucursales </v-card-title>
+
           <branches-table @changed="successChange"></branches-table>
         </v-col>
       </v-row>

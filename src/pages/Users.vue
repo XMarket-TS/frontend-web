@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <loader-users v-if="users.length == 0"></loader-users>
+    <loader-users v-if="loading"></loader-users>
     <v-row align="center" justify="center" v-else>
       <v-col cols="12">
         <v-card>
@@ -60,6 +60,7 @@ export default {
     iconIndex: 0,
     users: [],
     pages: null,
+    loading: false,
     currentpage: 1,
   }),
   mounted() {
@@ -82,14 +83,14 @@ export default {
     },
     clearMessage() {
       this.loading = true;
-      this.message = null;
+      this.message = "";
       this.fetchUsers();
     },
     fetchUsers() {
       const params = {
         search: this.message,
         page: this.currentpage,
-        size: 20,
+        size: 18,
       };
       axios
         .get("user/list", { params })
@@ -101,6 +102,9 @@ export default {
         })
         .catch((error) => {
           console.error(error + "Can't do this");
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
   },
