@@ -20,11 +20,13 @@
               {{ user.initials }}
             </span>
           </v-avatar>
+
           <h3>{{ user.name + " " + user.surname }}</h3>
+          <v-chip small>{{ type }}</v-chip>
+          <br />
           <p class="caption mt-1">
             {{ user.email }}
           </p>
-
           <v-btn depressed text to="/account"> Cuenta </v-btn>
           <br />
           <v-btn depressed text @click="logout"> Cerrar Sesion </v-btn>
@@ -44,14 +46,17 @@ export default {
       },
     },
   },
-  data: () => ({}),
-
+  data: () => ({
+    type: "",
+  }),
+  mounted() {
+    this.type = localStorage.getItem("type");
+  },
   methods: {
     logout() {
-      const type = localStorage.getItem("type");
       this.$store.dispatch("logout").then(() => {
         this.$emit("logout", false);
-        if (type == "Market") this.$router.push("/market/login");
+        if (this.type == "Market") this.$router.push("/market/login");
         else this.$router.push("/admin/login");
       });
     },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <JSCharting :options="options" style="height: 400px"></JSCharting>
-    <button v-on:click="updateData">Update Chart Data</button>
+    <!-- <button v-on:click="updateData">Update Chart Data</button> -->
   </div>
 </template>
 
