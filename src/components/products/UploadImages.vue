@@ -3,42 +3,42 @@
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="12">
         <Gallery :images="images" :heightCarousel="350"></Gallery>
-        <br/>
+        <br />
       </v-col>
       <v-col cols="12">
         <v-file-input
-            :rules="rules"
-            accept="image/jpeg,image/jpg"
-            prepend-icon="mdi-camera"
-            label="Imagen del producto"
-            color="accent"
-            truncate-length="15"
-            dense
-            outlined
-            @change="handleFileChange($event)"
+          :rules="rules"
+          accept="image/jpeg,image/jpg"
+          prepend-icon="mdi-camera"
+          label="Imagen del producto"
+          color="accent"
+          truncate-length="15"
+          dense
+          outlined
+          @change="handleFileChange($event)"
         ></v-file-input>
       </v-col>
       <v-col cols="12">
         <v-btn color="tertiary" :disabled="uploadingImage" @click="upload">
-          <v-icon left> mdi-cloud-upload-outline</v-icon>
+          <v-icon left> mdi-cloud-upload-outline </v-icon>
           Subir
         </v-btn>
       </v-col>
 
       <v-col cols="12">
-        <br/>
+        <br />
         <v-progress-circular
-            v-show="showProgress"
-            :rotate="360"
-            :size="75"
-            :width="15"
-            v-model="progress"
-            color="primary"
-            buffer-value="0"
+          v-show="showProgress"
+          :rotate="360"
+          :size="75"
+          :width="15"
+          v-model="progress"
+          color="primary"
+          buffer-value="0"
         >
           {{ progress + "%" }}
         </v-progress-circular>
-        <br/>
+        <br />
       </v-col>
     </v-row>
   </div>
@@ -47,7 +47,6 @@
 <script>
 import axios from "axios";
 import Gallery from "./Gallery.vue";
-
 export default {
   components: {
     Gallery,
@@ -62,9 +61,9 @@ export default {
     results: null,
     rules: [
       (value) =>
-          !value ||
-          value.size < 2000000 ||
-          "Photo size should be less than 2 MB!",
+        !value ||
+        value.size < 2000000 ||
+        "Photo size should be less than 2 MB!",
     ],
     cloudName: "fulano",
     preset: "ik1apwhk",
@@ -78,7 +77,7 @@ export default {
     uploadingImage: false,
   }),
   methods: {
-    prepareFormData: function () {
+    prepareFormData() {
       this.formData = new FormData();
       this.formData.append("upload_preset", this.preset);
       this.formData.append("tags", this.tags); // Optional - add tag for image admin in Cloudinary
@@ -106,50 +105,50 @@ export default {
       let reader = new FileReader();
       // attach listener to be called when data from file
       reader.addEventListener(
-          "load",
-          function () {
-            this.fileContents = reader.result;
-            this.prepareFormData();
-            let requestObj = {
-              url: `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`,
-              method: "POST",
-              data: this.formData,
-              onUploadProgress: function (progressEvent) {
-                // console.log("progress", progressEvent);
-                this.progress = Math.round(
-                    (progressEvent.loaded * 100.0) / progressEvent.total
-                );
-                // console.log(this.progress);
-                //bind "this" to access vue state during callback
-              }.bind(this),
-            };
-            //show progress bar at beginning of post
-            this.showProgress = true;
-            axios(requestObj)
-                .then((response) => {
-                  this.results = response.data;
-                  // console.log(this.results);
-                  // console.log("public_id", this.results.public_id);
-                  //   this.images.push(this.results.secure_url);
+        "load",
+        function () {
+          this.fileContents = reader.result;
+          this.prepareFormData();
+          let requestObj = {
+            url: `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`,
+            method: "POST",
+            data: this.formData,
+            onUploadProgress: function (progressEvent) {
+              // console.log("progress", progressEvent);
+              this.progress = Math.round(
+                (progressEvent.loaded * 100.0) / progressEvent.total
+              );
+              // console.log(this.progress);
+              //bind "this" to access vue state during callback
+            }.bind(this),
+          };
+          //show progress bar at beginning of post
+          this.showProgress = true;
+          axios(requestObj)
+            .then((response) => {
+              this.results = response.data;
+              // console.log(this.results);
+              // console.log("public_id", this.results.public_id);
+              //   this.images.push(this.results.secure_url);
 
-                  this.$emit("successUploaded", this.results.secure_url);
-                })
-                .catch((error) => {
-                  this.errors.push(error);
-                  console.log(this.error);
-                })
-                .finally(() => {
-                  setTimeout(
-                      function () {
-                        this.progress = 0;
-                        this.showProgress = false;
-                        this.file = null;
-                      }.bind(this),
-                      1000
-                  );
-                });
-          }.bind(this),
-          false
+              this.$emit("successUploaded", this.results.secure_url);
+            })
+            .catch((error) => {
+              this.errors.push(error);
+              console.log(this.error);
+            })
+            .finally(() => {
+              setTimeout(
+                function () {
+                  this.progress = 0;
+                  this.showProgress = false;
+                  this.file = null;
+                }.bind(this),
+                1000
+              );
+            });
+        }.bind(this),
+        false
       );
       // call for file read if there is a file
       if (this.file && this.file.name) {
@@ -157,8 +156,7 @@ export default {
       }
     },
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 
