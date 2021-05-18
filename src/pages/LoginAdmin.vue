@@ -1,12 +1,12 @@
 <template>
   <v-container>
     <CardLogin
-      :loading="loading"
-      :fail="fail"
-      @dataVerified="login($event)"
-      :title="'Iniciar sesion como Administrador'"
+        :loading="loading"
+        :fail="fail"
+        @dataVerified="login($event)"
+        :title="'Iniciar sesion como Administrador'"
     ></CardLogin>
-    <br />
+    <br/>
     <v-card max-width="80%" class="mx-auto" color="transparent" flat>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -15,12 +15,13 @@
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
-    <br />
+    <br/>
   </v-container>
 </template>
 
 <script>
 import CardLogin from "@/components/login/CardLogin.vue";
+
 export default {
   components: {
     CardLogin,
@@ -37,15 +38,15 @@ export default {
       console.log(data);
       this.loading = true;
       this.$store
-        .dispatch("login", data)
-        .then(() => this.$router.push("/"))
-        .catch((err) => {
-          this.fail = true;
-          console.log(err);
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+          .dispatch("login", data)
+          .then(() => this.$router.push("/"))
+          .catch((err) => {
+            this.fail = true;
+            console.log(err);
+          })
+          .finally(() => {
+            this.loading = false;
+          });
     },
   },
 };

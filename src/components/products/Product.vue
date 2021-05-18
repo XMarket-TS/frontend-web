@@ -1,12 +1,12 @@
 <template>
   <v-card class="mx-auto" outlined elevation="3">
     <!-- delimiter-icon="mdi-minus" -->
-    <v-img v-if="images.length == 1" contain :src="images[0]"> </v-img>
+    <v-img v-if="images.length == 1" contain :src="images[0]"></v-img>
     <Gallery
-      v-else
-      :images="images"
-      :clyde="true"
-      :heightCarousel="290"
+        v-else
+        :images="images"
+        :clyde="true"
+        :heightCarousel="290"
     ></Gallery>
     <v-divider></v-divider>
     <v-card-title class="headline font-weight-bold pb-0">
@@ -40,7 +40,7 @@
     <!-- <v-expand-transition>
       <div v-show="show"> -->
     <v-divider></v-divider>
-    <v-card-text v-text="description"> </v-card-text>
+    <v-card-text v-text="description"></v-card-text>
     <v-container>
       <v-row justify="center" align="center" v-if="buttons">
         <v-spacer></v-spacer>
@@ -52,11 +52,11 @@
           <v-icon>mdi-offer</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <DeleteDialog :id="id" @confirmDeleteProduct="confirmDelete($event)" />
+        <DeleteDialog :id="id" @confirmDeleteProduct="confirmDelete($event)"/>
         <v-spacer></v-spacer>
       </v-row>
     </v-container>
-    <br />
+    <br/>
     <!-- </div>
     </v-expand-transition> -->
   </v-card>
@@ -65,6 +65,7 @@
 <script>
 import DeleteDialog from "./DeleteDialog.vue";
 import Gallery from "./Gallery";
+
 export default {
   props: {
     id: {

@@ -1,13 +1,13 @@
 <template>
   <v-container>
     <CardLogin
-      :loading="loading"
-      :fail="fail"
-      :notAccess="notAccess"
-      @dataVerified="login($event)"
-      :title="'Iniciar sesion como Market'"
+        :loading="loading"
+        :fail="fail"
+        :notAccess="notAccess"
+        @dataVerified="login($event)"
+        :title="'Iniciar sesion como Market'"
     ></CardLogin>
-    <br />
+    <br/>
     <v-card max-width="80%" class="mx-auto" color="transparent" flat>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -18,12 +18,13 @@
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
-    <br />
+    <br/>
   </v-container>
 </template>
 
 <script>
 import CardLogin from "@/components/login/CardLogin.vue";
+
 export default {
   components: {
     CardLogin,
@@ -44,15 +45,15 @@ export default {
       this.loading = true;
 
       this.$store
-        .dispatch("loginManager", data)
-        .then(() => this.$router.push("/products"))
-        .catch((err) => {
-          if (err.response.status == 423) this.notAccess = true;
-          else this.fail = true;
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+          .dispatch("loginManager", data)
+          .then(() => this.$router.push("/products"))
+          .catch((err) => {
+            if (err.response.status == 423) this.notAccess = true;
+            else this.fail = true;
+          })
+          .finally(() => {
+            this.loading = false;
+          });
     },
   },
 };

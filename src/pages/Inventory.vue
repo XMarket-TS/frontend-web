@@ -5,29 +5,29 @@
         <v-row>
           <v-col cols="12" md="9" sm="9">
             <v-text-field
-              v-model="message"
-              :append-outer-icon="message ? 'mdi-magnify' : ''"
-              filled
-              color="primary"
-              clear-icon="mdi-close-circle"
-              clearable
-              label="Buscar"
-              type="text"
-              dense
-              outlined
-              hide-details
-              @click:append="toggleMarker"
-              @click:append-outer="sendMessage(message)"
-              @click:clear="clearMessage"
+                v-model="message"
+                :append-outer-icon="message ? 'mdi-magnify' : ''"
+                filled
+                color="primary"
+                clear-icon="mdi-close-circle"
+                clearable
+                label="Buscar"
+                type="text"
+                dense
+                outlined
+                hide-details
+                @click:append="toggleMarker"
+                @click:append-outer="sendMessage(message)"
+                @click:clear="clearMessage"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="3" sm="3">
-            <v-btn color="primary" to="/product/add"> Nuevo producto </v-btn>
+            <v-btn color="primary" to="/product/add"> Nuevo producto</v-btn>
           </v-col>
         </v-row>
       </v-card-text>
     </v-card>
-    <br />
+    <br/>
     <v-card class="mx-auto" flat color="transparent">
       <v-row v-if="loading">
         <v-col cols="12">
@@ -48,27 +48,27 @@
         </v-col>
         <v-col v-for="(product, i) in prods" :key="i" cols="12" md="3" sm="4">
           <Product
-            :category="product.category"
-            :description="product.description"
-            :images="[product.firstImage]"
-            :title="product.name"
-            :discount="product.percentage"
-            :price="product.price"
-            :buttons="true"
-            :id="product.productId"
-            @editProduct="redirectToProduct($event)"
-            @deleteProduct="filterProduct($event)"
-            @addOffer="createOffer($event)"
+              :category="product.category"
+              :description="product.description"
+              :images="[product.firstImage]"
+              :title="product.name"
+              :discount="product.percentage"
+              :price="product.price"
+              :buttons="true"
+              :id="product.productId"
+              @editProduct="redirectToProduct($event)"
+              @deleteProduct="filterProduct($event)"
+              @addOffer="createOffer($event)"
           ></Product>
         </v-col>
         <v-col cols="12">
           <v-pagination
-            v-model="currentpage"
-            :length="pages"
-            :total-visible="7"
-            next-icon="mdi-menu-right"
-            prev-icon="mdi-menu-left"
-            @input="handlePageChange"
+              v-model="currentpage"
+              :length="pages"
+              :total-visible="7"
+              next-icon="mdi-menu-right"
+              prev-icon="mdi-menu-left"
+              @input="handlePageChange"
           ></v-pagination>
         </v-col>
       </v-row>
@@ -81,7 +81,7 @@
 import axios from "axios";
 import Product from "@/components/products/Product";
 import LoaderProducts from "@/components/products/LoaderProducts";
-import { mapState } from "vuex";
+import {mapState} from "vuex";
 
 export default {
   name: "Inventory",
@@ -89,7 +89,7 @@ export default {
     Product,
     LoaderProducts,
   },
-  computed: { ...mapState(["user"]) },
+  computed: {...mapState(["user"])},
   data: () => ({
     message: null,
     marker: true,
@@ -123,22 +123,22 @@ export default {
     filterProduct(val) {
       // console.log(val);
       axios
-        .delete("product/" + val)
-        .then((result) => {
-          console.log(result, "then");
-          if (result.status === 200) {
-            this.prods = this.prods.filter((value) => {
-              if (value.productId !== val) return value;
-            });
-            this.confirmDelete();
-          } else if (result.status === 500) {
+          .delete("product/" + val)
+          .then((result) => {
+            console.log(result, "then");
+            if (result.status === 200) {
+              this.prods = this.prods.filter((value) => {
+                if (value.productId !== val) return value;
+              });
+              this.confirmDelete();
+            } else if (result.status === 500) {
+              this.dialogError = true;
+            }
+          })
+          .catch((error) => {
+            console.log(error, "catch");
             this.dialogError = true;
-          }
-        })
-        .catch((error) => {
-          console.log(error, "catch");
-          this.dialogError = true;
-        });
+          });
     },
     confirmDelete() {
       this.dialogDelete = true;
@@ -148,7 +148,7 @@ export default {
       if (value > 0) {
         this.$router.push("product/edit/" + value);
       } else {
-        this.$router.push({ name: "PageNotFound" });
+        this.$router.push({name: "PageNotFound"});
       }
     },
     createOffer(value) {
@@ -157,7 +157,7 @@ export default {
         // this.$$router.pop();
         this.$router.push("product/offer/" + value + "/view");
       } else {
-        this.$router.push({ name: "PageNotFound" });
+        this.$router.push({name: "PageNotFound"});
       }
     },
     handlePageChange(value) {
@@ -172,32 +172,32 @@ export default {
         size: 12,
       };
       axios
-        .get("manager/" + this.user.personId + "/products", { params })
-        .then((res) => {
-          console.log(res);
-          if (!res.status) {
-            // Notify, there isnt data
-            return;
-          }
-          const data = res.data.list;
-          this.pages = res.data.pages;
-          this.currentpage = res.data.pageNum;
-          const prods = [];
-          for (let key in data) {
-            const user = data[key];
-            prods.push(user);
-          }
-          // console.log(prods);
-          this.prods = prods;
-          // this.email = users[0].email;
-        })
-        .catch((error) => {
-          console.error(error.response);
-          this.$router.push({ name: "PageNotFound" });
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+          .get("manager/" + this.user.personId + "/products", {params})
+          .then((res) => {
+            console.log(res);
+            if (!res.status) {
+              // Notify, there isnt data
+              return;
+            }
+            const data = res.data.list;
+            this.pages = res.data.pages;
+            this.currentpage = res.data.pageNum;
+            const prods = [];
+            for (let key in data) {
+              const user = data[key];
+              prods.push(user);
+            }
+            // console.log(prods);
+            this.prods = prods;
+            // this.email = users[0].email;
+          })
+          .catch((error) => {
+            console.error(error.response);
+            this.$router.push({name: "PageNotFound"});
+          })
+          .finally(() => {
+            this.loading = false;
+          });
     },
   },
   mounted() {

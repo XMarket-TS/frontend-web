@@ -2,18 +2,18 @@
   <v-footer color="primary" padless>
     <v-card flat tile width="100%" class="text-center">
       <v-img
-        gradient="to top right, rgb(245, 167, 144), rgb(255, 75, 20)"
-        height="120px"
+          gradient="to top right, rgb(245, 167, 144), rgb(255, 75, 20)"
+          height="120px"
       >
         <div v-if="user.personId">
           <v-btn
-            v-for="(link, i) in links"
-            :key="i"
-            color="white"
-            text
-            rounded
-            class="my-2"
-            :to="link.to"
+              v-for="(link, i) in links"
+              :key="i"
+              color="white"
+              text
+              rounded
+              class="my-2"
+              :to="link.to"
           >
             <v-icon>
               {{ link.icon }}
@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import {mapState} from "vuex";
+
 export default {
   data: () => ({
     links: [],
