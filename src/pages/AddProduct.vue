@@ -8,8 +8,8 @@
         <v-row>
           <v-col cols="12" sm="5">
             <UploadImages
-              :images="product.imagesUrl"
-              @successUploaded="addImage($event)"
+                :images="product.imagesUrl"
+                @successUploaded="addImage($event)"
             />
           </v-col>
           <v-col cols="12" sm="7">
@@ -18,60 +18,60 @@
                 <v-row no-gutters>
                   <v-col cols="12" sm="7">
                     <v-text-field
-                      v-model="product.name"
-                      label="Nombre"
-                      :rules="nameRules"
-                      placeholder="Ej."
-                      outlined
-                      dense
-                      required
+                        v-model="product.name"
+                        label="Nombre"
+                        :rules="nameRules"
+                        placeholder="Ej."
+                        outlined
+                        dense
+                        required
                     ></v-text-field>
                   </v-col>
                   <v-col sm="1"></v-col>
                   <v-col cols="12" sm="4">
                     <v-text-field
-                      v-model.number="product.stock"
-                      label="Stock"
-                      :rules="stockRules"
-                      suffix="u."
-                      type="number"
-                      outlined
-                      dense
+                        v-model.number="product.stock"
+                        label="Stock"
+                        :rules="stockRules"
+                        suffix="u."
+                        type="number"
+                        outlined
+                        dense
                     ></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row no-gutters>
                   <v-col sm="4">
                     <v-text-field
-                      v-model.number="product.price"
-                      suffix="Bs."
-                      label="Precio"
-                      :rules="priceRules"
-                      type="number"
-                      outlined
-                      dense
+                        v-model.number="product.price"
+                        suffix="Bs."
+                        label="Precio"
+                        :rules="priceRules"
+                        type="number"
+                        outlined
+                        dense
                     ></v-text-field>
                   </v-col>
-                  <v-col sm="1"> </v-col>
+                  <v-col sm="1"></v-col>
                   <v-col sm="7">
                     <v-select
-                      v-model="product.category"
-                      :items="categories"
-                      label="Categoria"
-                      :rules="categoryRules"
-                      outlined
-                      dense
+                        v-model="product.category"
+                        :items="categories"
+                        label="Categoria"
+                        :rules="categoryRules"
+                        outlined
+                        dense
                     ></v-select>
                   </v-col>
                   <v-col cols="12">
                     <v-textarea
-                      v-model="product.description"
-                      label="Descripcion"
-                      :rules="descriptionRules"
-                      auto-grow
-                      outlined
-                      rows="3"
-                      dense
+                        v-model="product.description"
+                        label="Descripcion"
+                        :rules="descriptionRules"
+                        auto-grow
+                        outlined
+                        rows="3"
+                        dense
                     ></v-textarea>
                   </v-col>
                 </v-row>
@@ -83,25 +83,25 @@
           </v-col>
         </v-row>
       </v-card-text>
-      <v-card-subtitle> </v-card-subtitle>
+      <v-card-subtitle></v-card-subtitle>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="secondary" to="/products" large>Cancelar</v-btn>
         <!-- <v-btn color="primary" @click="retrieveData">Print</v-btn> -->
         <v-spacer></v-spacer>
         <AddDialog
-          @confirmed="verifyData($event)"
-          :name="product.name"
-          :price="product.price"
-          :discount="discount / 100"
-          :description="product.description"
-          :category="product.category"
-          :imagesUrl="product.imagesUrl"
-          @emitValidate="validateForm"
+            @confirmed="verifyData($event)"
+            :name="product.name"
+            :price="product.price"
+            :discount="discount / 100"
+            :description="product.description"
+            :category="product.category"
+            :imagesUrl="product.imagesUrl"
+            @emitValidate="validateForm"
         />
         <v-spacer></v-spacer>
       </v-card-actions>
-      <br />
+      <br/>
     </v-card>
     <!--  -->
     <!--  -->
@@ -112,6 +112,7 @@
 import AddDialog from "../components/products/AddDialog.vue";
 import UploadImages from "../components/products/UploadImages.vue";
 import axios from "axios";
+
 export default {
   components: {
     AddDialog,
@@ -156,23 +157,24 @@ export default {
   },
   mounted() {
     axios
-      .get("category/list")
-      .then((res) => {
-        const datas = res.data;
-        const data = [];
-        this.categoriesComplete = res;
-        for (let key in datas) {
-          const user = datas[key].category;
-          data.push(user);
-        }
-        // console.log(data);
-        this.categories = data;
-      })
-      .catch((error) => {
-        console.warn(error);
-        this.categories = ["No hay categorias"];
-      })
-      .finally(() => {});
+        .get("category/list")
+        .then((res) => {
+          const datas = res.data;
+          const data = [];
+          this.categoriesComplete = res;
+          for (let key in datas) {
+            const user = datas[key].category;
+            data.push(user);
+          }
+          // console.log(data);
+          this.categories = data;
+        })
+        .catch((error) => {
+          console.warn(error);
+          this.categories = ["No hay categorias"];
+        })
+        .finally(() => {
+        });
   },
   methods: {
     verifyData() {
@@ -183,7 +185,7 @@ export default {
       const imagesURLs = [];
       for (let key in this.product.imagesUrl) {
         const url = this.product.imagesUrl[key];
-        imagesURLs.push({ photo: url });
+        imagesURLs.push({photo: url});
       }
       const formData = {
         name: this.product.name,
@@ -195,14 +197,14 @@ export default {
       };
       console.log(formData);
       axios
-        .post("/admin/" + 1 + "/branchOffice/" + 1 + "/product", formData)
-        .then((res) => {
-          console.log(res);
-          this.$router.push("/products");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+          .post("/admin/" + 1 + "/branchOffice/" + 1 + "/product", formData)
+          .then((res) => {
+            console.log(res);
+            this.$router.push("/products");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     },
     validateForm() {
       this.$refs.form.validate();
@@ -230,6 +232,7 @@ export default {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
 .slide-enter-active {
   animation: slide-in 200ms ease-out forwards;
 }

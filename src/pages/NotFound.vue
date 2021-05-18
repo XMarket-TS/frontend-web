@@ -16,7 +16,7 @@ export default {
     back() {
       const type = localStorage.getItem("type");
       if (!type) {
-        this.$router.push({ name: "LoginAdmin" });
+        this.$router.push({name: "LoginAdmin"});
         return;
       }
       if (type == "Admin") {
@@ -35,6 +35,7 @@ export default {
 .paragraph-text {
   font-size: 18px;
 }
+
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -134,12 +135,15 @@ body {
     height: 148px;
     margin: 0px auto 10px;
   }
+
   .notfound .notfound-404 h1 {
     font-size: 86px;
   }
+
   .notfound .notfound-404 h2 {
     font-size: 10px;
   }
+
   .notfound a {
     padding: 7px 15px;
     font-size: 14px;

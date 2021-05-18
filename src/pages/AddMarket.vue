@@ -4,7 +4,7 @@
       <v-toolbar color="primary" dark>
         <v-toolbar-title>Agregar una nueva sucursal</v-toolbar-title>
       </v-toolbar>
-      <br />
+      <br/>
       <v-card-text class="text-center justify-center">
         <v-row>
           <v-col cols="12" sm="8">
@@ -12,61 +12,61 @@
               <v-row>
                 <v-col cols="12" md="8">
                   <v-text-field
-                    v-model="market.name"
-                    label="Nombre"
-                    :rules="[rules.required]"
-                    outlined
-                    dense
+                      v-model="market.name"
+                      label="Nombre"
+                      :rules="[rules.required]"
+                      outlined
+                      dense
                   ></v-text-field>
                 </v-col>
 
                 <v-col cols="12" md="4">
                   <v-text-field
-                    v-model.number="market.number"
-                    label="Celular"
-                    :rules="[rules.cellphone]"
-                    type="number"
-                    outlined
-                    dense
+                      v-model.number="market.number"
+                      label="Celular"
+                      :rules="[rules.cellphone]"
+                      type="number"
+                      outlined
+                      dense
                   ></v-text-field>
                 </v-col>
 
                 <v-col cols="12" sm="5" md="5">
                   <v-autocomplete
-                    v-model="market.zone"
-                    :items="zones"
-                    label="Zona"
-                    :rules="[rules.required]"
-                    allow-overflow
-                    hide-no-data
-                    outlined
-                    single-line
-                    dense
+                      v-model="market.zone"
+                      :items="zones"
+                      label="Zona"
+                      :rules="[rules.required]"
+                      allow-overflow
+                      hide-no-data
+                      outlined
+                      single-line
+                      dense
                   ></v-autocomplete>
                 </v-col>
                 <v-col cols="12" sm="7" md="7">
                   <v-text-field
-                    v-model="market.address"
-                    label="Direccion"
-                    :rules="[rules.required]"
-                    outlined
-                    dense
+                      v-model="market.address"
+                      label="Direccion"
+                      :rules="[rules.required]"
+                      outlined
+                      dense
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="8" md="8">
                   <v-select
-                    v-model="market.manager"
-                    :items="allManagers ? listManagers : availableManagers"
-                    label="Administrador"
-                    dense
-                    outlined
-                    hide-details
+                      v-model="market.manager"
+                      :items="allManagers ? listManagers : availableManagers"
+                      label="Administrador"
+                      dense
+                      outlined
+                      hide-details
                   ></v-select>
                 </v-col>
                 <v-col cols="12" sm="2" md="4">
                   <v-switch
-                    v-model="allManagers"
-                    label="Todos los administradores"
+                      v-model="allManagers"
+                      label="Todos los administradores"
                   ></v-switch>
                 </v-col>
               </v-row>
@@ -75,8 +75,8 @@
 
           <v-col cols="12" sm="4" md="4">
             <UploadImage
-              :image="market.imageUrl"
-              @successUploaded="addImage($event)"
+                :image="market.imageUrl"
+                @successUploaded="addImage($event)"
             />
           </v-col>
         </v-row>
@@ -87,12 +87,12 @@
         <!-- <v-btn color="primary" @click="retrieveData">Print</v-btn> -->
         <v-spacer></v-spacer>
         <AddDialog
-          @confirmed="verifyData($event)"
-          @emitValidate="validateForm"
+            @confirmed="verifyData($event)"
+            @emitValidate="validateForm"
         />
         <v-spacer></v-spacer>
       </v-card-actions>
-      <br />
+      <br/>
     </v-card>
   </v-container>
 </template>
@@ -100,8 +100,9 @@
 <script>
 import AddDialog from "../components/market/AddDialog.vue";
 import UploadImage from "../components/market/UploadImage.vue";
-import { rules } from "../mixins/rules";
+import {rules} from "../mixins/rules";
 import axios from "axios";
+
 export default {
   components: {
     AddDialog,
@@ -123,21 +124,21 @@ export default {
   }),
   mounted() {
     axios
-      .get("branchOffice/zones/")
-      .then((res) => {
-        this.zones = res.data;
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+        .get("branchOffice/zones/")
+        .then((res) => {
+          this.zones = res.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     axios
-      .get("manager/list")
-      .then((res) => {
-        this.managers = res.data;
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+        .get("manager/list")
+        .then((res) => {
+          this.managers = res.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
   },
   computed: {
     listManagers() {

@@ -2,12 +2,13 @@
   <v-dialog transition="dialog-top-transition" max-width="40%">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
-        color="primary"
-        v-bind="attrs"
-        v-on="on"
-        large
-        @click="emitValidate"
-        >Guardar</v-btn
+          color="primary"
+          v-bind="attrs"
+          v-on="on"
+          large
+          @click="emitValidate"
+      >Guardar
+      </v-btn
       >
     </template>
     <template v-slot:default="dialog">
@@ -18,17 +19,17 @@
           </v-toolbar-title>
         </v-toolbar>
         <v-card-text>
-          <br />
+          <br/>
           <v-row>
             <v-col cols="12" md="2"></v-col>
             <v-col cols="12" md="8">
               <Product
-                :images="imagesUrl"
-                :title="name"
-                :price="price"
-                :discount="discount"
-                :description="description"
-                :category="category"
+                  :images="imagesUrl"
+                  :title="name"
+                  :price="price"
+                  :discount="discount"
+                  :description="description"
+                  :category="category"
               ></Product>
             </v-col>
             <v-col cols="12" md="2"></v-col>
@@ -39,10 +40,11 @@
 
           <v-btn text @click="dialog.value = false">Cancelar</v-btn>
           <v-btn
-            color="primary"
-            :loading="uploadingData"
-            @click="confirmed(dialog)"
-            >Confirmar</v-btn
+              color="primary"
+              :loading="uploadingData"
+              @click="confirmed(dialog)"
+          >Confirmar
+          </v-btn
           >
         </v-card-actions>
       </v-card>

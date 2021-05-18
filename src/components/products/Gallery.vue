@@ -1,9 +1,9 @@
 <template>
   <v-carousel
-    :cycle="cycle"
-    :height="heightCarousel"
-    show-arrows-on-hover
-    hide-delimiter-background
+      :cycle="cycle"
+      :height="heightCarousel"
+      show-arrows-on-hover
+      hide-delimiter-background
   >
     <!-- <template v-slot:prev="{ on, attrs }">
         <v-btn color="success" v-bind="attrs" v-on="on">Previous</v-btn>
