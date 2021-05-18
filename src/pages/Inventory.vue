@@ -123,7 +123,7 @@ export default {
     filterProduct(val) {
       // console.log(val);
       axios
-        .delete("product/" + val)
+        .delete("product/" + val + "/delete")
         .then((result) => {
           console.log(result, "then");
           if (result.status === 200) {

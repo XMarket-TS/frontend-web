@@ -79,6 +79,25 @@
               <v-card-subtitle class="red--text">
                 {{ errorsText }}
               </v-card-subtitle>
+
+              <v-row align="center" justify="center">
+                <v-col cols="12">
+                  <div align="center">
+                    <v-img
+                      :src="
+                        'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' +
+                        product.qrHash
+                      "
+                      max-height="200px"
+                      max-width="200px"
+                      contain
+                    >
+                    </v-img>
+
+                    <v-card-text> texto QR: {{ product.qrHash }} </v-card-text>
+                  </div>
+                </v-col>
+              </v-row>
             </v-card>
           </v-col>
         </v-row>
@@ -140,8 +159,10 @@ export default {
     categories: [],
     product: {
       category: "",
+      qrHash: "",
     },
     errors: [],
+    qrImage: null,
   }),
   mounted() {
     axios
@@ -205,6 +226,15 @@ export default {
     axios.get("product/" + this.productId).then((res) => {
       console.log(res);
       this.product = res.data;
+      // axios
+      //   .post(
+      //     "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+      //       this.product.qrHash
+      //   )
+      //   .then((res) => {
+      //     console.log(res);
+      //     this.qrImage = res.data;
+      //   });
     });
   },
 };
