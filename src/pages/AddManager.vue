@@ -4,81 +4,81 @@
       <v-toolbar color="primary" dark>
         <v-toolbar-title>Agregar nuevo administrador</v-toolbar-title>
       </v-toolbar>
-      <br/>
+      <br />
       <v-card-text class="text-center">
         <v-form v-model="valid" ref="form" lazy-validation>
           <v-row>
             <v-col cols="12" sm="8">
               <GenerateData
-                  :password="person.password"
-                  :username="person.username"
+                :password="person.password"
+                :username="person.username"
               ></GenerateData>
               <v-row>
                 <v-col cols="12" sm="5">
                   <v-text-field
-                      v-model="person.name"
-                      label="Nombre"
-                      :rules="[rules.required]"
-                      outlined
-                      dense
+                    v-model="person.name"
+                    label="Nombre"
+                    :rules="[rules.required]"
+                    outlined
+                    dense
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="4">
                   <v-text-field
-                      v-model="person.surname"
-                      label="Apellido"
-                      :rules="[rules.required]"
-                      outlined
-                      dense
+                    v-model="person.surname"
+                    label="Apellido"
+                    :rules="[rules.required]"
+                    outlined
+                    dense
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
                   <v-select
-                      v-model="person.gender"
-                      :items="genders"
-                      label="Genero"
-                      :rules="[rules.gender]"
-                      outlined
-                      dense
+                    v-model="person.gender"
+                    :items="genders"
+                    label="Genero"
+                    :rules="[rules.gender]"
+                    outlined
+                    dense
                   ></v-select>
                 </v-col>
                 <v-col cols="12" sm="7">
                   <v-text-field
-                      v-model.number="person.email"
-                      label="Email"
-                      :rules="rules.email"
-                      outlined
-                      dense
+                    v-model.number="person.email"
+                    label="Email"
+                    :rules="rules.email"
+                    outlined
+                    dense
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="5">
                   <v-text-field
-                      v-model.number="person.number"
-                      label="Celular"
-                      :rules="[rules.cellphone]"
-                      type="number"
-                      outlined
-                      dense
+                    v-model.number="person.number"
+                    label="Celular"
+                    :rules="[rules.cellphone]"
+                    type="number"
+                    outlined
+                    dense
                   ></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
                   <v-textarea
-                      v-model="person.description"
-                      label="Descripcion"
-                      :rules="[rules.descriptionRules]"
-                      auto-grow
-                      outlined
-                      rows="3"
-                      dense
+                    v-model="person.description"
+                    label="Descripcion"
+                    :rules="[rules.descriptionRules]"
+                    auto-grow
+                    outlined
+                    rows="3"
+                    dense
                   ></v-textarea>
                 </v-col>
               </v-row>
             </v-col>
             <v-col cols="12" sm="4">
               <ProfileImage
-                  :image="person.imageUrl"
-                  @successUploaded="addImage($event)"
+                :image="person.imageUrl"
+                @successUploaded="addImage($event)"
               />
             </v-col>
           </v-row>
@@ -90,12 +90,12 @@
         <!-- <v-btn color="primary" @click="retrieveData">Print</v-btn> -->
         <v-spacer></v-spacer>
         <AddDialog
-            @confirmed="verifyData($event)"
-            @emitValidate="validateForm"
+          @confirmed="verifyData($event)"
+          @emitValidate="validateForm"
         />
         <v-spacer></v-spacer>
       </v-card-actions>
-      <br/>
+      <br />
     </v-card>
   </v-container>
 </template>
@@ -105,7 +105,7 @@ import AddDialog from "../components/user/AddDialog.vue";
 import ProfileImage from "../components/user/ProfileImage.vue";
 import GenerateData from "../components/user/GenerateData.vue";
 import axios from "axios";
-import {rules} from "../mixins/rules";
+import { rules } from "../mixins/rules";
 
 export default {
   components: {
@@ -137,7 +137,7 @@ export default {
           let email = value.email.split("@");
           console.log(email);
           this.person.username =
-              email[0].toLowerCase() + "-" + value.surname.toLowerCase();
+            email[0].toLowerCase() + "-" + value.surname.toLowerCase();
           this.person.password = value.username;
         } catch (ex) {
           console.warn(ex);
@@ -164,14 +164,14 @@ export default {
       };
       console.log(formData);
       axios
-          .post("/manager/register/new", formData)
-          .then((res) => {
-            console.log(res);
-            this.$router.push("/");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        .post("/manager/register/new", formData)
+        .then((res) => {
+          console.log(res);
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     validateForm() {
       this.$refs.form.validate();

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card>
+    <v-card flat>
       <v-img
         :src="image"
         max-height="180px"
@@ -17,24 +17,23 @@
         </v-card-actions>
       </v-img>
 
-      <v-row>
-        <v-col cols="12" md="3">
-          <v-avatar class="profile" color="grey" size="164" tile>
+      <v-row align="center" justify="center">
+        <v-col cols="12" md="6">
+          <v-avatar color="grey" size="164" tile>
             <v-img :src="manager.userPhoto"></v-img>
           </v-avatar>
         </v-col>
-        <v-col cols="12" md="9">
+        <v-col cols="12" md="6">
           <v-row>
             <v-col cols="12">
               <v-card-title class="justify-center">Administrador</v-card-title>
-            </v-col>
-            <v-col cols="12">
               <v-card-text class="text-center">
                 {{ manager.name }}
                 <br />
-                {{ manager.isAvailable }}
+                <!-- {{ manager.isAvailable }} -->
               </v-card-text>
             </v-col>
+            <v-col cols="12"> </v-col>
           </v-row>
         </v-col>
       </v-row>

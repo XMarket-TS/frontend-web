@@ -22,22 +22,13 @@
           </v-card-text>
         </v-card>
       </v-col>
-
-      <v-col cols="12" md="6" sm="6">
-        <v-card>
-          <v-card-text>
-            <circular-color-bar></circular-color-bar>
-          </v-card-text>
-        </v-card>
-      </v-col>
-
-      <v-col cols="12" md="6" sm="6">
+      <!-- <v-col cols="12" md="6" sm="6">
         <v-card>
           <v-card-text>
             <live-data></live-data>
           </v-card-text>
         </v-card>
-      </v-col>
+      </v-col> -->
       <v-col cols="12">
         <v-card>
           <v-card-text>
@@ -52,6 +43,13 @@
           </v-card-text>
         </v-card>
       </v-col>
+      <v-col cols="12" md="6" sm="6">
+        <v-card>
+          <v-card-text>
+            <circular-color-bar></circular-color-bar>
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -60,7 +58,7 @@
 import SimpleLine from "@/components/dashboard/SimpleLine.vue";
 import PointLine from "@/components/dashboard/PointLine.vue";
 import CircularColorBar from "@/components/dashboard/CircularColorBar.vue";
-import LiveData from "@/components/dashboard/LiveData.vue";
+// import LiveData from "@/components/dashboard/LiveData.vue";
 import MasterDetail from "@/components/dashboard/MasterDetail.vue";
 import TotalColumns from "@/components/dashboard/TotalColumns.vue";
 import SalesColumn from "@/components/dashboard/SalesColumn.vue";
@@ -71,7 +69,7 @@ export default {
     SimpleLine,
     PointLine,
     CircularColorBar,
-    LiveData,
+    // LiveData,
     MasterDetail,
     TotalColumns,
     SalesColumn,

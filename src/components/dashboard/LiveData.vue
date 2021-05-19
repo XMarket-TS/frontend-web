@@ -22,7 +22,7 @@ export default {
       INTERVAL_ID: 0,
       date: new Date(2020, 0, 10).getTime(),
       chart: null,
-      useShift: true,
+      useShift: false,
       options: () => ({
         debug: true,
         legend_position: "inside top right",
@@ -45,17 +45,17 @@ export default {
           items: {
             "Shift Values": {
               type: "checkbox",
-              value: true,
+              value: false,
               tooltip:
                 "The shift option determines whether the first point in the series is removed when adding a new point.",
-              events: { change: this.shiftPoints_btnClick.bind(this) },
+              // events: { change: this.shiftPoints_btnClick.bind(this) },
             },
             Stop: {
               type: "option",
               icon_name: "system/default/pause",
-              boxVisible: true,
+              boxVisible: false,
               label_text: "Pause",
-              events: { change: this.playPause.bind(this) },
+              // events: { change: this.playPause.bind(this) },
               states_select: {
                 icon_name: "system/default/play",
                 label_text: "Play",
@@ -82,12 +82,12 @@ export default {
   },
   methods: {
     playPause(val) {
-      if (val === true) {
+      if (val === false) {
         clearInterval(this.INTERVAL_ID);
       } else {
         this.start(this.chart);
       }
-    },
+    },  
     shiftPoints_btnClick(shiftVal) {
       this.useShift = shiftVal;
     },

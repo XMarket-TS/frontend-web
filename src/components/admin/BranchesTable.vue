@@ -14,7 +14,7 @@
       <v-expansion-panel v-for="(branch, i) in branchs" :key="i">
         <!-- :color="i % 2 == 0 ? 'primary' : 'secondary'" -->
         <v-expansion-panel-header>
-          <v-row no-gutters>
+          <v-row no-gutters align="center" justify="center">
             <v-col cols="12" md="1">
               <v-icon color="primary">mdi-map-marker</v-icon>
             </v-col>

@@ -12,8 +12,12 @@
 
       <v-bottom-sheet v-model="sheet" inset persistent>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-if="disabled" v-bind="attrs" v-on="on"> Deshabilitar </v-btn>
-          <v-btn v-else v-bind="attrs" v-on="on"> Habilitar </v-btn>
+          <v-btn v-if="disabled" v-bind="attrs" v-on="on" :loading="loading">
+            Deshabilitar
+          </v-btn>
+          <v-btn v-else v-bind="attrs" v-on="on" :loading="loading">
+            Habilitar
+          </v-btn>
         </template>
         <v-sheet class="text-center" height="200px">
           <v-btn class="mt-6" color="primary" @click="confirmDialog()">
@@ -51,17 +55,22 @@ export default {
   data: () => ({
     sheet: false,
     toggle_exclusive: 2,
+    loading: false,
   }),
   methods: {
     confirmDialog() {
       this.sheet = !this.sheet;
       console.log(this.branchId);
+      this.loading = true;
       axios
         .put(
           "branchOffice/branch/" + this.branchId + "/" + (this.disabled ? 1 : 0)
         )
         .then(() => {
           this.$emit("changed", null);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     switching(event) {
