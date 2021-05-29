@@ -1,12 +1,12 @@
 <template>
-  <v-card class="mx-auto" outlined elevation="3">
+  <v-card class="mx-auto" outlined elevation="1">
     <!-- delimiter-icon="mdi-minus" -->
     <v-img v-if="images.length == 1" contain :src="images[0]"></v-img>
     <Gallery
-        v-else
-        :images="images"
-        :clyde="true"
-        :heightCarousel="290"
+      v-else
+      :images="images"
+      :clyde="true"
+      :heightCarousel="290"
     ></Gallery>
     <v-divider></v-divider>
     <v-card-title class="headline font-weight-bold pb-0">
@@ -25,7 +25,13 @@
       </div>
     </v-card-title>
     <v-card-title class="justify-center">
-      <v-chip close-icon="mdi-close-outline" color="blue" label link outlined>
+      <v-chip
+        close-icon="mdi-close-outline"
+        color="secondary"
+        label
+        link
+        outlined
+      >
         {{ category }}
       </v-chip>
     </v-card-title>
@@ -52,11 +58,11 @@
           <v-icon>mdi-offer</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <DeleteDialog :id="id" @confirmDeleteProduct="confirmDelete($event)"/>
+        <DeleteDialog :id="id" @confirmDeleteProduct="confirmDelete($event)" />
         <v-spacer></v-spacer>
       </v-row>
     </v-container>
-    <br/>
+    <br />
     <!-- </div>
     </v-expand-transition> -->
   </v-card>

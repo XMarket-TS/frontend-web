@@ -35,7 +35,7 @@
           </p>
         </v-card-text>
         <v-card-actions class="pt-0">
-          <v-btn text color="primary" @click="reveal = false"> Cancelar </v-btn>
+          <v-btn text color="error" @click="reveal = false"> Cancelar </v-btn>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click="changeStatus()"> Confirmar </v-btn>
         </v-card-actions>

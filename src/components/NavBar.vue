@@ -11,16 +11,13 @@
         alt="Vuetify Logo"
         class="shrink mr-2"
         contain
-        src="../assets/logo_market.png"
+        src="../assets/nav.png"
         transition="scale-transition"
         width="100"
       />
     </div>
     <template v-slot:img="{ props }">
-      <v-img
-        v-bind="props"
-        gradient="to top right, rgb(245, 167, 144), rgb(255, 75, 20)"
-      ></v-img>
+      <v-img v-bind="props" gradient="to top right, #168AAD, #184E77"></v-img>
     </template>
     <v-spacer></v-spacer>
     <div v-if="user.personId">

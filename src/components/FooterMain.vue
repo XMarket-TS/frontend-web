@@ -2,7 +2,7 @@
   <v-footer color="primary" padless>
     <v-card flat tile width="100%" class="text-center">
       <v-img
-          gradient="to top right, rgb(245, 167, 144), rgb(255, 75, 20)"
+          gradient="to top right, #168AAD, #184E77"
           height="120px"
       >
         <div v-if="user.personId">

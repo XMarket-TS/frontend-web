@@ -1,7 +1,7 @@
 <template>
   <v-dialog transition="dialog-top-transition" max-width="40%">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="secondary" icon v-bind="attrs" v-on="on" large>
+      <v-btn color="error" icon v-bind="attrs" v-on="on" large>
         <v-icon>mdi-delete</v-icon>
       </v-btn>
     </template>

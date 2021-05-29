@@ -86,7 +86,7 @@
       <v-card-subtitle></v-card-subtitle>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="secondary" to="/products" large>Cancelar</v-btn>
+        <v-btn color="error" to="/products" large>Cancelar</v-btn>
         <!-- <v-btn color="primary" @click="retrieveData">Print</v-btn> -->
         <v-spacer></v-spacer>
         <AddDialog

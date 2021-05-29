@@ -19,7 +19,7 @@
         ></v-file-input>
       </v-col>
       <v-col cols="12">
-        <v-btn color="tertiary" :disabled="uploadingImage" @click="upload">
+        <v-btn color="primary" :disabled="uploadingImage" @click="upload">
           <v-icon left> mdi-cloud-upload-outline </v-icon>
           Subir
         </v-btn>

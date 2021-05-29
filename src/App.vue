@@ -29,7 +29,7 @@ export default {
 
 <style scoped>
 .back {
-  background-color: #f5d8cf;
+  background-color: rgb(236, 240, 233);
   /* background-color: #b8a691; */
 }
 
