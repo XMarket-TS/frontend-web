@@ -112,6 +112,7 @@
 import AddDialog from "../components/products/AddDialog.vue";
 import UploadImages from "../components/products/UploadImages.vue";
 import axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -147,6 +148,7 @@ export default {
     errorsText() {
       return this.errors.join(", ");
     },
+    ...mapState(["user"]),
   },
   watch: {
     discount(value) {
@@ -184,7 +186,7 @@ export default {
       const imagesURLs = [];
       for (let key in this.product.imagesUrl) {
         const url = this.product.imagesUrl[key];
-        imagesURLs.push({ photo: url });
+        imagesURLs.push(url);
       }
       const formData = {
         name: this.product.name,
@@ -196,13 +198,13 @@ export default {
       };
       console.log(formData);
       axios
-        .post("/admin/" + 1 + "/branchOffice/" + 1 + "/product", formData)
+        .post("/manager/" + this.user.personId + "/product", formData)
         .then((res) => {
           console.log(res);
           this.$router.push("/products");
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response);
         });
     },
     validateForm() {
